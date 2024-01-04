@@ -13,9 +13,9 @@ public record Engineer
     int Id,
     string? Name=null,
     string? Email=null,
-    LevelEngineer? Level=null,
+    LevelEngineer Level=LevelEngineer.Beginner,
     double? Cost = null
 )
 {
-    public Engineer() : this (0,"","",null,null) { }
+    public Engineer() : this (0,null,null, LevelEngineer.Beginner, null) { }
 }

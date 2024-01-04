@@ -26,21 +26,21 @@ public record Task
 {
 
     public Task() : this(0) { }
-    public Task(string alias, string description, DateTime createdAtDate, TimeSpan requiredEffortTime, bool isMilestone,
-        ComplexityTask complexity, DateTime startDate, DateTime deadlineDate, DateTime completeDate, string deliverables, string remarks, int engineerId)
-    {
-        Id = 0; //need to be changed
-        Alias = alias;
-        Description = description;
-        CreatedAtDate = createdAtDate;
-        RequiredEffortTime = requiredEffortTime;
-        IsMilestone = isMilestone;
-        Complexity = complexity;
-        StartDate = startDate;
-        DeadlineDate = deadlineDate;
-        CompleteDate = completeDate;
-        Deliverables = deliverables;
-        Remarks = remarks;
-        EngineerId = engineerId;
-    }
+    //public Task(string alias, string description, DateTime createdAtDate, TimeSpan requiredEffortTime, bool isMilestone,
+    //    ComplexityTask complexity, DateTime startDate, DateTime deadlineDate, DateTime completeDate, string deliverables, string remarks, int engineerId)
+    //{
+    //    Id = 0; //need to be changed
+    //    Alias = alias;
+    //    Description = description;
+    //    CreatedAtDate = createdAtDate;
+    //    RequiredEffortTime = requiredEffortTime;
+    //    IsMilestone = isMilestone;
+    //    Complexity = complexity;
+    //    StartDate = startDate;
+    //    DeadlineDate = deadlineDate;
+    //    CompleteDate = completeDate;
+    //    Deliverables = deliverables;
+    //    Remarks = remarks;
+    //    EngineerId = engineerId;
+    //}
 }
