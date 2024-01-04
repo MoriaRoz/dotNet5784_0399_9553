@@ -5,10 +5,10 @@ internal static class DataSource
     {
         internal const int startDependencyId = 0;
         private static int nextDependencyId = startDependencyId;
-        internal static int nextDependencyId { get => nextDependencyId++; }
+        internal static int NextDependencyId { get => nextDependencyId++; }
         internal const int startTaskId = 0;
         private static int nextTaskId = startTaskId;
-        internal static int nextTaskId { get => nextTaskId++; }
+        internal static int NextTaskId { get => nextTaskId++; }
     }
     internal static List<DO.Engineer> Engineers { get; } = new();
     internal static List<DO.Dependency> Dependencys { get; } = new();
