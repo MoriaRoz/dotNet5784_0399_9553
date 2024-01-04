@@ -18,7 +18,14 @@ public class TaskImplementation : ITask
 
     public void Delete(int id)
     {
-        
+        Engineer toDel = DataSource.Tasks.Find(Task => Task.Id == id;
+        if (toDel == null)
+            throw new Exception($"Task with ID={id} dose not exist");
+        if (Complexity > ComplexityTask.Unscheduled)
+            throw new Exception($"Task with ID={id} already scheduled");
+        if (DataSource.Dependency.Find(Dependency => Dependency.DependsOnTask == id) == null)
+            throw new Exception($"Task with ID={id} cannot be deleted because there are other tasks that depend on it");
+        Engineers.Remove(toDel);
     }
 
     public Task? Read(int id)

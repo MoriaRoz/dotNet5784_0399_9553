@@ -17,7 +17,12 @@ public class EngineerImplementation : IEngineer
 
     public void Delete(int id)
     {
-        
+        Engineer toDel = DataSource.Engineers.Find(Engineer => Engineer.Id == id;
+        if (toDel == null)
+            throw new Exception($"Engineer with ID={id} dose not exist");
+        if (DataSource.Task.Find(Task => Task.EngineerId == id) != null)
+            throw new Exception($"Engineer with ID={id} already working on tasks");
+        Engineers.Remove(toDel);
     }
 
     public Engineer? Read(int id)
