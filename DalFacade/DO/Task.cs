@@ -1,12 +1,21 @@
 ﻿namespace DO;
 /// <summary>
-/// An engineer entity represents an engineer with all its accessories.
+/// A task entity represents a task with all its attributes.
 /// </summary>
-/// <param name="Id">Personal unique ID of the engineer</param>
-/// <param name="Name">Engineer's first and last name</param>
-/// <param name="Email">Email address of the engineer</param>
-/// <param name="Level">Engineer level</param>
-/// <param name="Cost">Cost per hour of engineer work</param>
+/// <param name="Id">Personal unique ID of the task (automatically assigned upon creation)</param>
+/// <param name="Alias">Alias for the task</param>
+/// <param name="Description">Description of the task</param>
+/// <param name="CreatedAtDate">Date and time when the task was created</param>
+/// <param name="RequiredEffortTime">Estimated effort time required for the task</param>
+/// <param name="IsMilestone">Indicates whether the task is a milestone</param>
+/// <param name="Complexity">Complexity level of the task</param>
+/// <param name="StartDate">Start date of the task</param>
+/// <param name="DeadlineDate">Deadline for completing the task</param>
+/// <param name="CompleteDate">Date when the task was completed</param>
+/// <param name="Deliverables">Deliverables associated with the task</param>
+/// <param name="Remarks">Additional remarks or notes about the task</param>
+/// <param name="EngineerId">ID of the engineer assigned to the task</param>
+
 public record Task
 (
     int Id,
@@ -21,26 +30,9 @@ public record Task
     DateTime? CompleteDate = null,
     string? Deliverables = null,
     string? Remarks = null,
-    int? EngineerId
+    int? EngineerId = null
 )
 {
 
-    public Task() : this(0) { }
-    //public Task(string alias, string description, DateTime createdAtDate, TimeSpan requiredEffortTime, bool isMilestone,
-    //    ComplexityTask complexity, DateTime startDate, DateTime deadlineDate, DateTime completeDate, string deliverables, string remarks, int engineerId)
-    //{
-    //    Id = 0; //need to be changed
-    //    Alias = alias;
-    //    Description = description;
-    //    CreatedAtDate = createdAtDate;
-    //    RequiredEffortTime = requiredEffortTime;
-    //    IsMilestone = isMilestone;
-    //    Complexity = complexity;
-    //    StartDate = startDate;
-    //    DeadlineDate = deadlineDate;
-    //    CompleteDate = completeDate;
-    //    Deliverables = deliverables;
-    //    Remarks = remarks;
-    //    EngineerId = engineerId;
-    //}
+    public Task() : this (0, null, null, default, null,false, ComplexityTask.Unscheduled, null, null, null, null, null, null) { }
 }
