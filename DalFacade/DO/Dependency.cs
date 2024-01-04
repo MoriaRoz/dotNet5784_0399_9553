@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-
+﻿
 namespace DO;
+
 /// <summary>
 /// A dependency entity represents a dependency with all its accessories.
 /// </summary>
@@ -14,5 +14,6 @@ public record Dependency
     int? DependsOnTask = null
 )
 {
+    //Empty constructor
     public Dependency() : this (0, null, null) { }
 }

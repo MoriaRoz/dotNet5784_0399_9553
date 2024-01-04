@@ -1,4 +1,5 @@
-﻿namespace DO;
+﻿
+namespace DO;
 
 /// <summary>
 /// An engineer entity represents an engineer with all its accessories.
@@ -17,5 +18,6 @@ public record Engineer
     double? Cost = null
 )
 {
+    //Empty constructor
     public Engineer() : this (0,null,null, LevelEngineer.Beginner, null) { }
 }
