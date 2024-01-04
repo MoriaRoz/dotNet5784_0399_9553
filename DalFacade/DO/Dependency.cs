@@ -2,11 +2,11 @@
 
 namespace DO;
 /// <summary>
-/// 
+/// A dependency entity represents a dependency with all its accessories.
 /// </summary>
-/// <param name="Id"></param>
-/// <param name="PreviousTask"></param>
-/// <param name="DependsOnTask"></param>
+/// <param name="Id">Personal identifier of a dependecy</param>
+/// <param name="PreviousTask">Previous assignment ID number</param>
+/// <param name="DependsOnTask">ID number of pending task</param>
 public record Dependency
 (
     int Id,
@@ -15,10 +15,4 @@ public record Dependency
 )
 {
     public Dependency() : this (0, null, null) { }
-    public Dependency(int id,int previousTask,int dependsOnTask)
-    {
-        Id = id;
-        PreviousTask = previousTask;
-        DependsOnTask = dependsOnTask;
-    }
 }

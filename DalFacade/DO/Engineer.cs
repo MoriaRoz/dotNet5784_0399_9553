@@ -10,20 +10,12 @@
 /// <param name="Cost">Cost per hour of engineer work</param>
 public record Engineer
 (
-    string Id,
+    int Id,
     string? Name=null,
     string? Email=null,
     LevelEngineer? Level=null,
     double? Cost = null
 )
 {
-    public Engineer() : this ("","","",null,null) { }
-    public Engineer(string id,string name,string email,LevelEngineer level,double cost)
-    {
-        Id = id;
-        Name = name;
-        Email = email;
-        Level = level;  
-        Cost = cost;
-    }
+    public Engineer() : this (0,"","",null,null) { }
 }
