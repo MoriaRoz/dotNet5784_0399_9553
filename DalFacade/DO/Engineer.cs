@@ -17,7 +17,7 @@ public record Engineer
     double? Cost = null
 )
 {
-    public Engineer() : this (0) { }
+    public Engineer() : this ("","","",null,null) { }
     public Engineer(string id,string name,string email,LevelEngineer level,double cost)
     {
         Id = id;
