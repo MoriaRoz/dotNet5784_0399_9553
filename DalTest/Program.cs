@@ -272,8 +272,96 @@ namespace DalTest
         static DO.Dependency GetDep(int id = 0)
         {
             DO.Dependency dep = null;
+static DO.Engineer GetEng(int id=0)
+{
+    if (id == 0)
+    {
+        Console.WriteLine("Enter id:");
+        id = Console.ReadLine();
+    }
+    Console.WriteLine("Enter his email:");
+    String email = Console.ReadLine();
+    Console.WriteLine("Enter his cost:");
+    double cost = (double)(Console.ReadLine());
+    Console.WriteLine("Enter his name:");
+    String name = Console.ReadLine();
+    Console.WriteLine("Enter his level:");
+    int intLevel = (int)(Console.ReadLine());
+    LevelEngineer level = LevelEngineer(intLevel);
+    DO.Engineer engineer = new(id, email, cost, name, level);
+    return engineer;
+ }
+static DO.Task GetTask(int id=0)
+{
+    Console.WriteLine("Enter alias:");
+    String alias = Console.ReadLine();
+    Console.WriteLine("Enter description:");
+    String description = Console.ReadLine();
+    DateTime createdAtDate = DateTime.Now; //Entering the creation time - the current time at the time of creation
+    Console.WriteLine("Enter the start date's day:");
+    String startDay = (int)(Console.ReadLine());
+    Console.WriteLine("Enter the start date's month:");
+    String startMonth = (int)(Console.ReadLine());
+    Console.WriteLine("Enter the start date's year:");
+    String startYear = (int)(Console.ReadLine())
+    DateTime startDate = new(startDay, startMonth, startYear);
+    Console.WriteLine("Enter:how much longer the project is due");
+    int timeDue = (int)(Console.ReadLine());
+    DateTime requieredEffortTime = startDate.AddDays(timeDue);
+    Console.WriteLine("Enter what level of engineer is required to perform the task:");
+    int intLevel = (int)(Console.ReadLine());
+    LevelEngineer level = LevelEngineer(intLevel);
+    Console.WriteLine("Enter the deadLine's date's day:");
+    String deadlineDay = (int)(Console.ReadLine());
+    Console.WriteLine("Enter the deadLine's date's month:");
+    String deadLineMonth = (int)(Console.ReadLine());
+    Console.WriteLine("Enter the deadLine's date's year:");
+    String deadLineYear = (int)(Console.ReadLine());
+    DateTime startDate = new(deadLineDay, deadLineMonth, deadLineYear);
+    DateTime completeDate = null;
+    Console.WriteLine("Enter deliverables:");
+    String deliverables = Console.ReadLine();
+    Console.WriteLine("Enter remarks:");
+    String remarks = Console.ReadLine();
+    int engID = 0;
+    do
+    {
+        Console.WriteLine("Enter the ID of the engineer who will work on the task:");
+        String engID = (int)(Console.ReadLine());
+    }
+    while (s_dalEngineer?.Read(engID) == null)
+    DO.Task task = new(0,alias,description,createdAtDate, timeDue, false, level, startDate, timeDue, completeDate,deliverables, remarks, engID)
+    return task;
+}
+static DO.Dependency GetDep(int id = 0)
+{
+    Console.WriteLine("Enter the ID of the task you want to create a dependency for:");
+    int dependent = (int)(Console.ReadLine());
+    Console.WriteLine("Enter the ID of the task that the task depends on:");
+    int dependsOn = (int)(Console.ReadLine());
+    DO.Dependency dep = new(0, dependent, dependsOn);
             return dep;
         }
 
     }
 }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
