@@ -158,36 +158,38 @@ public static class Initialization
     }
     private static void createDependency()
     {
-        for (int i = 1; i < 20; i++) //Mission 20 depends on completing all other missions
+        Dependency newDep;
+        int i;
+        for (i = 1; i < 20; i++) //Mission 20 depends on completing all other missions
         {
-            Dependency newDep = new Dependency(0, 20, i);
+            newDep = new Dependency(0, 20, i);
             s_dalDependency!.Create(newDep);
         }
-        for (int i = 2; i <= 5; i++) //Tasks 2-5 depend on completing Task 1
+        for (i = 2; i <= 5; i++) //Tasks 2-5 depend on completing Task 1
         {
-            Dependency newDep = new Dependency(0, i, 1);
+            newDep = new Dependency(0, i, 1);
             s_dalDependency!.Create(newDep);
         }
         for (int j = 4; i <= 5; i++) //Tasks 4,5 depend on completing tasks 2,3
-            for (int i = 2; i <= 3; i++)
+            for (i = 2; i <= 3; i++)
             {
-                Dependency newDep = new Dependency(0, j, i);
+                newDep = new Dependency(0, j, i);
                 s_dalDependency!.Create(newDep);
             }
-        Dependency newDep = new Dependency(0, 5, 4); //Task 5 also depends on the completion of task 4
+        newDep = new Dependency(0, 5, 4); //Task 5 also depends on the completion of task 4
         s_dalDependency!.Create(newDep);
-        Dependency newDep = new Dependency(0, 8, 7); //Task 8 depends on the completion of task 7
+        newDep = new Dependency(0, 8, 7); //Task 8 depends on the completion of task 7
         s_dalDependency!.Create(newDep);
-        for (int i = 11; i <= 19; i += 2) //Tasks 11,13,15,17,19 depend on completing Tasks 8,10
+        for (i = 11; i <= 19; i += 2) //Tasks 11,13,15,17,19 depend on completing Tasks 8,10
         {
             Dependency newDep1 = new Dependency(0, i, 8);
             s_dalDependency!.Create(newDep1);
             Dependency newDep2 = new Dependency(0, i, 10);
             s_dalDependency!.Create(newDep2);
         }
-        for (int i = 12; i <= 18; i += 2) //Tasks 12, 14, 16 and 18 each depend on the task that precedes it chronologically
+        for (i = 12; i <= 18; i += 2) //Tasks 12, 14, 16 and 18 each depend on the task that precedes it chronologically
         {
-            Dependency newDep = new Dependency(0, i, i-1);
+            newDep = new Dependency(0, i, i - 1);
             s_dalDependency!.Create(newDep);
         }
     }
