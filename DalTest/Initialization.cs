@@ -4,10 +4,7 @@ using DO;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Linq.Expressions;
-using System.Security.Cryptography;
-using System.Xml.Linq;
 
-//לתעד
 public static class Initialization
 {
     private static IEngineer? s_dalEngineer; //stage 1
@@ -15,10 +12,10 @@ public static class Initialization
     private static ITask? s_dalTask; //stage 1
 
     private static readonly Random s_rand = new();
-    private static void createEngineer()
+    private static void createEngineer() //The action creates the engineers' data (randomly, according to the logic of each of the features)
     {
         string[] engineerNames =
-        {
+        { //The database of names that engineers will have
             "Dani Levi", "Eli Amar", "Yair Cohen",
             "Ariela Levin", "Dina Klein", "Shira Israelof"
         };
@@ -28,22 +25,22 @@ public static class Initialization
             Random rnd = new Random();
 
             int _id;
-            do
+            do //Matching a unique ID to each engineer
                 _id = rnd.Next(200000000, 400000000);
             while (s_dalEngineer?.Read(_id) != null);
 
-            string? _email = _name + "@gamil.com";
+            string? _email = _name + "@gamil.com"; //Adapting an email to each of the engineers in the following way - name_family name@gmail.com
             _email.Replace(' ', '_');
 
             double _cost = 100.0;
 
             LevelEngineer _level = LevelEngineer.Beginner;
             int _levelNum = rnd.Next(0, 5);
-            switch (_levelNum)
+            switch (_levelNum) //Level adjustment for each of the engineers - and cost according to the level he is at
             {
                 case 0:
                     _level = LevelEngineer.Beginner;
-                    _cost = 117.133;
+                    _cost = 17.133;
                     break;
                 case 1:
                     _level = LevelEngineer.AdvancedBeginner;
@@ -63,7 +60,7 @@ public static class Initialization
                     break;
             }
 
-            Engineer newEng = new(_id, _name, _email, _level, _cost);
+            Engineer newEng = new(_id, _name, _email, _level, _cost); 
             s_dalEngineer!.Create(newEng);
         }
     }
@@ -74,44 +71,47 @@ public static class Initialization
 
         string[] nameTasks =
         {
-            //לתת שמות קצרים לכל משימה
+            "Define the purpose and scope of the project","Create a schedule for the project","Decide on a budget for the project", "Assign resources to the project",
+            "Perform risk analysis and develop risk management strategies","Determine internal and public communication and protocols","Divide the project into small tasks","Attach an engineer to each task",
+            "Follow the progress of the project against the schedule","Receiving data from the client","Writing code in the data layer","Trying to run and test the code for the data layer",
+            "Writing code in the logical layer","Trying to run and test the code for the logical layer","Designed the interface","Attempt to run and test the code for the interface",
+            "Attempt to run the code","Sending the interface to the client and focus groups","Correction of recent errors","Submission of the project",
         };
         string[] descripTasks =
         {
-            "Define the purpose and scope of the project.",
-            "Create a schedule for the project.",
-            "Deciding on a budget for the project.",
-            "Allocate resources to the project.",
-            "Perform risk analysis and develop risk management strategies.",
-            "Determine internal and public communication and protocols.",
-            "Divide the project into small tasks.",
-            "Attach an engineer to every task.",
-            "Follow the progress of the project against the schedule.",
-            "Receiving data from the client.",
-            "Writing code in the data layer.",
-            "Trying to run and test the code for the data layer.",
-            "Writing code in the logical layer.",
-            "The attempt to run and test the code for the logical layer.",
-            "Designed the interface.",
-            "Trying to run and test the code for the interface.",
-            "Attempt to run the code.",
-            "Sending the interface to the customer and focus groups.",
-            "Fix recent errors.",
-            "Completion of the project."
+            "Define the boundaries and limitations of the project, specifying what is included and excluded.",
+            "Develop a timeline that outlines key milestones, tasks, and deadlines for the entire project duration.",
+            "Establish financial constraints and allocations for resources, materials, and other project-related expenses.",
+            "Identify and allocate human, financial, and material resources needed for the successful execution of the project.",
+            "Identify potential risks that may impact the project. Develop strategies to mitigate, monitor, and manage risks throughout the project lifecycle.",
+            "Define communication channels and protocols for both internal team members and external stakeholders.",
+            "Break down the project into smaller, manageable tasks or activities to facilitate better planning and execution.",
+            "Assign qualified engineers or team members to specific tasks based on their skills and expertise.",
+            "Regularly monitor and assess the project's progress in comparison to the established schedule.",
+            "Collect relevant data and requirements from the client to inform the development process.",
+            "Develop the code responsible for handling data storage and retrieval.",
+            "Execute and test the data layer code to identify and address any issues or bugs.",
+            "Develop the code responsible for implementing the business logic and processing.",
+            "Execute and test the logical layer code to ensure proper functionality and identify any issues.",
+            "Create the user interface (UI) design based on project requirements and user experience principles.",
+            "Execute and test the interface code to ensure a seamless user experience and address any design-related issues.",
+            "Execute the entire codebase to identify and fix any integration issues or bugs.",
+            "Share the designed interface with the client and relevant focus groups for feedback and validation.",
+            "Address and rectify any errors or issues identified during testing or feedback sessions.",
+            "Present the completed and tested project to stakeholders for final approval and delivery."
         };
-
         foreach (string _name in nameTasks)
         {
             string? _description = descripTasks[i];
             
-            DateTime _createdAtDate = DateTime.Now;
-            DateTime? _deadlineDate = null;
+            DateTime _createdAtDate = DateTime.Now; //Entering the creation time - the current time at the time of creation
+            DateTime? _deadlineDate = _createdAtDate.AddDays(rnd.Next(1, 60)); // deadline - random draw from another day for another two months
 
-            TimeSpan? _requiredEffortTime = null;
-            
+            TimeSpan? _requiredEffortTime=_deadlineDate-_createdAtDate; //requiredEffortTime - the end date minus the creation time
+
             bool _isMilestone = false;
 
-            LevelEngineer _complexity = LevelEngineer.Beginner;
+            LevelEngineer _complexity = LevelEngineer.Beginner; //Level adjustment for each task at random
             int _compNum = rnd.Next(0, 5);
             switch (_compNum)
             {
@@ -140,8 +140,15 @@ public static class Initialization
             
             string? _remarks = null;
 
-            int? _engineerId = null;
-           
+            int _engineerId; //Matching an appropriate engineer (by lottery) taking into account the level of the engineer required for the task
+            Engineer? en;
+            do
+            {
+                _engineerId = rnd.Next(200000000, 400000000);
+                en = s_dalEngineer?.Read(_engineerId);
+            }
+            while (en != null && en.Level >= _complexity);
+
             Task newTa = new Task(0,_name,_description,_createdAtDate,
                 _requiredEffortTime,_isMilestone,_complexity,_startDate,
                 _deadlineDate,_completeDate,_deliverables,_remarks,_engineerId);
@@ -151,24 +158,39 @@ public static class Initialization
     }
     private static void createDependency()
     {
-        int?_previousTask;
-        int? _dependsOnTask;
-
-        for (int i = 1; i <= 19; i++)
+        for (int i = 1; i < 20; i++) //Mission 20 depends on completing all other missions
         {
-            _previousTask=20;
-            _dependsOnTask=i;
-            Dependency newDep = new(0,_dependsOnTask,_previousTask);
+            Dependency newDep = new Dependency(0, 20, i);
             s_dalDependency!.Create(newDep);
         }
-        
-        //לסיים עוד 11 תלותיות
-        
-
-        //Dependency newDep = new();
-        //s_dalDependency!.Create();
+        for (int i = 2; i <= 5; i++) //Tasks 2-5 depend on completing Task 1
+        {
+            Dependency newDep = new Dependency(0, i, 1);
+            s_dalDependency!.Create(newDep);
+        }
+        for (int j = 4; i <= 5; i++) //Tasks 4,5 depend on completing tasks 2,3
+            for (int i = 2; i <= 3; i++)
+            {
+                Dependency newDep = new Dependency(0, j, i);
+                s_dalDependency!.Create(newDep);
+            }
+        Dependency newDep = new Dependency(0, 5, 4); //Task 5 also depends on the completion of task 4
+        s_dalDependency!.Create(newDep);
+        Dependency newDep = new Dependency(0, 8, 7); //Task 8 depends on the completion of task 7
+        s_dalDependency!.Create(newDep);
+        for (int i = 11; i <= 19; i += 2) //Tasks 11,13,15,17,19 depend on completing Tasks 8,10
+        {
+            Dependency newDep1 = new Dependency(0, i, 8);
+            s_dalDependency!.Create(newDep1);
+            Dependency newDep2 = new Dependency(0, i, 10);
+            s_dalDependency!.Create(newDep2);
+        }
+        for (int i = 12; i <= 18; i += 2) //Tasks 12, 14, 16 and 18 each depend on the task that precedes it chronologically
+        {
+            Dependency newDep = new Dependency(0, i, i-1);
+            s_dalDependency!.Create(newDep);
+        }
     }
-
     public static void Do(IEngineer? engineer, ITask? task, IDependency dependency)
     {
         s_dalEngineer = engineer ?? throw new NullReferenceException("DAL can not be null!");
