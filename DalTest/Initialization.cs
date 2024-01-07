@@ -4,7 +4,10 @@ using DO;
 using System.Data.Common;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
+using System.Xml.Linq;
 
+//לתעד
 public static class Initialization
 {
     private static IEngineer? s_dalEngineer; //stage 1
@@ -40,7 +43,7 @@ public static class Initialization
             {
                 case 0:
                     _level = LevelEngineer.Beginner;
-                    _cost = 17.133;
+                    _cost = 117.133;
                     break;
                 case 1:
                     _level = LevelEngineer.AdvancedBeginner;
@@ -71,20 +74,40 @@ public static class Initialization
 
         string[] nameTasks =
         {
-            "","",""
+            //לתת שמות קצרים לכל משימה
         };
         string[] descripTasks =
         {
-            "","",""
+            "Define the purpose and scope of the project.",
+            "Create a schedule for the project.",
+            "Deciding on a budget for the project.",
+            "Allocate resources to the project.",
+            "Perform risk analysis and develop risk management strategies.",
+            "Determine internal and public communication and protocols.",
+            "Divide the project into small tasks.",
+            "Attach an engineer to every task.",
+            "Follow the progress of the project against the schedule.",
+            "Receiving data from the client.",
+            "Writing code in the data layer.",
+            "Trying to run and test the code for the data layer.",
+            "Writing code in the logical layer.",
+            "The attempt to run and test the code for the logical layer.",
+            "Designed the interface.",
+            "Trying to run and test the code for the interface.",
+            "Attempt to run the code.",
+            "Sending the interface to the customer and focus groups.",
+            "Fix recent errors.",
+            "Completion of the project."
         };
+
         foreach (string _name in nameTasks)
         {
             string? _description = descripTasks[i];
             
             DateTime _createdAtDate = DateTime.Now;
-            DateTime? _deadlineDate = _createdAtDate.AddDays(rnd.Next(1, 60));
+            DateTime? _deadlineDate = null;
 
-            TimeSpan? _requiredEffortTime=_deadlineDate-_createdAtDate;
+            TimeSpan? _requiredEffortTime = null;
             
             bool _isMilestone = false;
 
@@ -117,15 +140,8 @@ public static class Initialization
             
             string? _remarks = null;
 
-            int _engineerId;
-            Engineer? en;
-            do
-            {
-                _engineerId = rnd.Next(200000000, 400000000);
-                en = s_dalEngineer?.Read(_engineerId);
-            }
-            while (en != null && en.Level >= _complexity);
-
+            int? _engineerId = null;
+           
             Task newTa = new Task(0,_name,_description,_createdAtDate,
                 _requiredEffortTime,_isMilestone,_complexity,_startDate,
                 _deadlineDate,_completeDate,_deliverables,_remarks,_engineerId);
@@ -135,10 +151,22 @@ public static class Initialization
     }
     private static void createDependency()
     {
-        for (int i = 1; i <= 40; i++)
-        {
+        int?_previousTask;
+        int? _dependsOnTask;
 
+        for (int i = 1; i <= 19; i++)
+        {
+            _previousTask=20;
+            _dependsOnTask=i;
+            Dependency newDep = new(0,_dependsOnTask,_previousTask);
+            s_dalDependency!.Create(newDep);
         }
+        
+        //לסיים עוד 11 תלותיות
+        
+
+        //Dependency newDep = new();
+        //s_dalDependency!.Create();
     }
 
     public static void Do(IEngineer? engineer, ITask? task, IDependency dependency)
