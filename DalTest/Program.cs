@@ -258,110 +258,82 @@ namespace DalTest
             if (id == 0)
             {
                 Console.WriteLine("Enter id:");
+                id = int.Parse(Console.ReadLine());
             }
-            DO.Engineer engineer = null;
+            Console.WriteLine("Enter his email:");
+            String email = Console.ReadLine();
+            Console.WriteLine("Enter his cost:");
+            double cost = double.Parse(Console.ReadLine());
+            Console.WriteLine("Enter his name:");
+            String name = Console.ReadLine();
+            Console.WriteLine("Enter his level:");
+            int intLevel = int.Parse(Console.ReadLine());
+            LevelEngineer level = (LevelEngineer)intLevel;
+            DO.Engineer engineer = new(id, name,email, level, cost);
             return engineer;
         }
 
         static DO.Task GetTask(int id = 0)
         {
-            DO.Task task = null;
+            Console.WriteLine("enter number between 0 to 4 for level of complexity (Beginner, AdvancedBeginner, Intermediate, Advanced, Expert)");
+            int levelInt;
+            int.TryParse(Console.ReadLine(), out levelInt);
+            LevelEngineer level = (LevelEngineer)levelInt;
+
+            Console.WriteLine("enter alias:");
+            string? alias = Console.ReadLine();
+
+            Console.WriteLine("enter description:");
+            string? description = Console.ReadLine();
+
+            Console.WriteLine("Enter Required Effort Time:");
+            TimeSpan? requiredEffortTime;
+            TimeSpan time;
+            requiredEffortTime = TimeSpan.TryParse(Console.ReadLine(), out time) ? time : null;
+
+            Console.WriteLine("enter true if task is milestone, otherwise false");
+            bool isMilestone = bool.Parse(Console.ReadLine());
+
+            Console.WriteLine("enter start date:");
+            DateTime? startDate;
+            DateTime date;
+            startDate = DateTime.TryParse(Console.ReadLine(), out date) ? date : null;
+
+            Console.WriteLine("enter scheduled date:");
+            DateTime? scheduledDate;
+            scheduledDate = DateTime.TryParse(Console.ReadLine(), out date) ? date : null;
+
+            Console.WriteLine("enter complete date");
+            DateTime? completeDate;
+            completeDate = DateTime.TryParse(Console.ReadLine(), out date) ? date : null;
+
+            Console.WriteLine("enter deliverables:");
+            string? deliverables = Console.ReadLine();
+
+            Console.WriteLine("enter remarks: (optional)");
+            string? remarks = Console.ReadLine();
+
+            Console.WriteLine("enter id of engineer working on task:");
+            int? engineerId;
+            int engId;
+            engineerId = int.TryParse(Console.ReadLine(), out engId) ? engId : null;
+
+            DO.Task? task = new(0,alias,description,DateTime.Now,requiredEffortTime,isMilestone,level,startDate
+                ,scheduledDate,completeDate,deliverables,remarks,engineerId);
             return task;
+
         }
 
         static DO.Dependency GetDep(int id = 0)
         {
             DO.Dependency dep = null;
-static DO.Engineer GetEng(int id=0)
-{
-    if (id == 0)
-    {
-        Console.WriteLine("Enter id:");
-        id = Console.ReadLine();
-    }
-    Console.WriteLine("Enter his email:");
-    String email = Console.ReadLine();
-    Console.WriteLine("Enter his cost:");
-    double cost = (double)(Console.ReadLine());
-    Console.WriteLine("Enter his name:");
-    String name = Console.ReadLine();
-    Console.WriteLine("Enter his level:");
-    int intLevel = (int)(Console.ReadLine());
-    LevelEngineer level = LevelEngineer(intLevel);
-    DO.Engineer engineer = new(id, email, cost, name, level);
-    return engineer;
- }
-static DO.Task GetTask(int id=0)
-{
-    Console.WriteLine("Enter alias:");
-    String alias = Console.ReadLine();
-    Console.WriteLine("Enter description:");
-    String description = Console.ReadLine();
-    DateTime createdAtDate = DateTime.Now; //Entering the creation time - the current time at the time of creation
-    Console.WriteLine("Enter the start date's day:");
-    String startDay = (int)(Console.ReadLine());
-    Console.WriteLine("Enter the start date's month:");
-    String startMonth = (int)(Console.ReadLine());
-    Console.WriteLine("Enter the start date's year:");
-    String startYear = (int)(Console.ReadLine())
-    DateTime startDate = new(startDay, startMonth, startYear);
-    Console.WriteLine("Enter:how much longer the project is due");
-    int timeDue = (int)(Console.ReadLine());
-    DateTime requieredEffortTime = startDate.AddDays(timeDue);
-    Console.WriteLine("Enter what level of engineer is required to perform the task:");
-    int intLevel = (int)(Console.ReadLine());
-    LevelEngineer level = LevelEngineer(intLevel);
-    Console.WriteLine("Enter the deadLine's date's day:");
-    String deadlineDay = (int)(Console.ReadLine());
-    Console.WriteLine("Enter the deadLine's date's month:");
-    String deadLineMonth = (int)(Console.ReadLine());
-    Console.WriteLine("Enter the deadLine's date's year:");
-    String deadLineYear = (int)(Console.ReadLine());
-    DateTime startDate = new(deadLineDay, deadLineMonth, deadLineYear);
-    DateTime completeDate = null;
-    Console.WriteLine("Enter deliverables:");
-    String deliverables = Console.ReadLine();
-    Console.WriteLine("Enter remarks:");
-    String remarks = Console.ReadLine();
-    int engID = 0;
-    do
-    {
-        Console.WriteLine("Enter the ID of the engineer who will work on the task:");
-        String engID = (int)(Console.ReadLine());
-    }
-    while (s_dalEngineer?.Read(engID) == null)
-    DO.Task task = new(0,alias,description,createdAtDate, timeDue, false, level, startDate, timeDue, completeDate,deliverables, remarks, engID)
-    return task;
-}
-static DO.Dependency GetDep(int id = 0)
-{
-    Console.WriteLine("Enter the ID of the task you want to create a dependency for:");
-    int dependent = (int)(Console.ReadLine());
-    Console.WriteLine("Enter the ID of the task that the task depends on:");
-    int dependsOn = (int)(Console.ReadLine());
-    DO.Dependency dep = new(0, dependent, dependsOn);
+            Console.WriteLine("Enter the ID of the task you want to create a dependency for:");
+            int dependent = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter the ID of the task that the task depends on:");
+            int dependsOn = int.Parse(Console.ReadLine());
+            dep = new(0, dependent, dependsOn);
             return dep;
         }
 
     }
 }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
