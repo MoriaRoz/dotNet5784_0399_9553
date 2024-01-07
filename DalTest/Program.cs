@@ -111,21 +111,113 @@ namespace DalTest
                         s_dalEngineer.Delete(idD);
                         break;
                     }
-                    
+            }
+        }       
                 default:
                     throw new Exception("Incorrect input - the choice must be in numbers between 0-5");
                     }
         }
         static void MTask(Actions action)
         {
-
+            DO.Task newT;
+            switch (action)
+            {
+                case Actions.Exit:
+                    break;
+                case Actions.Create:
+                    {
+                        newT = GetTask();
+                        s_dalTask.Create(newT);
+                        break;
+                    }
+                case Actions.Read:
+                    {
+                        Console.WriteLine("enter id of Task:");
+                        int idR = int.Parse(Console.ReadLine());
+                        newE = s_dalTask.Read(idR);
+                        Console.WriteLine(newE.ToString());
+                        break;
+                    }
+                case Actions.ReadAll:
+                    {
+                        List<Task> listTask = s_dalTask.ReadAll();
+                        foreach (Task task in listTask)
+                            Console.WriteLine(task.ToString());
+                        break;
+                    }
+                case Actions.Update:
+                    {
+                        Console.WriteLine("Enter the ID of the task you would like to update: ");
+                        int idU = int.Parse(Console.ReadLine());
+                        if (s_dalTask.Read(idU) == null)
+                            throw new Exception("There is no task with ID-" + idU);
+                        DO.Task upTask = GetTask(idU);
+                        s_dalTask.Update(upTask);
+                        break;
+                    }
+                case Actions.Delete:
+                    {
+                        Console.WriteLine("Enter the ID of the task you would like to update: ");
+                        int idD = int.Parse(Console.ReadLine());
+                        if (s_dalTask.Read(idD) == null)
+                            throw new Exception("There is no task with ID-" + idD);
+                        s_dalTask.Delete(idD);
+                        break;
+                    }
+            }
         }
-        static void MDependency(Actions action)
-        {
+static void MDependency(Actions action)
+{
+    DO.Dependency newDependency;
+    switch (action)
+    {
+        case Actions.Exit:
+            break;
+        case Actions.Create:
+            {
+                newDependency = GetDependency();
+                s_dalDependency.Create(newDependency);
+                break;
+            }
+        case Actions.Read:
+            {
+                Console.WriteLine("Enter id of Dependency:");
+                int idR = int.Parse(Console.ReadLine());
+                newDependency = s_dalDependency.Read(idR);
+                Console.WriteLine(newDependency.ToString());
+                break;
+            }
+        case Actions.ReadAll:
+            {
+                List<Dependency> listDependency = s_dalDependency.ReadAll();
+                foreach (Dependency dependency in listDependency)
+                    Console.WriteLine(dependency.ToString());
+                break;
+            }
+        case Actions.Update:
+            {
+                Console.WriteLine("Enter the ID of the dependency you would like to update: ");
+                int idU = int.Parse(Console.ReadLine());
+                if (s_dalDependency.Read(idU) == null)
+                    throw new Exception("There is no dependency with ID-" + idU);
+                DO.Dependency upDependency = GetDependency(idU);
+                s_dalDependency.Update(upDependency);
+                break;
+            }
+        case Actions.Delete:
+            {
+                Console.WriteLine("Enter the ID of the dependency you would like to delete: ");
+                int idD = int.Parse(Console.ReadLine());
+                if (s_dalDependency.Read(idD) == null)
+                    throw new Exception("There is no dependency with ID-" + idD);
+                s_dalDependency.Delete(idD);
+                break;
+            }
+    }
+}
 
-        }
 
-        static DO.Engineer GetEng(int id=0)
+static DO.Engineer GetEng(int id=0)
         {
             if(id==0)
             {
