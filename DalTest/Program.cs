@@ -3,6 +3,8 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace DalTest
 {
@@ -19,241 +21,259 @@ namespace DalTest
             {
                 Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
                 Entitys entity;
-
                 do
                 {
+                    //printing the entities menu:
                     Console.WriteLine("Select entity you want to check-\n" +
                         "0- Exit\n" +
                         "1- Engineer\n" +
                         "2- Task\n" +
                         "3- Dependence");
-                    entity = (Entitys)int.Parse(Console.ReadLine());
+                    entity = (Entitys)int.Parse(Console.ReadLine());//user choice.
 
-                    if (entity != 0)
+                    switch (entity)
                     {
-                        Console.WriteLine("Select the method you want to perform-\n" +
-                            "0- Exit main menu\n"+
-                        "1- Adding a new object of the entity type to the list (Create)\n" +
-                        "2- Object display by ID (Read)\n" +
-                        "3- Display the list of all objects of the entity type (ReadAll)\n" +
-                        "4- Update existing object data (Update)\n" +
-                        "5- Deleting an existing object from a list. (delete)\n" +
-                        "   Please note: this option is only available for some entities");
-                        Actions action = (Actions)int.Parse(Console.ReadLine());
-
-                        switch (entity)
-                        {
-                            case Entitys.Exit:
-                                break;
-                            case Entitys.Engineer:
-                                MEngineer(action);
-                                break;
-                            case Entitys.Task:
-                                MTask(action);
-                                break;
-                            case Entitys.Dependence:
-                                MDependency(action);
-                                break;
-                            default:
-                                //In case a number is chosen that is not among the available options
-                                throw new Exception("Incorrect input - the choice must be in numbers between 0-4");
-                        }
+                        case Entitys.Exit:// 0 was inserted, so we will exit the menu.
+                            break;
+                        case Entitys.Engineer://1 was inserted, so the engineer function was called.
+                            MEngineer();
+                            break;
+                        case Entitys.Task://2 was inserted, so the function of the task is called.
+                            MTask();
+                            break;
+                        case Entitys.Dependence://3 was inserted, so the function of the dependency is called.
+                            MDependency();
+                            break;
+                        default://A value was entered that is not between 0 and 3 - exception.
+                            throw new Exception("Incorrect input - the choice must be in numbers between 0-4");
                     }
                 }
-                while(entity!=Entitys.Exit);
+                while (entity != Entitys.Exit);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { Console.WriteLine(ex.Message); } 
         }
 
-        static void MEngineer(Actions action)
+        static void MEngineer()//A function that performs the actions on the engineer.
         {
-            DO.Engineer newE;
-            switch (action) {
-                case Actions.Exit:
-                    break;
-                case Actions.Create:
-                    {
-                        newE = GetEng();
-                        s_dalEngineer.Create(newE);
+            Actions action;
+            do
+            {
+                //printing the methods menu for the engineer:
+                Console.WriteLine("Select the method you want to perform-\n" +
+                                    "0- Exit main menu\n" +
+                                    "1- Adding a new object of the entity type to the list (Create)\n" +
+                                    "2- Object display by ID (Read)\n" +
+                                    "3- Display the list of all objects of the entity type (ReadAll)\n" +
+                                    "4- Update existing object data (Update)\n" +
+                                    "5- Deleting an existing object from a list. (delete)\n");
+                action = (Actions)int.Parse(Console.ReadLine());//user choice.
+
+                DO.Engineer newE;//An object of type engineer that will be used by us in operations.
+                switch (action)
+                {
+                    case Actions.Exit:// 0 was inserted, therefore exiting the function back to the main menu.
                         break;
-                    }
-                case Actions.Read:
-                    {
-                        Console.WriteLine("enter id of Engineer:");
-                        int idR = int.Parse(Console.ReadLine());
-                        newE = s_dalEngineer.Read(idR);
-                        Console.WriteLine(newE.ToString());
-                        break;
-                    }
-                case Actions.ReadAll:
-                    {
-                        List<Engineer> listEng = s_dalEngineer.ReadAll();
-                        foreach (Engineer engineer in listEng)
-                            Console.WriteLine(engineer.ToString());
-                        break;
-                    }
-                case Actions.Update:
-                    {
-                        Console.WriteLine("Enter the ID of the engineer you would like to update: ");
-                        int idU = int.Parse(Console.ReadLine());
-                        if (s_dalEngineer.Read(idU) == null)
-                            throw new Exception("There is no engineer with ID-" + idU);
-                        DO.Engineer upEng = GetEng(idU);
-                        s_dalEngineer.Update(upEng);
-                        break;
-                    }
-                case Actions.Delete:
-                    {
-                        Console.WriteLine("Enter the ID of the engineer you would like to update: ");
-                        int idD = int.Parse(Console.ReadLine());
-                        if (s_dalEngineer.Read(idD) == null)
-                            throw new Exception("There is no engineer with ID-" + idD);
-                        s_dalEngineer.Delete(idD);
-                        break;
-                    }
+                    case Actions.Create://1 was inserted, so we will create a new engineer.
+                        {
+                            newE = GetEng();//Call to the function that receives the values from the user and returns a new engineer.
+                            s_dalEngineer.Create(newE);//Adding the engineer to the list.
+                            break;
+                        }
+                    case Actions.Read:// 2 was inserted, so we will look for the engineer with the id from the user and print it if it exists.
+                        {
+                            Console.WriteLine("Enter the id of the engineer you want to print:");//print message insert id.
+                            int idR = int.Parse(Console.ReadLine());//getting the id.
+                            newE = s_dalEngineer.Read(idR);//copy of the engineer if exists and null if not.
+                            if (newE == null)//The engineer does not exist in the list - throwing an exception.
+                                throw new Exception($"The engineer with the ID-{idR} does not exist" );
+                            Console.WriteLine(newE);//print the engineer.
+                            break;
+                        }
+                    case Actions.ReadAll:// 3 was entered, so we will print all the engineers that exist in the list.
+                        {
+                            List<DO.Engineer> listEng = s_dalEngineer.ReadAll();//Creating a copy to the list of engineers.
+                            foreach (DO.Engineer engineer in listEng)//Go through all the engineers in the list.
+                                Console.WriteLine(engineer);//print the engineer.
+                            break;
+                        }
+                    case Actions.Update:// 4 was inserted, so we will update the engineer with the id we received from the user.
+                        {
+                            Console.WriteLine("Enter the ID of the engineer you would like to update: ");//print message insert id.
+                            int idU = int.Parse(Console.ReadLine());//getting the id.
+                            if (s_dalEngineer.Read(idU) == null)//The engineer does not exist in the list - throwing an exception.
+                                throw new Exception("There is no engineer with ID-" + idU);
+                            DO.Engineer upEng = GetEng(idU);//The engineer exists, a call to a function that will receive the rest of its values except for the id.
+                            s_dalEngineer.Update(upEng);//Update the engineer with the new values.
+                            break;
+                        }
+                    case Actions.Delete:
+                        {
+                            Console.WriteLine("Enter the ID of the engineer you would like to delete: ");//print message insert id.
+                            int idD = int.Parse(Console.ReadLine());//getting the id.
+                            if (s_dalEngineer.Read(idD) == null)//The engineer does not exist in the list - throwing an exception.
+                                throw new Exception("There is no engineer with ID-" + idD);
+                            s_dalEngineer.Delete(idD);//deleting the engineer.
+                            break;
+                        }
+                    default://A value was entered that is not between 0 and 5 - exception.
+                        throw new Exception("Incorrect input - the choice must be in numbers between 0-5");
+                }
             }
-        }       
-                default:
-                    throw new Exception("Incorrect input - the choice must be in numbers between 0-5");
-                    }
+            while (action != 0);//The loop will run as long as we didn't get 0.
         }
-        static void MTask(Actions action)
-        {
-            DO.Task newT;
-            switch (action)
-            {
-                case Actions.Exit:
-                    break;
-                case Actions.Create:
-                    {
-                        newT = GetTask();
-                        s_dalTask.Create(newT);
-                        break;
-                    }
-                case Actions.Read:
-                    {
-                        Console.WriteLine("enter id of Task:");
-                        int idR = int.Parse(Console.ReadLine());
-                        newE = s_dalTask.Read(idR);
-                        Console.WriteLine(newE.ToString());
-                        break;
-                    }
-                case Actions.ReadAll:
-                    {
-                        List<Task> listTask = s_dalTask.ReadAll();
-                        foreach (Task task in listTask)
-                            Console.WriteLine(task.ToString());
-                        break;
-                    }
-                case Actions.Update:
-                    {
-                        Console.WriteLine("Enter the ID of the task you would like to update: ");
-                        int idU = int.Parse(Console.ReadLine());
-                        if (s_dalTask.Read(idU) == null)
-                            throw new Exception("There is no task with ID-" + idU);
-                        DO.Task upTask = GetTask(idU);
-                        s_dalTask.Update(upTask);
-                        break;
-                    }
-                case Actions.Delete:
-                    {
-                        Console.WriteLine("Enter the ID of the task you would like to update: ");
-                        int idD = int.Parse(Console.ReadLine());
-                        if (s_dalTask.Read(idD) == null)
-                            throw new Exception("There is no task with ID-" + idD);
-                        s_dalTask.Delete(idD);
-                        break;
-                    }
-            }
-        }
-static void MDependency(Actions action)
-{
-    DO.Dependency newDependency;
-    switch (action)
-    {
-        case Actions.Exit:
-            break;
-        case Actions.Create:
-            {
-                newDependency = GetDependency();
-                s_dalDependency.Create(newDependency);
-                break;
-            }
-        case Actions.Read:
-            {
-                Console.WriteLine("Enter id of Dependency:");
-                int idR = int.Parse(Console.ReadLine());
-                newDependency = s_dalDependency.Read(idR);
-                Console.WriteLine(newDependency.ToString());
-                break;
-            }
-        case Actions.ReadAll:
-            {
-                List<Dependency> listDependency = s_dalDependency.ReadAll();
-                foreach (Dependency dependency in listDependency)
-                    Console.WriteLine(dependency.ToString());
-                break;
-            }
-        case Actions.Update:
-            {
-                Console.WriteLine("Enter the ID of the dependency you would like to update: ");
-                int idU = int.Parse(Console.ReadLine());
-                if (s_dalDependency.Read(idU) == null)
-                    throw new Exception("There is no dependency with ID-" + idU);
-                DO.Dependency upDependency = GetDependency(idU);
-                s_dalDependency.Update(upDependency);
-                break;
-            }
-        case Actions.Delete:
-            {
-                Console.WriteLine("Enter the ID of the dependency you would like to delete: ");
-                int idD = int.Parse(Console.ReadLine());
-                if (s_dalDependency.Read(idD) == null)
-                    throw new Exception("There is no dependency with ID-" + idD);
-                s_dalDependency.Delete(idD);
-                break;
-            }
-    }
-}
 
 
-static DO.Engineer GetEng(int id=0)
+        static void MTask()//A function that performs the actions on the task.
         {
-            if(id==0)
+            Actions action;
+            do
+            {
+                //printing the methods menu for the task:
+                Console.WriteLine("Select the method you want to perform-\n" +
+                                    "0- Exit main menu\n" +
+                                    "1- Adding a new object of the entity type to the list (Create)\n" +
+                                    "2- Object display by ID (Read)\n" +
+                                    "3- Display the list of all objects of the entity type (ReadAll)\n" +
+                                    "4- Update existing object data (Update)\n" +
+                                    "5- Deleting an existing object from a list. (delete)\n");
+                action = (Actions)int.Parse(Console.ReadLine());//user choice.
+
+                DO.Task newT;//An object of type task that will be used by us in operations.
+                switch (action)
+                {
+                    case Actions.Exit:// 0 was inserted, therefore exiting the function back to the main menu.
+                        break;
+                    case Actions.Create://1 was inserted, so we will create a new task.
+                        {
+                            newT = GetTask();//Call to the function that receives the values from the user and returns a new task.
+                            s_dalTask.Create(newT);//Adding the task to the list.
+                            break;
+                        }
+                    case Actions.Read:// 2 was inserted, so we will look for the task with the id from the user and print it if it exists.
+                        {
+                            Console.WriteLine("Enter the id of the task you want to print:");//print message insert id.
+                            int idR = int.Parse(Console.ReadLine());//getting the id.
+                            newT = s_dalTask.Read(idR);//copy of the task if exists and null if not.
+                            if (newT == null)//The task does not exist in the list - throwing an exception.
+                                throw new Exception($"The task with the ID-{idR} does not exist");
+                            Console.WriteLine(newT);//print the task.
+                            break;
+                        }
+                    case Actions.ReadAll:// 3 was entered, so we will print all the task that exist in the list.
+                        {
+                            List<DO.Task> listTask = s_dalTask.ReadAll();//Creating a copy to the list of task.
+                            foreach (DO.Task task in listTask)//Go through all the task in the list.
+                                Console.WriteLine(task);//print the task.
+                            break;
+                        }
+                    case Actions.Update:// 4 was inserted, so we will update the task with the id we received from the user.
+                        {
+                            Console.WriteLine("Enter the ID of the task you would like to update: ");//print message insert id.
+                            int idU = int.Parse(Console.ReadLine());//getting the id.
+                            if (s_dalTask.Read(idU) == null)//The task does not exist in the list - throwing an exception.
+                                throw new Exception("There is no task with ID-" + idU);
+                            DO.Task upTask = GetTask(idU);//The task exists, a call to a function that will receive the rest of its values except for the id.
+                            s_dalTask.Update(upTask);//Update the task with the new values.
+                            break;
+                        }
+                    case Actions.Delete:
+                        {
+                            Console.WriteLine("Enter the ID of the task you would like to delete: ");//print message insert id.
+                            int idD = int.Parse(Console.ReadLine());//getting the id.
+                            if (s_dalTask.Read(idD) == null)//The task does not exist in the list - throwing an exception.
+                                throw new Exception("There is no task with ID-" + idD);
+                            s_dalTask.Delete(idD);//deleting the task.
+                            break;
+                        }
+                    default://A value was entered that is not between 0 and 5 - exception.
+                        throw new Exception("Incorrect input - the choice must be in numbers between 0-5");
+                }
+            }
+            while (action != 0);//The loop will run as long as we didn't get 0.
+        }
+
+
+        static void MDependency()//A function that performs the actions on the dependency.
+        {
+            Actions action;
+            do
+            {
+                //printing the methods menu for the dependency:
+                Console.WriteLine("Select the method you want to perform-\n" +
+                                    "0- Exit main menu\n" +
+                                    "1- Adding a new object of the entity type to the list (Create)\n" +
+                                    "2- Object display by ID (Read)\n" +
+                                    "3- Display the list of all objects of the entity type (ReadAll)\n" +
+                                    "4- Update existing object data (Update)\n");
+                action = (Actions)int.Parse(Console.ReadLine());//user choice.
+
+                DO.Dependency newD;//An object of type dependency that will be used by us in operations.
+                switch (action)
+                {
+                    case Actions.Exit:// 0 was inserted, therefore exiting the function back to the main menu.
+                        break;
+                    case Actions.Create://1 was inserted, so we will create a new dependency.
+                        {
+                            newD = GetDep();//Call to the function that receives the values from the user and returns a new dependency.
+                            s_dalDependency.Create(newD);//Adding the dependency to the list.
+                            break;
+                        }
+                    case Actions.Read:// 2 was inserted, so we will look for the dependency with the id from the user and print it if it exists.
+                        {
+                            Console.WriteLine("Enter the id of the dependency you want to print:");//print message insert id.
+                            int idR = int.Parse(Console.ReadLine());//getting the id.
+                            newD = s_dalDependency.Read(idR);//copy of the dependency if exists and null if not.
+                            if (newD == null)//The dependency does not exist in the list - throwing an exception.
+                                throw new Exception($"The dependency with the ID-{idR} does not exist");
+                            Console.WriteLine(newD);//print the dependency.
+                            break;
+                        }
+                    case Actions.ReadAll:// 3 was entered, so we will print all the dependency that exist in the list.
+                        {
+                            List<DO.Dependency> listDependency = s_dalDependency.ReadAll();//Creating a copy to the list of dependency.
+                            foreach (DO.Dependency dependency in listDependency)//Go through all the dependency in the list.
+                                Console.WriteLine(dependency);//print the dependency.
+                            break;
+                        }
+                    case Actions.Update:// 4 was inserted, so we will update the dependency with the id we received from the user.
+                        {
+                            Console.WriteLine("Enter the ID of the dependency you would like to update: ");//print message insert id.
+                            int idU = int.Parse(Console.ReadLine());//getting the id.
+                            if (s_dalDependency.Read(idU) == null)//The dependency does not exist in the list - throwing an exception.
+                                throw new Exception("There is no dependency with ID-" + idU);
+                            DO.Dependency upDep = GetDep(idU);//The dependency exists, a call to a function that will receive the rest of its values except for the id.
+                            s_dalDependency.Update(upDep);//Update the dependency with the new values.
+                            break;
+                        }
+                    default://A value was entered that is not between 0 and 4 - exception.
+                        throw new Exception("Incorrect input - the choice must be in numbers between 0-4");
+                }
+            }
+            while (action != 0);//The loop will run as long as we didn't get 0.
+        }
+
+
+        static DO.Engineer GetEng(int id = 0)
+        {
+            if (id == 0)
             {
                 Console.WriteLine("Enter id:");
             }
             DO.Engineer engineer = null;
             return engineer;
         }
-        static DO.Task GetTask(int id=0)
+
+        static DO.Task GetTask(int id = 0)
         {
             DO.Task task = null;
             return task;
         }
+
         static DO.Dependency GetDep(int id = 0)
         {
             DO.Dependency dep = null;
             return dep;
         }
+
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

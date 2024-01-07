@@ -40,7 +40,7 @@ public static class Initialization
             {
                 case 0:
                     _level = LevelEngineer.Beginner;
-                    _cost = 17.133;
+                    _cost = 117.133;
                     break;
                 case 1:
                     _level = LevelEngineer.AdvancedBeginner;
