@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// <summary>
 /// The method implementation class of a task entity.
 /// </summary>
-public class TaskImplementation : ITask
+internal class TaskImplementation : ITask
 {
     public int Create(Task item)//Creating an ID for 'item' and adding it to the task list.
     {
