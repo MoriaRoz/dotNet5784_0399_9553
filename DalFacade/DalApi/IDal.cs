@@ -1,4 +1,4 @@
-﻿namespace DalApi;
+﻿using System;
 
 public interface IDal
 {

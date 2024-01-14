@@ -1,11 +1,8 @@
-﻿namespace DalApi;
-using DO;
+﻿using System;
 
-public interface ICrud<T> where T : class
+public class Class1
 {
-    int Create(T entity);
-    T? Read(int id);
-    List<T> ReadAll();
-    void Update(T entity);
-    void Delete(int id);
+	public Class1()
+{
+	}
 }
