@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 public interface IDal
 {
     IEngineer Engineer { get; }

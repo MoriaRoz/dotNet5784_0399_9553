@@ -1,5 +1,4 @@
-﻿
-namespace DO;
+﻿namespace DO;
 
 /// <summary>
 /// A dependency entity represents a dependency with all its accessories.
