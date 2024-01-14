@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// 
 /// </summary>
-public class DependencyImplementation : IDependency
+internal class DependencyImplementation : IDependency
 {
     public int Create(Dependency item)//Creating an ID for 'item' and adding it to the dependency list.
     {

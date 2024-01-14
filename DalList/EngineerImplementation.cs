@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// <summary>
 /// The method implementation class of a task entity.
 /// </summary>
-public class EngineerImplementation : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)//Adding a new engineer to the list if there is no engineer with the same ID.
     {

@@ -7,9 +7,7 @@ using System.Linq.Expressions;
 
 public static class Initialization
 {
-    private static IEngineer? s_dalEngineer; //stage 1
-    private static IDependency? s_dalDependency; //stage 1
-    private static ITask? s_dalTask; //stage 1
+    private static IDal? s_dal;
 
     private static readonly Random s_rand = new();
     private static void createEngineer() //The action creates the engineers' data (randomly, according to the logic of each of the features)
@@ -27,7 +25,7 @@ public static class Initialization
             int _id;
             do //Matching a unique ID to each engineer
                 _id = rnd.Next(200000000, 400000000);
-            while (s_dalEngineer?.Read(_id) != null);
+            while (s_dal?.Engineer.Read(_id) != null);
 
             string? _email = _name + "@gamil.com"; //Adapting an email to each of the engineers in the following way - name_family name@gmail.com
             _email.Replace(' ', '_');
@@ -61,7 +59,7 @@ public static class Initialization
             }
 
             Engineer newEng = new(_id, _name, _email, _level, _cost); 
-            s_dalEngineer!.Create(newEng);
+            s_dal!.Engineer.Create(newEng);
         }
     }
     private static void createTask()
@@ -145,14 +143,14 @@ public static class Initialization
             do
             {
                 _engineerId = rnd.Next(200000000, 400000000);
-                en = s_dalEngineer?.Read(_engineerId);
+                en = s_dal?.Engineer.Read(_engineerId);
             }
             while (en != null && en.Level >= _complexity);
 
             Task newTa = new Task(0,_name,_description,_createdAtDate,
                 _requiredEffortTime,_isMilestone,_complexity,_startDate,
                 _deadlineDate,_completeDate,_deliverables,_remarks,_engineerId);
-            s_dalTask!.Create(newTa);
+            s_dal!.Task.Create(newTa);
             i++;
         }
     }
@@ -163,41 +161,40 @@ public static class Initialization
         for (i = 1; i < 20; i++) //Mission 20 depends on completing all other missions
         {
             newDep = new Dependency(0, 20, i);
-            s_dalDependency!.Create(newDep);
+            s_dal!.Dependency.Create(newDep);
         }
         for (i = 2; i <= 5; i++) //Tasks 2-5 depend on completing Task 1
         {
             newDep = new Dependency(0, i, 1);
-            s_dalDependency!.Create(newDep);
+            s_dal!.Dependency.Create(newDep);
         }
         for (int j = 4; i <= 5; i++) //Tasks 4,5 depend on completing tasks 2,3
             for (i = 2; i <= 3; i++)
             {
                 newDep = new Dependency(0, j, i);
-                s_dalDependency!.Create(newDep);
+                s_dal!.Dependency.Create(newDep);
             }
         newDep = new Dependency(0, 5, 4); //Task 5 also depends on the completion of task 4
-        s_dalDependency!.Create(newDep);
+        s_dal!.Dependency.Create(newDep);
         newDep = new Dependency(0, 8, 7); //Task 8 depends on the completion of task 7
-        s_dalDependency!.Create(newDep);
+        s_dal!.Dependency.Create(newDep);
         for (i = 11; i <= 19; i += 2) //Tasks 11,13,15,17,19 depend on completing Tasks 8,10
         {
             Dependency newDep1 = new Dependency(0, i, 8);
-            s_dalDependency!.Create(newDep1);
+            s_dal!.Dependency.Create(newDep1);
             Dependency newDep2 = new Dependency(0, i, 10);
-            s_dalDependency!.Create(newDep2);
+            s_dal!.Dependency.Create(newDep2);
         }
         for (i = 12; i <= 18; i += 2) //Tasks 12, 14, 16 and 18 each depend on the task that precedes it chronologically
         {
             newDep = new Dependency(0, i, i - 1);
-            s_dalDependency!.Create(newDep);
+            s_dal!.Dependency.Create(newDep);
         }
     }
-    public static void Do(IEngineer? engineer, ITask? task, IDependency dependency)
+    public static void Do(IDal dal)
     {
-        s_dalEngineer = engineer ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalTask = task ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalDependency = dependency ?? throw new NullReferenceException("DAL can not be null!");
+       
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
         createEngineer();
         createTask();
         createDependency();
