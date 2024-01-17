@@ -43,7 +43,7 @@ namespace DalTest
                             MDependency();
                             break;
                         default://A value was entered that is not between 0 and 3 - exception.
-                            throw new Exception("Incorrect input - the choice must be in numbers between 0-4");
+                            throw new NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-4");
                     }
                 }
                 while (entity != Entitys.Exit);
@@ -83,13 +83,13 @@ namespace DalTest
                             int idR = int.Parse(Console.ReadLine());//getting the id.
                             newE = s_dal.Engineer.Read(idR);//copy of the engineer if exists and null if not.
                             if (newE == null)//The engineer does not exist in the list - throwing an exception.
-                                throw new Exception($"The engineer with the ID-{idR} does not exist" );
+                                throw new DalDoesNotExistException($"The engineer with the ID-{idR} does not exist" );
                             Console.WriteLine(newE);//print the engineer.
                             break;
                         }
                     case Actions.ReadAll:// 3 was entered, so we will print all the engineers that exist in the list.
                         {
-                            List<DO.Engineer> listEng = s_dal.Engineer.ReadAll();//Creating a copy to the list of engineers.
+                            var listEng = s_dal.Engineer.ReadAll();//Creating a copy to the list of engineers.
                             foreach (DO.Engineer engineer in listEng)//Go through all the engineers in the list.
                                 Console.WriteLine(engineer);//print the engineer.
                             break;
@@ -99,7 +99,7 @@ namespace DalTest
                             Console.WriteLine("Enter the ID of the engineer you would like to update: ");//print message insert id.
                             int idU = int.Parse(Console.ReadLine());//getting the id.
                             if (s_dal.Engineer.Read(idU) == null)//The engineer does not exist in the list - throwing an exception.
-                                throw new Exception("There is no engineer with ID-" + idU);
+                                throw new DalDoesNotExistException("There is no engineer with ID-" + idU);
                             DO.Engineer upEng = GetEng(idU);//The engineer exists, a call to a function that will receive the rest of its values except for the id.
                             s_dal.Engineer.Update(upEng);//Update the engineer with the new values.
                             break;
@@ -109,12 +109,12 @@ namespace DalTest
                             Console.WriteLine("Enter the ID of the engineer you would like to delete: ");//print message insert id.
                             int idD = int.Parse(Console.ReadLine());//getting the id.
                             if (s_dal.Engineer.Read(idD) == null)//The engineer does not exist in the list - throwing an exception.
-                                throw new Exception("There is no engineer with ID-" + idD);
+                                throw new DalDeletionImpossible("There is no engineer with ID-" + idD);
                             s_dal.Engineer.Delete(idD);//deleting the engineer.
                             break;
                         }
                     default://A value was entered that is not between 0 and 5 - exception.
-                        throw new Exception("Incorrect input - the choice must be in numbers between 0-5");
+                        throw new NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-5");
                 }
             }
             while (action != 0);//The loop will run as long as we didn't get 0.
@@ -153,13 +153,13 @@ namespace DalTest
                             int idR = int.Parse(Console.ReadLine());//getting the id.
                             newT = s_dal.Task.Read(idR);//copy of the task if exists and null if not.
                             if (newT == null)//The task does not exist in the list - throwing an exception.
-                                throw new Exception($"The task with the ID-{idR} does not exist");
+                                throw new DalDoesNotExistException($"The task with the ID-{idR} does not exist");
                             Console.WriteLine(newT);//print the task.
                             break;
                         }
                     case Actions.ReadAll:// 3 was entered, so we will print all the task that exist in the list.
                         {
-                            List<DO.Task> listTask = s_dal.Task.ReadAll();//Creating a copy to the list of task.
+                            var listTask = s_dal.Task.ReadAll();//Creating a copy to the list of task.
                             foreach (DO.Task task in listTask)//Go through all the task in the list.
                                 Console.WriteLine(task);//print the task.
                             break;
@@ -169,7 +169,7 @@ namespace DalTest
                             Console.WriteLine("Enter the ID of the task you would like to update: ");//print message insert id.
                             int idU = int.Parse(Console.ReadLine());//getting the id.
                             if (s_dal.Task.Read(idU) == null)//The task does not exist in the list - throwing an exception.
-                                throw new Exception("There is no task with ID-" + idU);
+                                throw new DalDoesNotExistException("There is no task with ID-" + idU);
                             DO.Task upTask = GetTask(idU);//The task exists, a call to a function that will receive the rest of its values except for the id.
                             s_dal.Task.Update(upTask);//Update the task with the new values.
                             break;
@@ -179,12 +179,12 @@ namespace DalTest
                             Console.WriteLine("Enter the ID of the task you would like to delete: ");//print message insert id.
                             int idD = int.Parse(Console.ReadLine());//getting the id.
                             if (s_dal.Task.Read(idD) == null)//The task does not exist in the list - throwing an exception.
-                                throw new Exception("There is no task with ID-" + idD);
+                                throw new DalDeletionImpossible("There is no task with ID-" + idD);
                             s_dal.Task.Delete(idD);//deleting the task.
                             break;
                         }
                     default://A value was entered that is not between 0 and 5 - exception.
-                        throw new Exception("Incorrect input - the choice must be in numbers between 0-5");
+                        throw new NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-5");
                 }
             }
             while (action != 0);//The loop will run as long as we didn't get 0.
@@ -222,13 +222,13 @@ namespace DalTest
                             int idR = int.Parse(Console.ReadLine());//getting the id.
                             newD = s_dal.Dependency.Read(idR);//copy of the dependency if exists and null if not.
                             if (newD == null)//The dependency does not exist in the list - throwing an exception.
-                                throw new Exception($"The dependency with the ID-{idR} does not exist");
+                                throw new DalDoesNotExistException($"The dependency with the ID-{idR} does not exist");
                             Console.WriteLine(newD);//print the dependency.
                             break;
                         }
                     case Actions.ReadAll:// 3 was entered, so we will print all the dependency that exist in the list.
                         {
-                            List<DO.Dependency> listDependency = s_dal.Dependency.ReadAll();//Creating a copy to the list of dependency.
+                            var listDependency = s_dal.Dependency.ReadAll();//Creating a copy to the list of dependency.
                             foreach (DO.Dependency dependency in listDependency)//Go through all the dependency in the list.
                                 Console.WriteLine(dependency);//print the dependency.
                             break;
@@ -238,13 +238,14 @@ namespace DalTest
                             Console.WriteLine("Enter the ID of the dependency you would like to update: ");//print message insert id.
                             int idU = int.Parse(Console.ReadLine());//getting the id.
                             if (s_dal.Dependency.Read(idU) == null)//The dependency does not exist in the list - throwing an exception.
-                                throw new Exception("There is no dependency with ID-" + idU);
+                                throw new DalDoesNotExistException("There is no dependency with ID-" + idU);
                             DO.Dependency upDep = GetDep(idU);//The dependency exists, a call to a function that will receive the rest of its values except for the id.
                             s_dal.Dependency.Update(upDep);//Update the dependency with the new values.
                             break;
                         }
+
                     default://A value was entered that is not between 0 and 4 - exception.
-                        throw new Exception("Incorrect input - the choice must be in numbers between 0-4");
+                        throw new NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-4");
                 }
             }
             while (action != 0);//The loop will run as long as we didn't get 0.

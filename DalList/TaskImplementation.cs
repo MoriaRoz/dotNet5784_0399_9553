@@ -24,22 +24,34 @@ internal class TaskImplementation : ITask
     {
         Task? toDel = DataSource.Tasks.Find(Task => Task.Id == id);//Reference to the task with Id=id or null to if it doesn't exist.
         if (toDel == null)//Task does not exist, error.
-            throw new Exception($"Task with ID={id} dose not exist");
+            throw new DalDeletionImpossible($"Task with ID={id} dose not exist");
         if (toDel.CompleteDate == null)//Task not completed, error.
-            throw new Exception($"Task with ID={id} already scheduled");
+            throw new DalDeletionImpossible($"Task with ID={id} already scheduled");
         if (DataSource.Dependencys.Find(Dependency => Dependency.DependsOnTask == id) != null)//There are tasks that depend on the task, error.
-            throw new Exception($"Task with ID={id} cannot be deleted because there are other tasks that depend on it");
+            throw new DalDeletionImpossible($"Task with ID={id} cannot be deleted because there are other tasks that depend on it");
         DataSource.Tasks.Remove(toDel);//Deleting the task.
     }
 
     public Task? Read(int id)//Returning a reference to the task with Id=id if it is in the list and null if not.
     {
-        return DataSource.Tasks.Find(Task=>Task.Id == id);//Searching for a task with id=id and returning the reference to it.
+        return DataSource.Tasks.FirstOrDefault(Task=>Task.Id == id);//Searching for a task with id=id and returning the reference to it.
     }
 
-    public List<Task> ReadAll()//Return a copy of the task list.
+    public Task? Read(Func<Task, bool> filter) // stage 2
     {
-        return new List<Task>(DataSource.Tasks);//Creating a copy and returning it.
+        return DataSource.Tasks.FirstOrDefault(filter);
+    }
+
+    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null) //stage 2
+    {
+        if (filter != null)
+        {
+            return from item in DataSource.Tasks
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Tasks
+               select item;
     }
 
     public void Update(Task item)//Update of an existing task.
@@ -48,7 +60,7 @@ internal class TaskImplementation : ITask
         Task? oldTask=DataSource.Tasks.Find(Task=> Task.Id == item.Id);
         //There is no task that needs to be updated, so there is an exception:
         if (oldTask == null)
-            throw new Exception($"Task with ID={item.Id} dose not exist");
+            throw new DalDoesNotExistException($"Task with ID={item.Id} dose not exist");
         DataSource.Tasks.Remove(oldTask);//Deleting the old task.
         DataSource.Tasks.Add(item);//Adding the new task.
     }

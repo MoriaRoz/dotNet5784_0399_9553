@@ -2,6 +2,7 @@
 namespace Dal;
 using DalApi;
 using DO;
+using System;
 using System.Collections.Generic;
 /// <summary>
 /// 
@@ -19,17 +20,29 @@ internal class DependencyImplementation : IDependency
 
     public void Delete(int id)//Deletion of a dependency with Id=id if it exists and can be deleted.
     {
-        throw new Exception("Dependencies cannot be deleted");// It is not possible to delete a dependency, error.
+        throw new DalDeletionImpossible("Dependencies cannot be deleted");// It is not possible to delete a dependency, error.
     }
 
     public Dependency? Read(int id)//Returning a reference to the dependency with Id=id if it is in the list and null if not.
     {
-        return DataSource.Dependencys.Find(Dependency=>Dependency.Id == id);//Searching for a dependency with id=id and returning the reference to it.
+        return DataSource.Dependencys.FirstOrDefault(Dependency=>Dependency.Id == id);//Searching for a dependency with id=id and returning the reference to it.
     }
 
-    public List<Dependency> ReadAll()//Return a copy of the dependency list.
+    public Dependency? Read(Func<Dependency, bool> filter) // stage 2
     {
-        return new List<Dependency>(DataSource.Dependencys);//Creating a copy and returning it.
+        return DataSource.Dependencys.FirstOrDefault(filter);
+    }
+
+    public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
+    {
+        if (filter != null)
+        {
+            return from item in DataSource.Dependencys
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Dependencys
+               select item;
     }
 
     public void Update(Dependency item)//Update of an existing dependency.
@@ -38,7 +51,7 @@ internal class DependencyImplementation : IDependency
         Dependency? oldDependency = DataSource.Dependencys.Find(Dependency => Dependency.Id == item.Id);
         //There is no dependency that needs to be updated, so there is an exception:
         if (oldDependency == null)
-            throw new Exception($"Dependency with ID={item.Id} dose not exist");
+            throw new DalDoesNotExistException($"Dependency with ID={item.Id} dose not exist");
         DataSource.Dependencys.Remove(oldDependency);//Deleting the old dependency.
         DataSource.Dependencys.Add(item);//Adding the new dependency.
     }
