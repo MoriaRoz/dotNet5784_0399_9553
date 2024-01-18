@@ -42,7 +42,7 @@ namespace DalTest
                         case Entitys.Dependence://3 was inserted, so the function of the dependency is called.
                             MDependency();
                             break;
-                        default://A value was entered that is not between 0 and 3 - exception.
+                        default://A value was entered that is not between 0 and 3 - exception,Throw exception.
                             throw new NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-4");
                     }
                 }
@@ -113,7 +113,7 @@ namespace DalTest
                             s_dal.Engineer.Delete(idD);//deleting the engineer.
                             break;
                         }
-                    default://A value was entered that is not between 0 and 5 - exception.
+                    default://A value was entered that is not between 0 and 5 - exception,Throw exception.
                         throw new NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-5");
                 }
             }
@@ -183,7 +183,7 @@ namespace DalTest
                             s_dal.Task.Delete(idD);//deleting the task.
                             break;
                         }
-                    default://A value was entered that is not between 0 and 5 - exception.
+                    default://A value was entered that is not between 0 and 5 - exception,Throw exception.
                         throw new NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-5");
                 }
             }
@@ -244,7 +244,7 @@ namespace DalTest
                             break;
                         }
 
-                    default://A value was entered that is not between 0 and 4 - exception.
+                    default://A value was entered that is not between 0 and 4 - exception,Throw exception.
                         throw new NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-4");
                 }
             }
@@ -252,27 +252,32 @@ namespace DalTest
         }
 
 
-        static DO.Engineer GetEng(int id = 0)
+        static DO.Engineer GetEng(int id = 0)//A function that receives variables from the user and creates a new engineer.
         {
             if (id == 0)
             {
                 Console.WriteLine("Enter id:");
                 id = int.Parse(Console.ReadLine());
             }
-            Console.WriteLine("Enter his email:");
-            String email = Console.ReadLine();
-            Console.WriteLine("Enter his cost:");
-            double cost = double.Parse(Console.ReadLine());
+
             Console.WriteLine("Enter his name:");
             String name = Console.ReadLine();
+            
+            Console.WriteLine("Enter his email:");
+            String email = Console.ReadLine();
+
             Console.WriteLine("Enter his level:");
             int intLevel = int.Parse(Console.ReadLine());
             LevelEngineer level = (LevelEngineer)intLevel;
+
+            Console.WriteLine("Enter his cost:");
+            double cost = double.Parse(Console.ReadLine());
+            
             DO.Engineer engineer = new(id, name,email, level, cost);
             return engineer;
         }
 
-        static DO.Task GetTask(int id = 0)
+        static DO.Task GetTask(int id = 0)//A function that receives variables from the user and creates a new task.
         {
             Console.WriteLine("enter number between 0 to 4 for level of complexity (Beginner, AdvancedBeginner, Intermediate, Advanced, Expert)");
             int levelInt;
@@ -320,19 +325,20 @@ namespace DalTest
             DO.Task? task = new(0,alias,description,DateTime.Now,requiredEffortTime,isMilestone,level,startDate
                 ,scheduledDate,completeDate,deliverables,remarks,engineerId);
             return task;
-
         }
 
-        static DO.Dependency GetDep(int id = 0)
+        static DO.Dependency GetDep(int id = 0)//A function that receives variables from the user and creates a new dependency.
         {
             DO.Dependency dep = null;
+
             Console.WriteLine("Enter the ID of the task you want to create a dependency for:");
             int dependent = int.Parse(Console.ReadLine());
+
             Console.WriteLine("Enter the ID of the task that the task depends on:");
             int dependsOn = int.Parse(Console.ReadLine());
+
             dep = new(0, dependent, dependsOn);
             return dep;
         }
-
     }
 }
