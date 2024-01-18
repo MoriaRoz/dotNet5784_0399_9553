@@ -37,19 +37,20 @@ internal class EngineerImplementation : IEngineer
 
     public Engineer? Read(Func<Engineer, bool> filter) // stage 2
     {
+        // Use the FirstOrDefault method to retrieve the first engineer satisfying the filter condition.
         return DataSource.Engineers.FirstOrDefault(filter);
     }
 
     public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
     {
         if (filter != null)
-        {
+        { // Apply the filter condition to the engineers in the data source.
             return from item in DataSource.Engineers
                    where filter(item)
                    select item;
         }
         return from item in DataSource.Engineers
-               select item;
+               select item; // If no filter is provided, return all engineers from the data source.
     }
 
     public void Update(Engineer item)//Update of an existing engineer.

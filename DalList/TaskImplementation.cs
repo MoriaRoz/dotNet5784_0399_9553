@@ -38,20 +38,20 @@ internal class TaskImplementation : ITask
     }
 
     public Task? Read(Func<Task, bool> filter) // stage 2
-    {
+    { // Use the FirstOrDefault method to retrieve the first task satisfying the filter condition.
         return DataSource.Tasks.FirstOrDefault(filter);
     }
 
     public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null) //stage 2
     {
         if (filter != null)
-        {
+        { // Apply the filter condition to the tasks in the data source.
             return from item in DataSource.Tasks
                    where filter(item)
                    select item;
         }
         return from item in DataSource.Tasks
-               select item;
+               select item; // If no filter is provided, return all tasks from the data source.
     }
 
     public void Update(Task item)//Update of an existing task.

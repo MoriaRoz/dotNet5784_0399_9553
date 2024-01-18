@@ -30,19 +30,20 @@ internal class DependencyImplementation : IDependency
 
     public Dependency? Read(Func<Dependency, bool> filter) // stage 2
     {
+        // Use the FirstOrDefault method to retrieve the first dependency satisfying the filter condition.
         return DataSource.Dependencys.FirstOrDefault(filter);
     }
 
     public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
     {
         if (filter != null)
-        {
+        {  // Apply the filter condition to the dependencies in the data source.
             return from item in DataSource.Dependencys
                    where filter(item)
                    select item;
         }
         return from item in DataSource.Dependencys
-               select item;
+               select item; // If no filter is provided, return all dependencies from the data source.
     }
 
     public void Update(Dependency item)//Update of an existing dependency.
