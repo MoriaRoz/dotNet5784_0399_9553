@@ -28,3 +28,8 @@ public class NumberOutOfRangeException : Exception
 {
     public NumberOutOfRangeException(string? message) : base(message) { }
 }
+[Serializable] //Exceeding the number outside the requested range.
+public class DalXMLFileLoadCreateException : Exception
+{
+    public DalXMLFileLoadCreateException(string? message) : base(message) { }
+}
