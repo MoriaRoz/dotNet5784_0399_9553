@@ -50,7 +50,7 @@ internal class EngineerImplementation : IEngineer
                    select item;
         }
         return from item in DataSource.Engineers
-               select item; // If no filter is provided, return all engineers from the data source.
+               select item; // If no filter is provided, return all engineers from the data source
     }
 
     public void Update(Engineer item)//Update of an existing engineer.
