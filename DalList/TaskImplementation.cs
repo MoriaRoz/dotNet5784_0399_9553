@@ -27,8 +27,6 @@ internal class TaskImplementation : ITask
             throw new DalDeletionImpossible($"Task with ID={id} dose not exist");
         if (toDel.CompleteDate == null)//Task not completed, error.
             throw new DalDeletionImpossible($"Task with ID={id} already scheduled");
-        if (DataSource.Dependencys.Find(Dependency => Dependency.DependsOnTask == id) != null)//There are tasks that depend on the task, error.
-            throw new DalDeletionImpossible($"Task with ID={id} cannot be deleted because there are other tasks that depend on it");
         DataSource.Tasks.Remove(toDel);//Deleting the task.
     }
 
