@@ -191,10 +191,10 @@ public static class Initialization
             s_dal!.Dependency.Create(newDep);
         }
     }
-    public static void Do(IDal dal)
+    public static void Do()
     {
-       
-        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
+
+        s_dal = DalApi.Factory.Get; //stage 4
         createEngineer();
         createTask();
         createDependency();
