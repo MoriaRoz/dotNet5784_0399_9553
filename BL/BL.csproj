@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
@@ -14,10 +14,5 @@
 	  <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
 	  <ProjectReference Include="..\DalList\DalList.csproj" />
 	  <ProjectReference Include="..\DalXml\DalXml.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="BO\" />
-	  <Folder Include="BlApi\" />
-	  <Folder Include="BlImplementation\" />
 	</ItemGroup>
 </Project>
