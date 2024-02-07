@@ -2,11 +2,11 @@
 using DalApi;
 using System.Diagnostics;
 
-sealed internal class DalXml : IDal
-{
+sealed public class DalXml : IDal
+{ 
     public static IDal Instance { get; } = new DalXml();
     private DalXml() { }
-    public IEngineer Engineer => throw new NotImplementedException();
-    public ITask Task => throw new NotImplementedException();
-    public IDependency Dependency => throw new NotImplementedException();
+    public IEngineer Engineer => new EngineerImplementation();
+    public ITask Task => new TaskImplementation();
+    public IDependency Dependency => new DependencyImplementation();
 }
