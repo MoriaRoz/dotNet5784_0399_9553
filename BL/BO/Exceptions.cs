@@ -46,5 +46,9 @@ internal class Exceptions
     {
         public BlNullPropertyException(string? message) : base(message) { }
     }
-
+    [Serializable]
+    public class BlInvalidValueException : Exception
+    {
+        public BlInvalidValueException(string? message) : base(message) { }
+    }
 }

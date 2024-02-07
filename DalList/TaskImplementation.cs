@@ -14,7 +14,7 @@ internal class TaskImplementation : ITask
         int idNew = DataSource.Config.NextTaskId;//ID for the new task.
         //Creating a new task with the new ID and values from 'item':
         Task task = new Task(idNew,item.Alias,item.Description,item.CreatedAtDate,
-            item.RequiredEffortTime,item.IsMilestone,item.Complexity,item.StartDate,
+            item.RequiredEffortTime,item.Complexity,item.StartDate,
             item.DeadlineDate,item.CompleteDate,item.Deliverables,item.Remarks,item.EngineerId);
         DataSource.Tasks.Add(task);//Adding the new task to the list.
         return idNew;//Returning the task ID.

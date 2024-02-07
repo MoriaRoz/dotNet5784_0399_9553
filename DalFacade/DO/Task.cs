@@ -24,7 +24,6 @@ public record Task
     string? Description = null,
     DateTime CreatedAtDate = default,
     TimeSpan? RequiredEffortTime = null,
-    bool IsMilestone = false,
     LevelEngineer Complexity = LevelEngineer.Beginner,
     DateTime? StartDate = null,
     DateTime? DeadlineDate = null,
@@ -35,5 +34,5 @@ public record Task
 )
 {
     //Empty constructor
-    public Task() : this (0, null, null, default, null,false, LevelEngineer.Beginner, null, null, null, null, null, null) { }
+    public Task() : this (0, null, null, default, null, LevelEngineer.Beginner, null, null, null, null, null, null) { }
 }
