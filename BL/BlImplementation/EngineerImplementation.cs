@@ -25,9 +25,9 @@ internal class EngineerImplementation : BlApi.IEngineer
     public int Create(BO.Engineer boEng)
     {
         if (boEng == null)
-            throw new BO.Exceptions.BlNullPropertyException("Enigneer is null");
+            throw new BO.BlNullPropertyException("Enigneer is null");
         if (!EngineerCheck(boEng))
-            throw new BO.Exceptions.BlInvalidValueException("An engineer with an invalid value was entered");
+            throw new BO.BlInvalidValueException("An engineer with an invalid value was entered");
         DO.Engineer doEng = new DO.Engineer
     (boEng.Id, boEng.Name, boEng.Email, (DO.LevelEngineer)boEng.Level, boEng.Cost);
         try
@@ -37,7 +37,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.Exceptions.BlDalAlreadyExistsException($"Enigneer with ID={boEng.Id} already exists", ex);
+            throw new BO.BlDalAlreadyExistsException($"Enigneer with ID={boEng.Id} already exists", ex);
         }
     }
     /// <summary>
@@ -56,7 +56,7 @@ internal class EngineerImplementation : BlApi.IEngineer
                 BO.Task? engTask = taskImplementation.Read(boEng.Task.Id);
                 if (engTask != null)
                     if (engTask.Status == BO.Statuses.Started || engTask.Status == BO.Statuses.Done)
-                        throw new BO.Exceptions.BlDalDeletionImpossible("Can not delete engineer that is currently working on a task");
+                        throw new BO.BlDalDeletionImpossible("Can not delete engineer that is currently working on a task");
             }
             try
             {
@@ -64,7 +64,7 @@ internal class EngineerImplementation : BlApi.IEngineer
             }
             catch (DO.DalDoesNotExistException ex)
             {
-                throw new BO.Exceptions.BlDoesNotExistException($"Engineer with ID={id} does not exist", ex);
+                throw new BO.BlDoesNotExistException($"Engineer with ID={id} does not exist", ex);
             }
         }
     }
@@ -78,7 +78,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         DO.Engineer? doEng = _dal.Engineer.Read(id);
         if (doEng == null)
-            throw new BO.Exceptions.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
+            throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
 
         return new BO.Engineer()
         {
@@ -119,15 +119,15 @@ internal class EngineerImplementation : BlApi.IEngineer
     public void Update(BO.Engineer boEng)
     {
         if (boEng == null)
-            throw new BO.Exceptions.BlNullPropertyException("Enigneer to update is null");
+            throw new BO.BlNullPropertyException("Enigneer to update is null");
         if (!EngineerCheck(boEng))
-            throw new BO.Exceptions.BlInvalidValueException("An engineer with an invalid value was entered");
+            throw new BO.BlInvalidValueException("An engineer with an invalid value was entered");
 
         DO.Engineer? doEng = _dal.Engineer.Read(boEng.Id);
         if (doEng == null)
-            throw new BO.Exceptions.BlDoesNotExistException($"Engineer with ID={boEng!.Id} does Not exist");
+            throw new BO.BlDoesNotExistException($"Engineer with ID={boEng!.Id} does Not exist");
         if (doEng.Level > (DO.LevelEngineer)boEng.Level)
-            throw new BO.Exceptions.BlInvalidValueException("You cannot lower the level of the engineer");
+            throw new BO.BlInvalidValueException("You cannot lower the level of the engineer");
         try
         {
             _dal.Engineer.Update(doEng);
@@ -135,11 +135,11 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.Exceptions.BlDalAlreadyExistsException($"Engineer with ID={boEng!.Id} already exists", ex);
+            throw new BO.BlDalAlreadyExistsException($"Engineer with ID={boEng!.Id} already exists", ex);
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.Exceptions.BlDoesNotExistException($"Engineer with ID={boEng!.Id} does Not exist", ex);
+            throw new BO.BlDoesNotExistException($"Engineer with ID={boEng!.Id} does Not exist", ex);
         }
     }
     /// <summary>
@@ -192,16 +192,16 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         DO.Task? doTask = _dal.Task.Read(taskE.Id);
         if (doTask == null)
-            throw new BO.Exceptions.BlDoesNotExistException("");
+            throw new BO.BlDoesNotExistException("");
         if (doTask.EngineerId != engId || doTask.EngineerId != null)
-            throw new BO.Exceptions.BlInvalidValueException("");
+            throw new BO.BlInvalidValueException("");
         BO.Task task = taskImplementation.Read(doTask.Id);
         if (task.Dependencies != null)
         {
             var tIL = task.Dependencies.Where(taskDep => taskDep.Status != BO.Statuses.Done).FirstOrDefault();
 
             if (tIL != null)
-                throw new BO.Exceptions.BlInvalidValueException($"The task with ID={taskE.Id} depends on the unfinished tasks");
+                throw new BO.BlInvalidValueException($"The task with ID={taskE.Id} depends on the unfinished tasks");
         }
 
         _dal.Task.Update(new DO.Task()

@@ -10,6 +10,7 @@ internal static class DataSource
 {
     internal static class Config //class that creates automatic running numbers.
     {
+        
         internal const int startDependencyId = 0;//initial value of the running number of dependency.
         private static int nextDependencyId = startDependencyId;//The ID value of the last added dependency.
         internal static int NextDependencyId { get => nextDependencyId++; }//Advancing the running number by 1 for the new dependency.

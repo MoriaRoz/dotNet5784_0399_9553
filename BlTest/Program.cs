@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BO;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace BlTest
     public enum Actions { Exit = 0, Create, Read, ReadAll, Update, Delete };
     internal class Program
     {
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        static readonly IBl s_bl = Factory.Get();
         static void Main(string[] args)
         {
             try
@@ -42,7 +43,7 @@ namespace BlTest
                             MTask();
                             break;
                         default://A value was entered that is not between 0 and 3 - exception,Throw exception.
-                            throw new BO.Exceptions.NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-4");
+                            throw new BO.BlNumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-4");
                     }
                 }
                 while (entity != Entitys.Exit);
@@ -82,14 +83,14 @@ namespace BlTest
                             int idR = int.Parse(Console.ReadLine());//getting the id.
                             newE = s_bl.Engineer.Read(idR);//copy of the engineer if exists and null if not.
                             if (newE == null)//The engineer does not exist in the list - throwing an exception.
-                                throw new BO.Exceptions.DalDoesNotExistException($"The engineer with the ID-{idR} does not exist");
+                                throw new BO.BlDoesNotExistException($"The engineer with the ID-{idR} does not exist");
                             Console.WriteLine(newE);//print the engineer.
                             break;
                         }
                     case Actions.ReadAll:// 3 was entered, so we will print all the engineers that exist in the list.
                         {
                             var listEng = s_bl.Engineer.ReadAll();//Creating a copy to the list of engineers.
-                            foreach (DO.Engineer engineer in listEng)//Go through all the engineers in the list.
+                            foreach (BO.Engineer engineer in listEng)//Go through all the engineers in the list.
                                 Console.WriteLine(engineer);//print the engineer.
                             break;
                         }
@@ -97,8 +98,8 @@ namespace BlTest
                         {
                             Console.WriteLine("Enter the ID of the engineer you would like to update: ");//print message insert id.
                             int idU = int.Parse(Console.ReadLine());//getting the id.
-                            if (BO.Engineer.Read(idU) == null)//The engineer does not exist in the list - throwing an exception.
-                                throw new BO.Exceptions.DalDoesNotExistException("There is no engineer with ID-" + idU);
+                            if (s_bl.Engineer.Read(idU) == null)//The engineer does not exist in the list - throwing an exception.
+                                throw new BO.BlDoesNotExistException("There is no engineer with ID-" + idU);
                             BO.Engineer upEng = GetEng(idU);//The engineer exists, a call to a function that will receive the rest of its values except for the id.
                             s_bl.Engineer.Update(upEng);//Update the engineer with the new values.
                             break;
@@ -108,12 +109,12 @@ namespace BlTest
                             Console.WriteLine("Enter the ID of the engineer you would like to delete: ");//print message insert id.
                             int idD = int.Parse(Console.ReadLine());//getting the id.
                             if (s_bl.Engineer.Read(idD) == null)//The engineer does not exist in the list - throwing an exception.
-                                throw new BO.Exceptions.DalDeletionImpossible("There is no engineer with ID-" + idD);
+                                throw new BO.BlDalDeletionImpossible("There is no engineer with ID-" + idD);
                             s_bl.Engineer.Delete(idD);//deleting the engineer.
                             break;
                         }
                     default://A value was entered that is not between 0 and 5 - exception,Throw exception.
-                        throw new BO.Exceptions.NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-5");
+                        throw new BO.BlNumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-5");
                 }
             }
             while (action != 0);//The loop will run as long as we didn't get 0.
@@ -152,14 +153,14 @@ namespace BlTest
                             int idR = int.Parse(Console.ReadLine());//getting the id.
                             newT = s_bl.Task.Read(idR);//copy of the task if exists and null if not.
                             if (newT == null)//The task does not exist in the list - throwing an exception.
-                                throw new BO.Exceptions.DalDoesNotExistException($"The task with the ID-{idR} does not exist");
+                                throw new BO.BlDoesNotExistException($"The task with the ID-{idR} does not exist");
                             Console.WriteLine(newT);//print the task.
                             break;
                         }
                     case Actions.ReadAll:// 3 was entered, so we will print all the task that exist in the list.
                         {
                             var listTask = s_bl.Task.ReadAll();//Creating a copy to the list of task.
-                            foreach (BO.Task task in listTask)//Go through all the task in the list.
+                            foreach (BO.TaskInList task in listTask)//Go through all the task in the list.
                                 Console.WriteLine(task);//print the task.
                             break;
                         }
@@ -168,7 +169,7 @@ namespace BlTest
                             Console.WriteLine("Enter the ID of the task you would like to update: ");//print message insert id.
                             int idU = int.Parse(Console.ReadLine());//getting the id.
                             if (s_bl.Task.Read(idU) == null)//The task does not exist in the list - throwing an exception.
-                                throw new BO.Exceptions.DalDoesNotExistException("There is no task with ID-" + idU);
+                                throw new BO.BlDoesNotExistException("There is no task with ID-" + idU);
                             BO.Task upTask = GetTask(idU);//The task exists, a call to a function that will receive the rest of its values except for the id.
                             s_bl.Task.Update(upTask);//Update the task with the new values.
                             break;
@@ -178,12 +179,12 @@ namespace BlTest
                             Console.WriteLine("Enter the ID of the task you would like to delete: ");//print message insert id.
                             int idD = int.Parse(Console.ReadLine());//getting the id.
                             if (s_bl.Task.Read(idD) == null)//The task does not exist in the list - throwing an exception.
-                                throw new BO.Exceptions.DalDeletionImpossible("There is no task with ID-" + idD);
+                                throw new BO.BlDalDeletionImpossible("There is no task with ID-" + idD);
                             s_bl.Task.Delete(idD);//deleting the task.
                             break;
                         }
                     default://A value was entered that is not between 0 and 5 - exception,Throw exception.
-                        throw new BO.Exceptions.NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-5");
+                        throw new BO.BlNumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-5");
                 }
             }
             while (action != 0);//The loop will run as long as we didn't get 0.
@@ -204,7 +205,7 @@ namespace BlTest
 
             Console.WriteLine("Enter his level:");
             int intLevel = int.Parse(Console.ReadLine());
-            LevelEngineer level = (LevelEngineer)intLevel;
+            BO.LevelEngineer level = (BO.LevelEngineer)intLevel;
 
             Console.WriteLine("Enter his cost:");
             double cost = double.Parse(Console.ReadLine());
@@ -218,7 +219,7 @@ namespace BlTest
             Console.WriteLine("enter number between 0 to 4 for level of complexity (Beginner, AdvancedBeginner, Intermediate, Advanced, Expert)");
             int levelInt;
             int.TryParse(Console.ReadLine(), out levelInt);
-            LevelEngineer level = (LevelEngineer)levelInt;
+            BO.LevelEngineer level = (BO.LevelEngineer)levelInt;
 
             Console.WriteLine("enter alias:");
             string? description = Console.ReadLine();

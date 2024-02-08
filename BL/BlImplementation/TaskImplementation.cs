@@ -25,9 +25,9 @@ internal class TaskImplementation : ITask
     public int Create(BO.Task boTask)
     {
         if (boTask == null)
-            throw new BO.Exceptions.BlNullPropertyException("Task is null");
+            throw new BO.BlNullPropertyException("Task is null");
         if (!TaskCheck(boTask))
-            throw new BO.Exceptions.BlInvalidValueException("An task with an invalid value was entered");
+            throw new BO.BlInvalidValueException("An task with an invalid value was entered");
 
         DO.Task doTask = new DO.Task(boTask.Id, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.RequiredEffortTime,
             (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
@@ -42,7 +42,7 @@ internal class TaskImplementation : ITask
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.Exceptions.BlDalAlreadyExistsException($"Task with ID={boTask.Id} already exists", ex);
+            throw new BO.BlDalAlreadyExistsException($"Task with ID={boTask.Id} already exists", ex);
         }
     }
 
@@ -65,7 +65,7 @@ internal class TaskImplementation : ITask
             var depend = dependenceis.Where(d => d.DependsOnTask == id).Select(p => p).FirstOrDefault();
 
             if (depend != null)
-                throw new BO.Exceptions.BlDalDeletionImpossible($"There is a task that depends on the task with ID={doTask.Id} so it cannot be deleted.");
+                throw new BO.BlDalDeletionImpossible($"There is a task that depends on the task with ID={doTask.Id} so it cannot be deleted.");
             else
             {
                 try
@@ -74,7 +74,7 @@ internal class TaskImplementation : ITask
                 }
                 catch (DO.DalDoesNotExistException ex)
                 {
-                    throw new BO.Exceptions.BlDoesNotExistException($"Task with ID={id} does not exist", ex);
+                    throw new BO.BlDoesNotExistException($"Task with ID={id} does not exist", ex);
                 }
             }
         }
@@ -89,7 +89,7 @@ internal class TaskImplementation : ITask
     {
         DO.Task? doTask = _dal.Task.Read(id);
         if (doTask == null)
-            throw new BO.Exceptions.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
+            throw new BO.BlDoesNotExistException($"Engineer with ID={id} does Not exist");
         return new BO.Task()
         {
             Id = doTask.Id,
@@ -155,14 +155,14 @@ internal class TaskImplementation : ITask
         {
             var startDates = boTask.Dependencies.Where(t => t.Status == BO.Statuses.Scheduled).ToList();
             if (startDates.Any())
-                throw new BO.Exceptions.BlUnUpdatedTaskStartDate($"There is a task that the task with ID={id} depends on that has no prep start date");
+                throw new BO.BlUnUpdatedTaskStartDate($"There is a task that the task with ID={id} depends on that has no prep start date");
 
             var depTasks = (from BO.TaskInList depTask in boTask.Dependencies
                             let task= _dal.Task.Read(depTask.Id)
                             select task);
             var endDates = depTasks.Where(t => start<t.DeadlineDate).ToList();
             if (endDates.Any())
-                throw new BO.Exceptions.BlUnUpdatedTaskStartDate($"The given date is earlier than the deadline date of the task that the task with ID={id} depends on");
+                throw new BO.BlUnUpdatedTaskStartDate($"The given date is earlier than the deadline date of the task that the task with ID={id} depends on");
             DO.Task? doTask=new DO.Task
             {
                 Id = boTask.Id,
@@ -185,11 +185,11 @@ internal class TaskImplementation : ITask
             }
             catch (DO.DalAlreadyExistsException ex)
             {
-                throw new BO.Exceptions.BlDalAlreadyExistsException($"Task with ID={boTask!.Id} already exists", ex);
+                throw new BO.BlDalAlreadyExistsException($"Task with ID={boTask!.Id} already exists", ex);
             }
             catch (DO.DalDoesNotExistException ex)
             {
-                throw new BO.Exceptions.BlDoesNotExistException($"Task with ID={boTask!.Id} does Not exist", ex);
+                throw new BO.BlDoesNotExistException($"Task with ID={boTask!.Id} does Not exist", ex);
             }
         }
     }
@@ -204,13 +204,13 @@ internal class TaskImplementation : ITask
     public void Update(BO.Task boTask)
     {
         if (boTask == null)
-            throw new BO.Exceptions.BlNullPropertyException("Task to update is null");
+            throw new BO.BlNullPropertyException("Task to update is null");
         if (!TaskCheck(boTask))
-            throw new BO.Exceptions.BlInvalidValueException("An task with an invalid value was entered");
+            throw new BO.BlInvalidValueException("An task with an invalid value was entered");
 
         DO.Task? doTask = _dal.Task.Read(boTask.Id);
         if (doTask == null)
-            throw new BO.Exceptions.BlDoesNotExistException($"Task with ID={boTask!.Id} does Not exist");
+            throw new BO.BlDoesNotExistException($"Task with ID={boTask!.Id} does Not exist");
         
         try
         {
@@ -218,11 +218,11 @@ internal class TaskImplementation : ITask
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.Exceptions.BlDalAlreadyExistsException($"Task with ID={boTask!.Id} already exists", ex);
+            throw new BO.BlDalAlreadyExistsException($"Task with ID={boTask!.Id} already exists", ex);
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.Exceptions.BlDoesNotExistException($"Task with ID={boTask!.Id} does Not exist", ex);
+            throw new BO.BlDoesNotExistException($"Task with ID={boTask!.Id} does Not exist", ex);
         }
     }
     // Private methods...

@@ -11,4 +11,4 @@ public enum Statuses { Unscheduled, Scheduled, Started, Done };//InJeopardy
 /// <summary>
 /// Represents the status of a project.
 /// </summary>
-public enum ProjectStatus { Planning, Intermediate, Execution };
+public enum ProjectStatus { Inlanning, Intermediate, InExecution };
