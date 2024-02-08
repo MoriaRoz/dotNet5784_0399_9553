@@ -1,6 +1,6 @@
 ﻿
-//namespace BO;
+namespace BO;
 
-//public enum LevelEngineer { Beginner, AdvancedBeginner, Intermediate, Advanced, Expert, None};
-//public enum Statuses {Unscheduled, Scheduled, Started, Done};//InJeopardy
-//public enum ProjectStatus { Planning, Intermediate, Execution };
+public enum LevelEngineer { Beginner, AdvancedBeginner, Intermediate, Advanced, Expert, None };
+public enum Statuses { Unscheduled, Scheduled, Started, Done };//InJeopardy
+public enum ProjectStatus { Planning, Intermediate, Execution };

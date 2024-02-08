@@ -129,6 +129,8 @@ public static class Initialization
             }
 
             DateTime? _startDate = null;
+
+            DateTime? _scheduledDate = null;
             
             DateTime? _completeDate = null;
             
@@ -146,7 +148,7 @@ public static class Initialization
             while (en != null && en.Level >= _complexity);
 
             Task newTa = new Task(0,_name,_description,_createdAtDate,
-                _requiredEffortTime,_complexity,_startDate,
+                _requiredEffortTime,_complexity,_startDate, _scheduledDate,
                 _deadlineDate,_completeDate,_deliverables,_remarks,_engineerId);
             s_dal!.Task.Create(newTa);
             i++;

@@ -308,6 +308,10 @@ namespace DalTest
             DateTime? scheduledDate;
             scheduledDate = DateTime.TryParse(Console.ReadLine(), out date) ? date : null;
 
+            Console.WriteLine("enter deadline date:");
+            DateTime? deadlineDate;
+            deadlineDate = DateTime.TryParse(Console.ReadLine(), out date) ? date : null;
+
             Console.WriteLine("enter complete date");
             DateTime? completeDate;
             completeDate = DateTime.TryParse(Console.ReadLine(), out date) ? date : null;
@@ -324,7 +328,7 @@ namespace DalTest
             engineerId = int.TryParse(Console.ReadLine(), out engId) ? engId : null;
 
             DO.Task? task = new DO.Task(0,alias,description,DateTime.Now,requiredEffortTime,level,startDate
-                ,scheduledDate,completeDate,deliverables,remarks,engineerId);
+                ,scheduledDate, deadlineDate, completeDate,deliverables,remarks,engineerId);
             return task;
         }
 

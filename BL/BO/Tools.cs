@@ -1,6 +1,8 @@
 ﻿
-//namespace BO;
-
-//internal class Tools
-//{
-//}
+namespace BO;
+/// <summary>
+/// 
+/// </summary>
+internal class Tools
+{
+}
