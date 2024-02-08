@@ -107,8 +107,6 @@ public static class Initialization
 
             TimeSpan? _requiredEffortTime=_deadlineDate-_createdAtDate; //requiredEffortTime - the end date minus the creation time
 
-            bool _isMilestone = false;
-
             LevelEngineer _complexity = LevelEngineer.Beginner; //Level adjustment for each task at random
             int _compNum = rnd.Next(0, 5);
             switch (_compNum)
@@ -131,6 +129,8 @@ public static class Initialization
             }
 
             DateTime? _startDate = null;
+
+            DateTime? _scheduledDate = null;
             
             DateTime? _completeDate = null;
             
@@ -148,7 +148,7 @@ public static class Initialization
             while (en != null && en.Level >= _complexity);
 
             Task newTa = new Task(0,_name,_description,_createdAtDate,
-                _requiredEffortTime,_isMilestone,_complexity,_startDate,
+                _requiredEffortTime,_complexity,_startDate, _scheduledDate,
                 _deadlineDate,_completeDate,_deliverables,_remarks,_engineerId);
             s_dal!.Task.Create(newTa);
             i++;

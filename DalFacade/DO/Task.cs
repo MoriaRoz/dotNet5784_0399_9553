@@ -9,7 +9,6 @@ namespace DO;
 /// <param name="Description">Description of the task</param>
 /// <param name="CreatedAtDate">Date and time when the task was created</param>
 /// <param name="RequiredEffortTime">Estimated effort time required for the task</param>
-/// <param name="IsMilestone">Indicates whether the task is a milestone</param>
 /// <param name="Complexity">The level of complexity of the task - that is, what is the minimum level of an engineer who can work on it</param>
 /// <param name="StartDate">Start date of the task</param>
 /// <param name="DeadlineDate">Deadline for completing the task</param>
@@ -24,9 +23,9 @@ public record Task
     string? Description = null,
     DateTime CreatedAtDate = default,
     TimeSpan? RequiredEffortTime = null,
-    bool IsMilestone = false,
     LevelEngineer Complexity = LevelEngineer.Beginner,
     DateTime? StartDate = null,
+    DateTime? ScheduledDate = null,
     DateTime? DeadlineDate = null,
     DateTime? CompleteDate = null,
     string? Deliverables = null,
@@ -35,5 +34,5 @@ public record Task
 )
 {
     //Empty constructor
-    public Task() : this (0, null, null, default, null,false, LevelEngineer.Beginner, null, null, null, null, null, null) { }
+    public Task() : this(0, null, null, default, null, LevelEngineer.Beginner, null, null, null, null, null, null) { }
 }

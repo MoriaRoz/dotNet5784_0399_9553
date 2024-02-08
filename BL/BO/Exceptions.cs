@@ -28,7 +28,7 @@ internal class Exceptions
         public BlDalDeletionImpossible(string? message) : base(message) { }
         public BlDalDeletionImpossible(string message, Exception innerException) : base(message, innerException) { }
     }
-        [Serializable] //Exceeding the number outside the requested range.
+    [Serializable] //Exceeding the number outside the requested range.
     public class BlNumberOutOfRangeException : Exception
     {
         public BlNumberOutOfRangeException(string? message) : base(message) { }
@@ -46,5 +46,14 @@ internal class Exceptions
     {
         public BlNullPropertyException(string? message) : base(message) { }
     }
-
+    [Serializable]
+    public class BlInvalidValueException : Exception
+    {
+        public BlInvalidValueException(string? message) : base(message) { }
+    }
+    [Serializable]
+    public class BlUnUpdatedTaskStartDate : Exception
+    {
+        public BlUnUpdatedTaskStartDate(string? message) : base(message) { }
+    }
 }

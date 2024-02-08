@@ -299,9 +299,6 @@ namespace DalTest
             TimeSpan time;
             requiredEffortTime = TimeSpan.TryParse(Console.ReadLine(), out time) ? time : null;
 
-            Console.WriteLine("enter true if task is milestone, otherwise false");
-            bool isMilestone = bool.Parse(Console.ReadLine());
-
             Console.WriteLine("enter start date:");
             DateTime? startDate;
             DateTime date;
@@ -310,6 +307,10 @@ namespace DalTest
             Console.WriteLine("enter scheduled date:");
             DateTime? scheduledDate;
             scheduledDate = DateTime.TryParse(Console.ReadLine(), out date) ? date : null;
+
+            Console.WriteLine("enter deadline date:");
+            DateTime? deadlineDate;
+            deadlineDate = DateTime.TryParse(Console.ReadLine(), out date) ? date : null;
 
             Console.WriteLine("enter complete date");
             DateTime? completeDate;
@@ -326,8 +327,8 @@ namespace DalTest
             int engId;
             engineerId = int.TryParse(Console.ReadLine(), out engId) ? engId : null;
 
-            DO.Task? task = new(0,alias,description,DateTime.Now,requiredEffortTime,isMilestone,level,startDate
-                ,scheduledDate,completeDate,deliverables,remarks,engineerId);
+            DO.Task? task = new DO.Task(0,alias,description,DateTime.Now,requiredEffortTime,level,startDate
+                ,scheduledDate, deadlineDate, completeDate,deliverables,remarks,engineerId);
             return task;
         }
 
