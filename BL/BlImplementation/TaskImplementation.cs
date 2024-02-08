@@ -1,7 +1,4 @@
 ﻿
-using BO;
-using DalApi;
-
 namespace BlImplementation;
 
 using BlApi;
@@ -10,19 +7,21 @@ using DO;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 /// <summary>
-/// 
+/// Implementation of the task management functionality.
 /// </summary>
 internal class TaskImplementation : ITask
 {
+    
+
     private DalApi.IDal _dal = DalApi.Factory.Get;
     /// <summary>
-    /// 
+    /// Creates a new task.
     /// </summary>
-    /// <param name="boTask"></param>
-    /// <returns></returns>
-    /// <exception cref="BO.Exceptions.BlNullPropertyException"></exception>
-    /// <exception cref="BO.Exceptions.BlInvalidValueException"></exception>
-    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException"></exception>
+    /// <param name="boTask">The task object to create.</param>
+    /// <returns>The ID of the newly created task.</returns>
+    /// <exception cref="BO.Exceptions.BlNullPropertyException">Thrown when the task object is null.</exception>
+    /// <exception cref="BO.Exceptions.BlInvalidValueException">Thrown when an invalid value is encountered in the task object.</exception>
+    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException">Thrown when trying to create a task that already exists.</exception>    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException"></exception>
     public int Create(BO.Task boTask)
     {
         if (boTask == null)
@@ -46,12 +45,13 @@ internal class TaskImplementation : ITask
             throw new BO.Exceptions.BlDalAlreadyExistsException($"Task with ID={boTask.Id} already exists", ex);
         }
     }
+
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="id"></param>
-    /// <exception cref="BO.Exceptions.BlDalDeletionImpossible"></exception>
-    /// <exception cref="BO.Exceptions.BlDoesNotExistException"></exception>
+    /// Deletes a task with the given ID.
+       /// </summary>
+    /// <param name="id">The ID of the task to delete.</param>
+    /// <exception cref="BO.Exceptions.BlDalDeletionImpossible">Thrown when the task cannot be deleted due to dependencies.</exception>
+    /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when trying to delete a non-existing task.</exception>
     public void Delete(int id)
     {
         BO.Task? boTask = Read(id);
@@ -80,11 +80,11 @@ internal class TaskImplementation : ITask
         }
     }
     /// <summary>
-    /// 
+    /// Reads a task with the given ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    /// <exception cref="BO.Exceptions.BlDoesNotExistException"></exception>
+    /// <param name="id">The ID of the task to read.</param>
+    /// <returns>The task object if found; otherwise, null.</returns>
+   /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when the task with the given ID does not exist.</exception>
     public BO.Task? Read(int id)
     {
         DO.Task? doTask = _dal.Task.Read(id);
@@ -111,10 +111,10 @@ internal class TaskImplementation : ITask
         };
     }
     /// <summary>
-    /// 
+    /// Reads all tasks.
     /// </summary>
-    /// <param name="filter"></param>
-    /// <returns></returns>
+    /// <param name="filter">Optional filter function to apply.</param>
+    /// <returns>An enumerable collection of task objects.</returns>
     public IEnumerable<TaskInList> ReadAll(Func<BO.Task, bool>? filter = null)
     {
         if (filter != null)
@@ -141,13 +141,13 @@ internal class TaskImplementation : ITask
             });
     }
     /// <summary>
-    /// 
+    /// Updates the start date of a task with the given ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="start"></param>
-    /// <exception cref="BO.Exceptions.BlUnUpdatedTaskStartDate"></exception>
-    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException"></exception>
-    /// <exception cref="BO.Exceptions.BlDoesNotExistException"></exception>
+    /// <param name="id">The ID of the task to update.</param>
+    /// <param name="start">The new start date for the task.</param>
+    /// <exception cref="BO.Exceptions.BlUnUpdatedTaskStartDate">Thrown when the start date update violates task dependencies or deadlines.</exception>
+    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException">Thrown when trying to update a task that already exists.</exception>
+    /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when trying to update a non-existing task.</exception>
     public void StartDateUpdate(int id, DateTime start)
     {
        BO.Task? boTask=Read(id);
@@ -194,13 +194,13 @@ internal class TaskImplementation : ITask
         }
     }
     /// <summary>
-    /// 
+    /// Updates a task.
     /// </summary>
-    /// <param name="boTask"></param>
-    /// <exception cref="BO.Exceptions.BlNullPropertyException"></exception>
-    /// <exception cref="BO.Exceptions.BlInvalidValueException"></exception>
-    /// <exception cref="BO.Exceptions.BlDoesNotExistException"></exception>
-    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException"></exception>
+    /// <param name="boTask">The task object to update.</param>
+    /// <exception cref="BO.Exceptions.BlNullPropertyException">Thrown when the task object to update is null.</exception>
+    /// <exception cref="BO.Exceptions.BlInvalidValueException">Thrown when an invalid value is encountered in the task object.</exception>
+    /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when the task to update does not exist.</exception>
+    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException">Thrown when trying to update a task that already exists.</exception>
     public void Update(BO.Task boTask)
     {
         if (boTask == null)
@@ -225,11 +225,13 @@ internal class TaskImplementation : ITask
             throw new BO.Exceptions.BlDoesNotExistException($"Task with ID={boTask!.Id} does Not exist", ex);
         }
     }
+    // Private methods...
+
     /// <summary>
-    /// 
+    /// Checks if a task object is valid.
     /// </summary>
-    /// <param name="boTask"></param>
-    /// <returns></returns>
+    /// <param name="boTask">The task object to check.</param>
+    /// <returns>True if the task is valid; otherwise, false.</returns>
     bool TaskCheck(BO.Task boTask)
     {
         if (boTask.Id < 0)
@@ -239,10 +241,10 @@ internal class TaskImplementation : ITask
         return true;
     }
     /// <summary>
-    /// 
+    /// Adds dependencies to a task.
     /// </summary>
-    /// <param name="dependencyList"></param>
-    /// <param name="taskId"></param>
+    /// <param name="dependencyList">The list of dependencies to add.</param>
+    /// <param name="taskId">The ID of the task to which dependencies will be added.</param>
     void AddDependencys(List<BO.TaskInList>? dependencyList, int taskId)
     {
         var dependencys = (from taskInList in dependencyList
@@ -257,6 +259,11 @@ internal class TaskImplementation : ITask
                                a = _dal.Dependency.Create(dep)
                            });
     }
+    /// <summary>
+    /// Calculates the status of a task based on its properties.
+    /// </summary>
+    /// <param name="doTask">The task object to calculate the status for.</param>
+    /// <returns>The status of the task.</returns>
     Statuses StatusCalculation(DO.Task doTask)
     {
         if(doTask.ScheduledDate!=null)

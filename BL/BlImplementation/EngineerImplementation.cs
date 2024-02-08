@@ -8,20 +8,20 @@ using DO;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 /// <summary>
-/// 
+/// Implementation of engineers.
 /// </summary>
 internal class EngineerImplementation : BlApi.IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private BlImplementation.TaskImplementation taskImplementation = new BlImplementation.TaskImplementation();
     /// <summary>
-    /// 
+    /// Creates a new engineer in the system.
     /// </summary>
-    /// <param name="boEng"></param>
-    /// <returns></returns>
-    /// <exception cref="BO.Exceptions.BlNullPropertyException"></exception>
-    /// <exception cref="BO.Exceptions.BlInvalidValueException"></exception>
-    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException"></exception>
+    /// <param name="boEng">The engineer object to create.</param>
+    /// <returns>The ID of the newly created engineer.</returns>
+    /// <exception cref="BO.Exceptions.BlNullPropertyException">Thrown when the engineer object is null.</exception>
+    /// <exception cref="BO.Exceptions.BlInvalidValueException">Thrown when the engineer object contains invalid values.</exception>
+    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException">Thrown when trying to create an engineer that already exists in the system.</exception>
     public int Create(BO.Engineer boEng)
     {
         if (boEng == null)
@@ -41,11 +41,11 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
     }
     /// <summary>
-    /// 
+    /// Deletes an engineer from the system.
     /// </summary>
-    /// <param name="id"></param>
-    /// <exception cref="BO.Exceptions.BlDalDeletionImpossible"></exception>
-    /// <exception cref="BO.Exceptions.BlDoesNotExistException"></exception>
+    /// <param name="id">The ID of the engineer to delete.</param>
+    /// <exception cref="BO.Exceptions.BlDalDeletionImpossible">Thrown when deletion of the engineer is not possible due to ongoing tasks.</exception>
+    /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when the engineer with the specified ID does not exist.</exception>
     public void Delete(int id)
     {
         BO.Engineer? boEng = Read(id);
@@ -69,11 +69,11 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
     }
     /// <summary>
-    /// 
+    /// Reads an engineer from the system based on the specified ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    /// <exception cref="BO.Exceptions.BlDoesNotExistException"></exception>
+    /// <param name="id">The ID of the engineer to read.</param>
+    /// <returns>The engineer object if found, otherwise null.</returns>
+    /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when the engineer with the specified ID does not exist.</exception>
     public BO.Engineer? Read(int id)
     {
         DO.Engineer? doEng = _dal.Engineer.Read(id);
@@ -91,10 +91,10 @@ internal class EngineerImplementation : BlApi.IEngineer
         };
     }
     /// <summary>
-    /// 
+    /// Reads all engineers from the system based on an optional filter.
     /// </summary>
-    /// <param name="filter"></param>
-    /// <returns></returns>
+    /// <param name="filter">An optional filter predicate to apply on the engineers.</param>
+    /// <returns>An enumerable collection of engineers.</returns>
     public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer, bool>? filter)
     {
         if (filter != null)
@@ -109,13 +109,13 @@ internal class EngineerImplementation : BlApi.IEngineer
             select boEng);
     }
     /// <summary>
-    /// 
+    /// Updates an existing engineer in the system.
     /// </summary>
-    /// <param name="boEng"></param>
-    /// <exception cref="BO.Exceptions.BlNullPropertyException"></exception>
-    /// <exception cref="BO.Exceptions.BlInvalidValueException"></exception>
-    /// <exception cref="BO.Exceptions.BlDoesNotExistException"></exception>
-    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException"></exception>
+    /// <param name="boEng">The engineer object containing updated information.</param>
+    /// <exception cref="BO.Exceptions.BlNullPropertyException">Thrown when the engineer object is null.</exception>
+    /// <exception cref="BO.Exceptions.BlInvalidValueException">Thrown when the engineer object contains invalid values.</exception>
+    /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when the engineer to update does not exist.</exception>
+    /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException">Thrown when trying to update an engineer that already exists in the system.</exception>
     public void Update(BO.Engineer boEng)
     {
         if (boEng == null)
@@ -143,10 +143,10 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
     }
     /// <summary>
-    /// 
+    /// Checks if the provided engineer object contains valid data.
     /// </summary>
-    /// <param name="eng"></param>
-    /// <returns></returns>
+    /// <param name="eng">The engineer object to validate.</param>
+    /// <returns>True if the engineer object is valid, otherwise false.</returns>
     bool EngineerCheck(BO.Engineer eng)
     {
         if (eng.Id < 0)
@@ -160,10 +160,10 @@ internal class EngineerImplementation : BlApi.IEngineer
         return true;
     }
     /// <summary>
-    /// 
+    /// Finds the task associated with the specified engineer.
     /// </summary>
-    /// <param name="engId"></param>
-    /// <returns></returns>
+    /// <param name="engId">The ID of the engineer.</param>
+    /// <returns>The task associated with the engineer if found, otherwise null.</returns>
     BO.TaskInEngineer? FindTaskForEngineer(int engId)
     {
         IEnumerable<DO.Task>? dTasks = _dal.Task.ReadAll(item => item.EngineerId == engId);
@@ -181,12 +181,13 @@ internal class EngineerImplementation : BlApi.IEngineer
         return null;
     }
     /// <summary>
-    /// 
+    /// Assigns a task to an engineer.
     /// </summary>
-    /// <param name="taskE"></param>
-    /// <param name="engId"></param>
-    /// <exception cref="BO.Exceptions.BlDoesNotExistException"></exception>
-    /// <exception cref="BO.Exceptions.BlInvalidValueException"></exception>
+    /// <param name="taskE">The task to assign.</param>
+    /// <param name="engId">The ID of the engineer to assign the task to.</param>
+    /// <param name="engNa">The name of the engineer.</param>
+    /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when the task or engineer does not exist.</exception>
+    /// <exception cref="BO.Exceptions.BlInvalidValueException">Thrown when the task cannot be assigned to the engineer due to dependencies or other constraints.</exception>
     void AssignmentTaskToEngineer(TaskInEngineer taskE, int engId, string engNa)
     {
         DO.Task? doTask = _dal.Task.Read(taskE.Id);

@@ -1,6 +1,7 @@
 ﻿
 namespace BO;
-/// A file of exception types
+/// <summary>
+/// A file of exception types.
 /// </summary>
 
 internal class Exceptions
@@ -41,17 +42,17 @@ internal class Exceptions
         public BlDalXMLFileLoadCreateException(string message, Exception innerException) : base(message, innerException) { }
 
     }
-    [Serializable]
+    [Serializable] // Exception: A property is null.
     public class BlNullPropertyException : Exception
     {
         public BlNullPropertyException(string? message) : base(message) { }
     }
-    [Serializable]
+    [Serializable] // Exception: A property is null.
     public class BlInvalidValueException : Exception
     {
         public BlInvalidValueException(string? message) : base(message) { }
     }
-    [Serializable]
+    [Serializable] // Exception: The start date of a task was not updated.
     public class BlUnUpdatedTaskStartDate : Exception
     {
         public BlUnUpdatedTaskStartDate(string? message) : base(message) { }

@@ -1,6 +1,6 @@
 ﻿namespace BlApi;
 public interface IBl
 {
-    public IEngineer Student { get; }
-    public ITask Course { get; }
+    public IEngineer Engineer { get; }
+    public ITask Task { get; }
 }
