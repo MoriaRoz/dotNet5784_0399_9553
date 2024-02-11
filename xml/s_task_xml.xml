@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Task>
+    <Id>1049</Id>
+    <Alias>Define the purpose and scope of the project</Alias>
+    <Description>Define the boundaries and limitations of the project, specifying what is included and excluded.</Description>
+    <CreatedAtDate>2024-02-11T21:42:38.8963561+02:00</CreatedAtDate>
+    <RequiredEffortTime>P30D</RequiredEffortTime>
+    <Complexity>AdvancedBeginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <ScheduledDate>2024-03-12T21:42:38.8963561+02:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+</ArrayOfTask>

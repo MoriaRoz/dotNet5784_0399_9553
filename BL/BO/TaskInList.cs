@@ -25,4 +25,5 @@ public class TaskInList
     /// </summary>
     public Statuses Status { get; set; }
     //public override string? ToString() => this.ToStringProperty();
+    public override string ToString() => Tools.ToStringProperties(this);
 }

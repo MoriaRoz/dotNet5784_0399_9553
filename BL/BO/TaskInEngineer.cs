@@ -14,4 +14,5 @@ public class TaskInEngineer
     /// </summary>
     public string? Alias { get; init; }
     //public override string? ToString() => this.ToStringProperty();
+    public override string ToString() => Tools.ToStringProperties(this);
 }

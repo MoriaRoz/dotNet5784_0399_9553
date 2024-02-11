@@ -14,4 +14,5 @@ public class EngineerInTask
     /// </summary>
     public string? Name { get; init; }
     //public override string? ToString() => this.ToStringProperty();
+    public override string ToString() => Tools.ToStringProperties(this);
 }

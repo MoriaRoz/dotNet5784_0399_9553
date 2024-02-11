@@ -29,5 +29,6 @@ public class Engineer
     /// Gets or sets the task associated with the engineer.
     /// </summary>
     public TaskInEngineer? Task { get; set; }
-    //public override string? ToString() => this.ToStringProperty();
+    public override string ToString() => Tools.ToStringProperties(this);
+    
 }
