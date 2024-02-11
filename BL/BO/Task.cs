@@ -69,5 +69,9 @@ public class Task
     /// Gets or sets the complexity level of the task.
     /// </summary>
     public BO.LevelEngineer Complexity { get; set; } = LevelEngineer.None;
-    //public override string? ToString() => this.ToStringProperty();
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString() => Tools.ToStringProperties(this);
 }

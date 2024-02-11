@@ -29,13 +29,17 @@ internal class TaskImplementation : ITask
         if (!TaskCheck(boTask))
             throw new BO.BlInvalidValueException("An task with an invalid value was entered");
 
-        DO.Task doTask = new DO.Task(boTask.Id, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.RequiredEffortTime,
-            (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
+        DO.Task doTask = new DO.Task(boTask.Id, boTask.Alias, boTask.Description, 
+            boTask.CreatedAtDate, boTask.RequiredEffortTime,
+            (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, 
+            boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
             boTask.Deliverables, boTask.Remarks, boTask.Engineer.Id);
 
         try
         {
-            int idTask = _dal.Task.Create(doTask);
+            int idTask = _dal.Task.Create(new DO.Task(0, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.RequiredEffortTime,
+            (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
+            boTask.Deliverables, boTask.Remarks, boTask.Engineer.Id));
             if (boTask.Dependencies != null)
                 AddDependencys(boTask.Dependencies, idTask);
             return idTask;
@@ -237,9 +241,7 @@ internal class TaskImplementation : ITask
     /// <returns>True if the task is valid; otherwise, false.</returns>
     bool TaskCheck(BO.Task boTask)
     {
-        if (boTask.Id < 0)
-            return false;
-        if (boTask.Alias != "")
+        if (boTask.Alias == "")
             return false;
         return true;
     }

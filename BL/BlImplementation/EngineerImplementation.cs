@@ -25,7 +25,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     public int Create(BO.Engineer boEng)
     {
         if (boEng == null)
-            throw new BO.BlNullPropertyException("Enigneer is null");
+            throw new BO.BlNullPropertyException("Engineer is null");
         if (!EngineerCheck(boEng))
             throw new BO.BlInvalidValueException("An engineer with an invalid value was entered");
         DO.Engineer doEng = new DO.Engineer
@@ -37,7 +37,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BlDalAlreadyExistsException($"Enigneer with ID={boEng.Id} already exists", ex);
+            throw new BO.BlDalAlreadyExistsException($"Engineer with ID={boEng.Id} already exists", ex);
         }
     }
     /// <summary>
@@ -119,7 +119,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     public void Update(BO.Engineer boEng)
     {
         if (boEng == null)
-            throw new BO.BlNullPropertyException("Enigneer to update is null");
+            throw new BO.BlNullPropertyException("Engineer to update is null");
         if (!EngineerCheck(boEng))
             throw new BO.BlInvalidValueException("An engineer with an invalid value was entered");
 
@@ -128,10 +128,19 @@ internal class EngineerImplementation : BlApi.IEngineer
             throw new BO.BlDoesNotExistException($"Engineer with ID={boEng!.Id} does Not exist");
         if (doEng.Level > (DO.LevelEngineer)boEng.Level)
             throw new BO.BlInvalidValueException("You cannot lower the level of the engineer");
+
         try
         {
-            _dal.Engineer.Update(doEng);
-            AssignmentTaskToEngineer(boEng.Task,boEng.Id,boEng.Name);
+            _dal.Engineer.Update(new DO.Engineer()
+            {
+                Id = boEng.Id,
+                Name= boEng.Name,
+                Email= boEng.Email,
+                Level= (DO.LevelEngineer)boEng.Level,
+                Cost= boEng.Cost,
+            });
+            if(boEng.Task!= null)
+                AssignmentTaskToEngineer(boEng.Task,boEng.Id,boEng.Name);
         }
         catch (DO.DalAlreadyExistsException ex)
         {
@@ -195,10 +204,10 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         DO.Task? doTask = _dal.Task.Read(taskE.Id);
         if (doTask == null)
-            throw new BO.BlDoesNotExistException("");
+            throw new BO.BlDoesNotExistException("AA");
         if (doTask.EngineerId != engId || doTask.EngineerId != null)
-            throw new BO.BlInvalidValueException("");
-        BO.Task task = taskImplementation.Read(doTask.Id);
+            throw new BO.BlInvalidValueException("BB");
+        BO.Task? task = taskImplementation.Read(doTask.Id);
         if (task.Dependencies != null)
         {
             var tIL = task.Dependencies.Where(taskDep => taskDep.Status != BO.Statuses.Done).FirstOrDefault();

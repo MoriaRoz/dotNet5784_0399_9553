@@ -24,7 +24,8 @@ internal class EngineerImplementation : IEngineer
             new XElement("cost", entity.Cost));
 
         engineerRoot.Add(engineer);
-        engineerRoot.Save("Engineer");
+        //engineerRoot.Save(s_engineers_xml);
+        XMLTools.SaveListToXMLElement(engineerRoot, s_engineers_xml);
         return entity.Id;
     }
 
@@ -32,27 +33,30 @@ internal class EngineerImplementation : IEngineer
     public void Delete(int id)
     {
         XElement engineerRoot = XMLTools.LoadListFromXMLElement(s_engineers_xml);
-        XElement delEngineer = engineerRoot.Elements("Engineer").FirstOrDefault(e => (int)e.Element("ID") == id);
+        XElement? delEngineer = engineerRoot.Elements("Engineer").FirstOrDefault(e => (int)e.Element("id") == id);
 
         if (delEngineer != null)
         {
             delEngineer.Remove();
-            engineerRoot.Save("Engineer.xml");
+            XMLTools.SaveListToXMLElement(engineerRoot, s_engineers_xml);
         }
     }
 
     //Returning an engineer with id=id from an xml file
     public Engineer? Read(int id)
     {
+        //XElement? readEngineer = XMLTools.LoadListFromXMLElement(s_engineers_xml);.Elements().FirstOrDefault(eng => (int)eng.Element("Id") == id);
         XElement engineerRoot = XMLTools.LoadListFromXMLElement(s_engineers_xml);
-        XElement? readEngineer = engineerRoot.Elements("Engineer").FirstOrDefault(e => (int)e.Element("Id") == id);
+        XElement? readEngineer = null;
+        if (engineerRoot.Elements().Any())
+            readEngineer = engineerRoot.Elements().FirstOrDefault(e => e.ToIntNullable("id") == id);
         if(readEngineer == null)
             return null;
 
-        LevelEngineer level = readEngineer.ToEnumNullable<LevelEngineer>("Level") ?? LevelEngineer.Beginner;
-        string email = readEngineer.Element("Email").Value ?? "";
-        double? cost = readEngineer.ToDoubleNullable("Cost") ?? null;
-        string name = readEngineer.Element("Name").Value ?? "";
+        LevelEngineer level = readEngineer.ToEnumNullable<LevelEngineer>("level") ?? LevelEngineer.Beginner;
+        string email = readEngineer.Element("email").Value ?? "";
+        double? cost = readEngineer.ToDoubleNullable("cost") ?? null;
+        string name = readEngineer.Element("name").Value ?? "";
         return new Engineer(id,name,email,level,cost);
 
     }
@@ -76,29 +80,25 @@ internal class EngineerImplementation : IEngineer
     // updates existing Engineer
     public void Update(Engineer entity)
     {
-        XElement engineerRoot = XMLTools.LoadListFromXMLElement(s_engineers_xml);
-
-        XElement upEngineer = engineerRoot.Elements("Engineer").FirstOrDefault(e => (int)e.Element("Id") == entity.Id);
-        if (upEngineer != null)
-        {
-            upEngineer.Remove();
-            engineerRoot.Add(entity);
-            engineerRoot.Save("Engineer");
-        }
-        else
+        if (Read(entity.Id) == null)
             throw new DalDoesNotExistException($"Engineer with ID={entity.Id} does Not exist");
+        else
+        {
+            Delete(entity.Id); //Remove old entity
+            Create(entity); //add updated entity
+        }
     }
 
-    //A helper method that accepts an object of type elemnt and returns an object of type engineer
+    //A helper method that accepts an object of type element and returns an object of type engineer
     static Engineer getEngineer(XElement e)
     {
         return new Engineer()
         {
-            Id = e.ToIntNullable("Id") ?? throw new FormatException("Can not convert id"),
-            Level = e.ToEnumNullable<LevelEngineer>("Level") ?? LevelEngineer.Beginner,
-            Email = e.Element("Email").Value ?? "",
-            Cost = e.ToDoubleNullable("Cost") ?? null,
-            Name = e.Element("Name").Value ?? "",
+            Id = e.ToIntNullable("id") ?? throw new FormatException("Can not convert id"),
+            Level = e.ToEnumNullable<LevelEngineer>("level") ?? LevelEngineer.Beginner,
+            Email = e.Element("email").Value ?? "",
+            Cost = e.ToDoubleNullable("cost") ?? null,
+            Name = e.Element("name").Value ?? "",
         };
     }
 

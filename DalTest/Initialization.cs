@@ -138,14 +138,14 @@ public static class Initialization
             
             string? _remarks = null;
 
-            int _engineerId; //Matching an appropriate engineer (by lottery) taking into account the level of the engineer required for the task
-            Engineer? en;
-            do
-            {
-                _engineerId = rnd.Next(200000000, 400000000);
-                en = s_dal?.Engineer.Read(_engineerId);
-            }
-            while (en != null && en.Level >= _complexity);
+            int? _engineerId = null; //Matching an appropriate engineer (by lottery) taking into account the level of the engineer required for the task
+            //Engineer? en;
+            //do
+            //{
+            //    _engineerId = rnd.Next(200000000, 400000000);
+            //    en = s_dal?.Engineer.Read(_engineerId);
+            //}
+            //while (en != null && en.Level >= _complexity);
 
             Task newTa = new Task(0,_name,_description,_createdAtDate,
                 _requiredEffortTime,_complexity,_startDate, _scheduledDate,
