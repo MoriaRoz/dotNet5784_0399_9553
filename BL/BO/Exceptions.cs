@@ -58,3 +58,8 @@ public class BlTheScheduleIsSet : Exception
 {
     public BlTheScheduleIsSet(string? message) : base(message) { }
 }
+[Serializable] // Exception: Task dependencies create a loop.
+public class BlTasksLoop : Exception
+{
+    public BlTasksLoop(string? message) : base(message) { }
+}
