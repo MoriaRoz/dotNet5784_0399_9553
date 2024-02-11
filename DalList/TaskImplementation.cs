@@ -3,6 +3,9 @@ namespace Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using static Dal.DataSource;
+using System.Xml.Linq;
+using System.Net.NetworkInformation;
 
 /// <summary>
 /// The method implementation class of a task entity.
@@ -61,5 +64,22 @@ internal class TaskImplementation : ITask
             throw new DalDoesNotExistException($"Task with ID={item.Id} dose not exist");
         DataSource.Tasks.Remove(oldTask);//Deleting the old task.
         DataSource.Tasks.Add(item);//Adding the new task.
+    }
+
+    public DateTime? GetProjectStartDate()
+    {
+        return DataSource.Config.ProjectStartDate;
+    }
+
+    public void SetProjectStartDate(DateTime startDate)
+    {
+        DataSource.Config.ProjectStartDate = startDate;
+    }
+
+    public int GetProjectStatus()
+    {
+        if (GetProjectStartDate() == null)
+            return 0;
+        else return 1;
     }
 }

@@ -53,3 +53,8 @@ public class BlUnUpdatedTaskStartDate : Exception
 {
     public BlUnUpdatedTaskStartDate(string? message) : base(message) { }
 }
+[Serializable] // Exception: 
+public class BlTheScheduleIsSet : Exception
+{
+    public BlTheScheduleIsSet(string? message) : base(message) { }
+}

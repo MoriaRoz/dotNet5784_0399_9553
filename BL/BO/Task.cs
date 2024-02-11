@@ -10,13 +10,13 @@ public class Task
     /// </summary>
     public int Id { get; init; }
     /// <summary>
-    /// Gets or sets the description of the task.
-    /// </summary>
-    public string? Description { get; set; }
-    /// <summary>
     /// Gets or sets the alias of the task.
     /// </summary>
     public string? Alias { get; set; }
+    /// <summary>
+    /// Gets or sets the description of the task.
+    /// </summary>
+    public string? Description { get; set; }
     /// <summary>
     /// Gets or sets the date and time when the task was created.
     /// </summary>
@@ -38,6 +38,10 @@ public class Task
     /// </summary>
     public DateTime? StartDate { get; set; }
     /// <summary>
+    /// Gets or sets the deadline date of the task.
+    /// </summary>
+    public DateTime? DeadlineDate { get; set; }
+    /// <summary>
     /// Gets or sets the scheduled date of the task.
     /// </summary>
     public DateTime? ScheduledDate { get; set; }
@@ -45,10 +49,6 @@ public class Task
     /// Gets or sets the forecasted date of the task.
     /// </summary>
     public DateTime? ForecastDate { get; set; }
-    /// <summary>
-    /// Gets or sets the deadline date of the task.
-    /// </summary>
-    public DateTime? DeadlineDate { get; set; }
     /// <summary>
     /// Gets or sets the completion date of the task.
     /// </summary>

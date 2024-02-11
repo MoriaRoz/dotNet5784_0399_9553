@@ -5,6 +5,7 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Xml.Linq;
 
 internal class TaskImplementation : ITask
 {
@@ -67,5 +68,27 @@ internal class TaskImplementation : ITask
         if (tasks.RemoveAll(it => it.Id == entity.Id) == 0)
             throw new DalDoesNotExistException($"Task with ID={entity.Id} dose not exist");
         XMLTools.SaveListToXMLSerializer(tasks, "s_task_xml");
+    }
+
+    public DateTime? GetProjectStartDate()
+    {
+        var doc = XDocument.Load("data-config.xml");
+
+        DateTime? projectStartDate = DateTime.Parse(doc.Root.Element("ProjectStartDate").Value);
+        return projectStartDate;
+    }
+
+    public int GetProjectStatus()
+    {
+        if (GetProjectStartDate() == null)
+            return 0;
+        else return 1;
+    }
+
+    public void SetProjectStartDate(DateTime startDate)
+    {
+        var doc = XDocument.Load("data-config.xml");
+        Config.ProjectStartDate = startDate;
+        doc.Save("data-config.xml");
     }
 }

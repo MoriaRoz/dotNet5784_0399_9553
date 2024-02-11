@@ -54,30 +54,33 @@ internal class TaskImplementation : ITask
     /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when trying to delete a non-existing task.</exception>
     public void Delete(int id)
     {
-        BO.Task? boTask = Read(id);
-        if (boTask != null)
+        if (_dal.Task.GetProjectStatus() == 0)
         {
-            DO.Task doTask = new DO.Task(boTask.Id, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.RequiredEffortTime,
-            (DO.LevelEngineer)boTask.Complexity, boTask.StartDate,boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
-            boTask.Deliverables, boTask.Remarks, boTask.Engineer.Id);
-
-            var dependenceis = _dal.Dependency.ReadAll();
-            var depend = dependenceis.Where(d => d.DependsOnTask == id).Select(p => p).FirstOrDefault();
-
-            if (depend != null)
-                throw new BO.BlDalDeletionImpossible($"There is a task that depends on the task with ID={doTask.Id} so it cannot be deleted.");
-            else
+            BO.Task? boTask = Read(id);
+            if (boTask != null)
             {
-                try
+                DO.Task doTask = new DO.Task(boTask.Id, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.RequiredEffortTime,
+                (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
+                boTask.Deliverables, boTask.Remarks, boTask.Engineer.Id);
+
+                var dependenceis = _dal.Dependency.ReadAll();
+                var depend = dependenceis.Where(d => d.DependsOnTask == id).Select(p => p).FirstOrDefault();
+
+                if (depend != null)
+                    throw new BO.BlDalDeletionImpossible($"There is a task that depends on the task with ID={doTask.Id} so it cannot be deleted.");
+                else
                 {
-                    _dal.Task.Delete(id);
-                }
-                catch (DO.DalDoesNotExistException ex)
-                {
-                    throw new BO.BlDoesNotExistException($"Task with ID={id} does not exist", ex);
+                    try
+                    {
+                        _dal.Task.Delete(id);
+                    }
+                    catch (DO.DalDoesNotExistException ex)
+                    {
+                        throw new BO.BlDoesNotExistException($"Task with ID={id} does not exist", ex);
+                    }
                 }
             }
-        }
+        }//להוסיף חריגה של שלב ביצוע
     }
     /// <summary>
     /// Reads a task with the given ID.

@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
+using System;
 
 /// <summary>
 /// Implementation of the business logic interface.
@@ -16,8 +17,24 @@ internal class Bl : IBl
     /// Gets the instance of the business logic for managing tasks.
     /// </summary>
     public ITask Task => new TaskImplementation();
-//    public ProjectStatus GetProjectStatus()
-//    {
-//        return Dal.Config
-//    }
-//}
+
+    public DateTime? GetProjectStartDate()
+    {
+        return DalApi.Factory.Get.Task.GetProjectStartDate();
+    }
+
+    public ProjectStatus GetProjectStatus()
+    {
+        return (BO.ProjectStatus)DalApi.Factory.Get.Task.GetProjectStatus();
+    }
+
+    public void SetProjectStartDate(DateTime startDate)
+    {
+        DalApi.Factory.Get.Task.SetProjectStartDate(startDate);
+    }
+
+    public void CreateSchedule(DateTime startDate)
+    {
+        //לממש לוז
+    }
+}

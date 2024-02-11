@@ -131,7 +131,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         try
         {
             _dal.Engineer.Update(doEng);
-            AssignmentTaskToEngineer(boEng.Task, boEng.Id, boEng.Name);
+            AssignmentTaskToEngineer(boEng.Task,boEng.Id,boEng.Name);
         }
         catch (DO.DalAlreadyExistsException ex)
         {
@@ -151,12 +151,15 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         if (eng.Id < 0)
             return false;
-        if (eng.Name == "")
-            return false;
-        if (!eng.Email.Contains('@') || eng.Email.Contains(' '))
-            return false;
-        if (eng.Cost < 0)
-            return false;
+        if(eng.Name!=null)
+            if (eng.Name == "")
+                return false;
+        if(eng.Email!=null)
+            if (!eng.Email.Contains('@') || eng.Email.Contains(' '))
+                return false;
+        if (eng.Cost != null)
+            if (eng.Cost < 0)
+                return false;
         return true;
     }
     /// <summary>
@@ -237,7 +240,6 @@ internal class EngineerImplementation : BlApi.IEngineer
             StartDate = task.StartDate,
             ScheduledDate = task.StartDate,
             ForecastDate = task.StartDate,
-            DeadlineDate = task.StartDate,
             CompleteDate = task.CompleteDate,
             Deliverables = task.Deliverables,
             Remarks = task.Remarks,
