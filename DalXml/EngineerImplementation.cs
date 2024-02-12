@@ -58,7 +58,6 @@ internal class EngineerImplementation : IEngineer
         double? cost = readEngineer.ToDoubleNullable("cost") ?? null;
         string name = readEngineer.Element("name").Value ?? "";
         return new Engineer(id,name,email,level,cost);
-
     }
 
     //Returning an engineer that meets the filter from an xml file

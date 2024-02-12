@@ -55,8 +55,7 @@ namespace BlTest
                                 s_bl.CreateSchedule(start);
                                 ProjectStatus = BO.ProjectStatus.InExecution;
                             }
-                            catch { }
-                            //חריגה אם הוכנס משהו שהוא לא תאריך
+                            catch (Exception ex) { Console.WriteLine(ex.Message); }
                             break;
                         case Entitys.Status:
                             Console.WriteLine("Status project is: "+s_bl.GetProjectStatus());
@@ -421,14 +420,8 @@ namespace BlTest
         }
         static BO.Task GetUpdateTask(BO.Task oldTask)
         {
-
-            Console.WriteLine("enter new values only for the fields you want to update, the rest will stay without change, \n if you enter info in worng format those fields will not be updated (those fields will stay the same as before)");
-            //assigning level and check it with try parse method
-            Console.WriteLine("enter number between 0 to 4 for level of complexity (Beginner, AdvancedBeginner, Intermediate, Advanced, Expert)");
-            int levelInt;
-            bool success = int.TryParse(Console.ReadLine(), out levelInt);
-            BO.LevelEngineer level = success ? (BO.LevelEngineer)levelInt : oldTask.Complexity;
-
+            Console.WriteLine("If you want to update, insert a new value, if not press enter");
+            
             //assigning alias
             Console.WriteLine("enter alias:");
             string? alias = Console.ReadLine();
@@ -438,6 +431,12 @@ namespace BlTest
             Console.WriteLine("enter description:");
             string? description = Console.ReadLine();
             if (description == "") description = oldTask.Description;
+
+            //assigning level 
+            Console.WriteLine("enter number between 0 to 4 for level of complexity (Beginner, AdvancedBeginner, Intermediate, Advanced, Expert)");
+            int levelInt;
+            bool success = int.TryParse(Console.ReadLine(), out levelInt);
+            BO.LevelEngineer level = success ? (BO.LevelEngineer)levelInt : oldTask.Complexity;
 
             //assigning Required Effort Time and check it with try parse method
             Console.WriteLine("Enter Required Effort Time:");
@@ -520,7 +519,6 @@ namespace BlTest
                 Engineer = engineerId == null ? null : new BO.EngineerInTask() { Id = (int)engineerId, Name = s_bl.Engineer.Read((int)engineerId).Name },
                 Complexity = level
             };
-
         }
     }
 }

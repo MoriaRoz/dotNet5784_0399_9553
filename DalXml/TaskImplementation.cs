@@ -31,7 +31,7 @@ internal class TaskImplementation : ITask
         Task? toDel = Read(id);//Reference to the task with Id=id or null to if it doesn't exist.
         if (toDel == null)//Task does not exist, error.
             throw new DalDeletionImpossible($"Task with ID={id} dose not exist");
-        if (toDel.CompleteDate == null)//Task not completed, error.
+        if (toDel.CompleteDate == null&&toDel.StartDate!=null)//Task not completed, error.
             throw new DalDeletionImpossible($"Task with ID={id} already scheduled");
         
         tasks.Remove(toDel);//Deleting the task.
@@ -41,7 +41,7 @@ internal class TaskImplementation : ITask
     public Task? Read(int id)
     {
         List<Task> tasks = XMLTools.LoadListFromXMLSerializer<Task>(s_tasks_xml);
-        return tasks.FirstOrDefault(Task => Task.Id == id);
+        return tasks.FirstOrDefault(t => t.Id == id);
     }
 
     public Task? Read(Func<Task, bool> filter)
@@ -76,10 +76,11 @@ internal class TaskImplementation : ITask
     
     public DateTime? GetProjectStartDate()
     {
-        var doc = XDocument.Load("data-config.xml");
+        //var doc = XDocument.Load("data-config");
 
-        DateTime? projectStartDate = DateTime.Parse(doc.Root.Element("ProjectStartDate").Value);
-        return projectStartDate;
+        //DateTime? projectStartDate = DateTime.Parse(doc.Root.Element("ProjectStartDate").Value);
+        //return projectStartDate;
+        return null;
     }
 
     public int GetProjectStatus()

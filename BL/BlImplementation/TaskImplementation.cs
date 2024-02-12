@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 /// </summary>
 internal class TaskImplementation : ITask
 {
-    
+
 
     private DalApi.IDal _dal = DalApi.Factory.Get;
     /// <summary>
@@ -29,17 +29,18 @@ internal class TaskImplementation : ITask
         if (!TaskCheck(boTask))
             throw new BO.BlInvalidValueException("An task with an invalid value was entered");
 
-        DO.Task doTask = new DO.Task(boTask.Id, boTask.Alias, boTask.Description, 
+        int? engId = null;
+        if (boTask.Engineer != null)
+            engId = boTask.Engineer.Id;
+        DO.Task doTask = new DO.Task(boTask.Id, boTask.Alias, boTask.Description,
             boTask.CreatedAtDate, boTask.RequiredEffortTime,
-            (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, 
+            (DO.LevelEngineer)boTask.Complexity, boTask.StartDate,
             boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
-            boTask.Deliverables, boTask.Remarks, boTask.Engineer.Id);
+            boTask.Deliverables, boTask.Remarks, engId);
 
         try
         {
-            int idTask = _dal.Task.Create(new DO.Task(0, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.RequiredEffortTime,
-            (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
-            boTask.Deliverables, boTask.Remarks, boTask.Engineer.Id));
+            int idTask = _dal.Task.Create(doTask);
             if (boTask.Dependencies != null)
                 AddDependencys(boTask.Dependencies, idTask);
             return idTask;
@@ -52,7 +53,7 @@ internal class TaskImplementation : ITask
 
     /// <summary>
     /// Deletes a task with the given ID.
-       /// </summary>
+    /// </summary>
     /// <param name="id">The ID of the task to delete.</param>
     /// <exception cref="BO.Exceptions.BlDalDeletionImpossible">Thrown when the task cannot be deleted due to dependencies.</exception>
     /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when trying to delete a non-existing task.</exception>
@@ -63,9 +64,12 @@ internal class TaskImplementation : ITask
             BO.Task? boTask = Read(id);
             if (boTask != null)
             {
+                int? engId = null;
+                if (boTask.Engineer != null)
+                    engId = boTask.Engineer.Id;
                 DO.Task doTask = new DO.Task(boTask.Id, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.RequiredEffortTime,
                 (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
-                boTask.Deliverables, boTask.Remarks, boTask.Engineer.Id);
+                boTask.Deliverables, boTask.Remarks, engId);
 
                 var dependenceis = _dal.Dependency.ReadAll();
                 var depend = dependenceis.Where(d => d.DependsOnTask == id).Select(p => p).FirstOrDefault();
@@ -84,14 +88,16 @@ internal class TaskImplementation : ITask
                     }
                 }
             }
-        }//להוסיף חריגה של שלב ביצוע
+        }
+        else
+            throw new BO.BlTheScheduleIsSet("The schedule is set, so it is not possible to delete a task");
     }
     /// <summary>
     /// Reads a task with the given ID.
     /// </summary>
     /// <param name="id">The ID of the task to read.</param>
     /// <returns>The task object if found; otherwise, null.</returns>
-   /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when the task with the given ID does not exist.</exception>
+    /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when the task with the given ID does not exist.</exception>
     public BO.Task? Read(int id)
     {
         DO.Task? doTask = _dal.Task.Read(id);
@@ -157,20 +163,20 @@ internal class TaskImplementation : ITask
     /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when trying to update a non-existing task.</exception>
     public void StartDateUpdate(int id, DateTime start)
     {
-       BO.Task? boTask=Read(id);
-       if(boTask != null)
+        BO.Task? boTask = Read(id);
+        if (boTask != null)
         {
             var startDates = boTask.Dependencies.Where(t => t.Status == BO.Statuses.Scheduled).ToList();
             if (startDates.Any())
                 throw new BO.BlUnUpdatedTaskStartDate($"There is a task that the task with ID={id} depends on that has no prep start date");
 
             var depTasks = (from BO.TaskInList depTask in boTask.Dependencies
-                            let task= _dal.Task.Read(depTask.Id)
+                            let task = _dal.Task.Read(depTask.Id)
                             select task);
-            var endDates = depTasks.Where(t => start<t.DeadlineDate).ToList();
+            var endDates = depTasks.Where(t => start < t.DeadlineDate).ToList();
             if (endDates.Any())
                 throw new BO.BlUnUpdatedTaskStartDate($"The given date is earlier than the deadline date of the task that the task with ID={id} depends on");
-            DO.Task? doTask=new DO.Task
+            DO.Task? doTask = new DO.Task
             {
                 Id = boTask.Id,
                 Description = boTask.Description,
@@ -184,7 +190,7 @@ internal class TaskImplementation : ITask
                 CompleteDate = boTask.CompleteDate,
                 Deliverables = boTask.Deliverables,
                 Remarks = boTask.Remarks,
-                EngineerId=id
+                EngineerId = id
             };
             try
             {
@@ -218,10 +224,27 @@ internal class TaskImplementation : ITask
         DO.Task? doTask = _dal.Task.Read(boTask.Id);
         if (doTask == null)
             throw new BO.BlDoesNotExistException($"Task with ID={boTask!.Id} does Not exist");
-        
+        int? engId = null;
+        if (boTask.Engineer != null)
+            engId = boTask.Engineer.Id;
         try
         {
-            _dal.Task.Update(doTask);
+            _dal.Task.Update(new DO.Task()
+            {
+                Id = boTask.Id,
+                Alias = boTask.Alias,
+                Description = boTask.Description,
+                CreatedAtDate = boTask.CreatedAtDate,
+                RequiredEffortTime = boTask.RequiredEffortTime,
+                Complexity = (DO.LevelEngineer)boTask.Complexity,
+                StartDate = boTask.StartDate,
+                DeadlineDate = boTask.DeadlineDate,
+                ScheduledDate = boTask.ScheduledDate,
+                CompleteDate = boTask.CompleteDate,
+                Deliverables = boTask.Deliverables,
+                Remarks = boTask.Remarks,
+                EngineerId = engId,
+            });
         }
         catch (DO.DalAlreadyExistsException ex)
         {
@@ -271,7 +294,7 @@ internal class TaskImplementation : ITask
     /// <returns>The status of the task.</returns>
     Statuses StatusCalculation(DO.Task doTask)
     {
-        if(doTask.ScheduledDate!=null)
+        if (doTask.ScheduledDate != null)
         {
             if (doTask.StartDate == null)
                 return BO.Statuses.Scheduled;
@@ -294,10 +317,10 @@ internal class TaskImplementation : ITask
                 let prevTask = _dal.Task.Read((int)dep.PreviousTask)
                 select new BO.TaskInList()
                 {
-                    Id=prevTask.Id,
-                    Description=prevTask.Description,
-                    Alias=prevTask.Alias,
-                    Status=StatusCalculation(prevTask)
+                    Id = prevTask.Id,
+                    Description = prevTask.Description,
+                    Alias = prevTask.Alias,
+                    Status = StatusCalculation(prevTask)
                 }).ToList();
     }
     /// <summary>
@@ -308,8 +331,8 @@ internal class TaskImplementation : ITask
     DateTime? ForecastDateCalculation(DO.Task dTask)
     {
         DateTime? forecst = null;
-        if(dTask.ScheduledDate!=null&&dTask.StartDate==null)
-            forecst = dTask.ScheduledDate+dTask.RequiredEffortTime;
+        if (dTask.ScheduledDate != null && dTask.StartDate == null)
+            forecst = dTask.ScheduledDate + dTask.RequiredEffortTime;
         if (dTask.ScheduledDate != null && dTask.StartDate != null)
             forecst = (dTask.ScheduledDate < dTask.StartDate ? dTask.StartDate : dTask.ScheduledDate) + dTask.RequiredEffortTime;
         return forecst;
@@ -323,13 +346,13 @@ internal class TaskImplementation : ITask
     {
         if (engId == null)
             return null;
-        
+
         return (from DO.Engineer doEng in _dal.Engineer.ReadAll()
                 where doEng.Id == engId
                 select new BO.EngineerInTask
                 {
                     Id = doEng.Id,
-                    Name=doEng.Name
+                    Name = doEng.Name
                 }).FirstOrDefault();
     }
 }
