@@ -17,6 +17,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public MainWindow()
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace PL
             var result = MessageBox.Show("Initialize Database?", "Confirm Initialization", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-               
+               s_bl.InitializeDB();
             }
 
         }
@@ -43,7 +44,7 @@ namespace PL
             var result = MessageBox.Show("Reset Database?", "Confirm Initialization", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-
+                s_bl.ResetDB();
             }
         }
     }

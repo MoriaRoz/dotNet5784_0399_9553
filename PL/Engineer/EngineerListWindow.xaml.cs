@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,6 +36,13 @@ namespace PL.Engineer
         public static readonly DependencyProperty EngineerListProperty =
             DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
 
+        public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
 
+        private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            EngineerList = (Level == BO.LevelEngineer.None) ?
+                s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Level)!;
+
+        }
     }
 }

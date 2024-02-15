@@ -14,7 +14,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="CodeMaster.png" />
+    <None Remove="Engineer\CodeMaster Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="CodeMaster.png" />
+    <Resource Include="Engineer\CodeMaster Logo.png" />
   </ItemGroup>
 
 </Project>

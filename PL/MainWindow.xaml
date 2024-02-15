@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="ENGINEER" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top" Height="70" Width="150" Click="btnEngineer_Click" FontSize="22" FontFamily="MV Boli" FontWeight="Bold"/>
-        <Button Content="INITDB" HorizontalAlignment="Left" Margin="650,300,0,0" VerticalAlignment="Top" Height="70" Width="100" FontFamily="MV Boli" FontSize="22" FontWeight="Bold" Click="btnInitDB_Click"/>
-        <Button Content="RESET" HorizontalAlignment="Left" Margin="530,300,0,0" VerticalAlignment="Top" Height="70" Width="100" FontFamily="MV Boli" FontSize="22" FontWeight="Bold" Click="btnReset_Click"/>
+        <Button Content="ENGINEER" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top" Height="70" Width="150" Click="btnEngineer_Click" FontSize="22" FontFamily="MV Boli" FontWeight="Bold" Background="#FF3498DB"/>
+        <Button Content="INITDB" HorizontalAlignment="Left" Margin="650,300,0,0" VerticalAlignment="Top" Height="70" Width="100" FontFamily="MV Boli" FontSize="22" FontWeight="Bold" Click="btnInitDB_Click" Background="#FF7A59B6"/>
+        <Button Content="RESET" HorizontalAlignment="Left" Margin="530,300,0,0" VerticalAlignment="Top" Height="70" Width="100" FontFamily="MV Boli" FontSize="22" FontWeight="Bold" Click="btnReset_Click" Background="#FF7A59B6"/>
+        <Image HorizontalAlignment="Center" Height="285" VerticalAlignment="Top" Width="800" Source="/CodeMaster.png" />
     </Grid>
 </Window>
