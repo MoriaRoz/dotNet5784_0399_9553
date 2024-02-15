@@ -76,11 +76,10 @@ internal class TaskImplementation : ITask
     
     public DateTime? GetProjectStartDate()
     {
-        //var doc = XDocument.Load("data-config");
+        var doc = XDocument.Load("data-config");
 
-        //DateTime? projectStartDate = DateTime.Parse(doc.Root.Element("ProjectStartDate").Value);
-        //return projectStartDate;
-        return null;
+        DateTime? projectStartDate = DateTime.Parse(doc.Root.Element("ProjectStartDate").Value);
+        return projectStartDate;
     }
 
     public int GetProjectStatus()

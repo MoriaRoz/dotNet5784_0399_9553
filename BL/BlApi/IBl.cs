@@ -6,5 +6,7 @@ public interface IBl
     public void SetProjectStartDate(DateTime startDate);
     public DateTime? GetProjectStartDate();
     public BO.ProjectStatus GetProjectStatus();
-    public void CreateSchedule(DateTime startDate); 
+    public void CreateSchedule(DateTime startDate);
+    public void InitializeDB();
+    public void ResetDB();
 }
