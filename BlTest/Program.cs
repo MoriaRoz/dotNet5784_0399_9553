@@ -13,7 +13,7 @@ namespace BlTest
     internal class Program
     {
         static readonly IBl s_bl = Factory.Get();
-        static BO.ProjectStatus ProjectStatus = BO.ProjectStatus.Inlanning;
+        static BO.ProjectStatus ProjectStatus;
         static void Main(string[] args)
         {
             try
