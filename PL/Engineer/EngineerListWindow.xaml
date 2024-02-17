@@ -21,16 +21,16 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Select:" Grid.Column="0" HorizontalAlignment="Left" Margin="111,-4,0,0" VerticalAlignment="Center" FontFamily="MV Boli" FontSize="20" Width="105" Height="40"/>
-            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=Level, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="EngLevel_SelectionChanged"/>
+            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=Level, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Stretch" SelectionChanged="EngLevel_SelectionChanged"/>
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding Path=EngineerList}">
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="ListView_UpdateEng_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Background="#FF3498DB" FontFamily="MV Boli" FontSize="22"/>
-        <Image HorizontalAlignment="Left" Height="50" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="100" Source="/Engineer/CodeMaster Logo.png"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Background="#FF3498DB" FontFamily="MV Boli" FontSize="22" Click="btnAddEng_Click"/>
     </Grid>
 </Window>

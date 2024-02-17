@@ -44,5 +44,18 @@ namespace PL.Engineer
                 s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Level)!;
 
         }
+
+        private void btnAddEng_Click(object sender, RoutedEventArgs e)
+        {
+            new EngineerWindow().ShowDialog();
+            EngineerList = s_bl.Engineer.ReadAll();
+        }
+
+        private void ListView_UpdateEng_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BO.Engineer? eng = (sender as ListView)?.SelectedItem as BO.Engineer;
+            new EngineerWindow(eng.Id).ShowDialog();
+            EngineerList = s_bl.Engineer.ReadAll();
+        }
     }
 }
