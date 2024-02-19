@@ -134,13 +134,13 @@ internal class EngineerImplementation : BlApi.IEngineer
             _dal.Engineer.Update(new DO.Engineer()
             {
                 Id = boEng.Id,
-                Name= boEng.Name,
-                Email= boEng.Email,
-                Level= (DO.LevelEngineer)boEng.Level,
-                Cost= boEng.Cost,
+                Name = boEng.Name,
+                Email = boEng.Email,
+                Level = (DO.LevelEngineer)boEng.Level,
+                Cost = boEng.Cost,
             });
-            if(boEng.Task!= null)
-                AssignmentTaskToEngineer(boEng.Task,boEng.Id,boEng.Name);
+            if (boEng.Task != null)
+                AssignmentTaskToEngineer(boEng.Task, boEng.Id, boEng.Name);
         }
         catch (DO.DalAlreadyExistsException ex)
         {
@@ -160,15 +160,10 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         if (eng.Id < 0)
             return false;
-        if(eng.Name!=null)
-            if (eng.Name == "")
-                return false;
-        if(eng.Email!=null)
-            if (!eng.Email.Contains('@') || eng.Email.Contains(' '))
-                return false;
-        if (eng.Cost != null)
-            if (eng.Cost < 0)
-                return false;
+        if (eng.Email != "" && (!eng.Email.Contains('@') || eng.Email.Contains(' ')))
+            return false;
+        if (eng.Cost != null && eng.Cost < 0) 
+            return false;
         return true;
     }
     /// <summary>

@@ -3,7 +3,7 @@ namespace BO;
 /// <summary>
 /// Represents the level of an engineer.
 /// </summary>
-public enum LevelEngineer { Beginner, AdvancedBeginner, Intermediate, Advanced, Expert, None };
+public enum LevelEngineer { None,Beginner, AdvancedBeginner, Intermediate, Advanced, Expert };
 /// <summary>
 /// Represents the status of a task.
 /// </summary>

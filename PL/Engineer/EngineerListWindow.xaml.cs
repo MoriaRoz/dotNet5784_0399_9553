@@ -54,7 +54,8 @@ namespace PL.Engineer
         private void ListView_UpdateEng_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.Engineer? eng = (sender as ListView)?.SelectedItem as BO.Engineer;
-            new EngineerWindow(eng.Id).ShowDialog();
+            if(eng != null)
+               new EngineerWindow(eng.Id).ShowDialog();
             EngineerList = s_bl.Engineer.ReadAll();
         }
     }

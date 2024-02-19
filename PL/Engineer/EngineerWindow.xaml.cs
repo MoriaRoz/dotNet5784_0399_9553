@@ -36,12 +36,7 @@ namespace PL.Engineer
             set { SetValue(EngineerProperty, value); }
         }
         public static readonly DependencyProperty EngineerProperty =
-            DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow));
-        public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
-        private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            CurrentEngineer.Level=Level;
-        }
+            DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
         private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -65,6 +60,7 @@ namespace PL.Engineer
                 {
                     Console.WriteLine(ex.Message);
                 }
+                Close();
             }
         }
     }

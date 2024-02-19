@@ -36,13 +36,6 @@
     <cost>366.783</cost>
   </Engineer>
   <Engineer>
-    <id>293189825</id>
-    <name>Shira Israelof</name>
-    <email>Shira Israelof@gamil.com</email>
-    <level>Expert</level>
-    <cost>450</cost>
-  </Engineer>
-  <Engineer>
     <id>290485485</id>
     <name>Dani Levi</name>
     <email>Dani Levi@gamil.com</email>
@@ -85,9 +78,72 @@
     <cost>117.133</cost>
   </Engineer>
   <Engineer>
+    <id>293189825</id>
+    <name>Shira Israelof</name>
+    <email>ShiraIsraelof@gamil.com</email>
+    <level>5</level>
+    <cost>800</cost>
+  </Engineer>
+  <Engineer>
+    <id>212940399</id>
+    <name>Moria Rozenfeld</name>
+    <email>moria@gmail.com</email>
+    <level>5</level>
+    <cost>1000</cost>
+  </Engineer>
+  <Engineer>
+    <id>12345</id>
+    <name>dov</name>
+    <email />
+    <level>5</level>
+    <cost>800</cost>
+  </Engineer>
+  <Engineer>
+    <id>222</id>
+    <name>dan</name>
+    <email />
+    <level>5</level>
+    <cost />
+  </Engineer>
+  <Engineer>
+    <id>12</id>
+    <name />
+    <email />
+    <level>Intermediate</level>
+    <cost />
+  </Engineer>
+  <Engineer>
     <id>123</id>
-    <name>Ronn</name>
+    <name>Ronni</name>
     <email>Ron@gmail</email>
+    <level>5</level>
+    <cost>1233</cost>
+  </Engineer>
+  <Engineer>
+    <id>97</id>
+    <name>DAnii</name>
+    <email>da@gail</email>
+    <level>Advanced</level>
+    <cost>120</cost>
+  </Engineer>
+  <Engineer>
+    <id>1236789</id>
+    <name>einat</name>
+    <email>abc@ga</email>
+    <level>Expert</level>
+    <cost>123</cost>
+  </Engineer>
+  <Engineer>
+    <id>212112</id>
+    <name>dor</name>
+    <email>dor@g</email>
+    <level>5</level>
+    <cost>123</cost>
+  </Engineer>
+  <Engineer>
+    <id>321</id>
+    <name></name>
+    <email></email>
     <level>5</level>
     <cost>123</cost>
   </Engineer>

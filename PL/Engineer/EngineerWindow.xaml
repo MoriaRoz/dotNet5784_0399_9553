@@ -22,17 +22,17 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Row="0" Text="ID: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=TwoWay}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=OneTime,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
         <TextBlock Grid.Row="1" Text="Name: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Name, Mode=TwoWay}"/>
+        <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
         <TextBlock Grid.Row="2" Text="Email: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email, Mode=TwoWay}"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
         <TextBlock Grid.Row="3" Text="Level: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <ComboBox Grid.Row="3" Grid.Column="1" SelectedValue="{Binding Path=Level, Mode=TwoWay}"
+        <ComboBox Grid.Row="3" Grid.Column="1" SelectedValue="{Binding Level, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"
                   ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}"
-                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="EngLevel_SelectionChanged"/>
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <TextBlock Grid.Row="4" Text="Cost: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
         <TextBlock Grid.Row="5" Text="Task: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
         <ComboBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto"/>
 
