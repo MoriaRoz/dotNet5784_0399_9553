@@ -160,7 +160,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         if (eng.Id < 0)
             return false;
-        if (eng.Email != "" && (!eng.Email.Contains('@') || eng.Email.Contains(' ')))
+        if ((eng.Email != "") && (!(eng.Email.Contains('@')) || eng.Email.Contains(' ')))
             return false;
         if (eng.Cost != null && eng.Cost < 0) 
             return false;
