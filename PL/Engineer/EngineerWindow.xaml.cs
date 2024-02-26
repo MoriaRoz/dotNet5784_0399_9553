@@ -38,6 +38,12 @@ namespace PL.Engineer
         public static readonly DependencyProperty EngineerProperty =
             DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
+        public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
+
+        private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TaskList = s_bl.Task.ReadAll(Level);
+        }
         private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
         {
             Button? btn = sender! as Button;
