@@ -15,3 +15,10 @@ internal class StatusesCollection : IEnumerable
 
     public IEnumerator GetEnumerator() => s_enumStats.GetEnumerator();
 }
+internal class UserRole : IEnumerable
+{
+    static readonly IEnumerable<BO.UserRole> s_enums =
+        (Enum.GetValues(typeof(BO.UserRole)) as IEnumerable<BO.UserRole>)!;
+
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}

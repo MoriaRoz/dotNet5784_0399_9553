@@ -8,6 +8,7 @@ sealed internal class DalList : IDal
     public IEngineer Engineer => new EngineerImplementation();
 
     public ITask Task => new TaskImplementation();
+    public IUser User => new UserImplementation();
 
     public IDependency Dependency => new DependencyImplementation();
     public void Reset() 

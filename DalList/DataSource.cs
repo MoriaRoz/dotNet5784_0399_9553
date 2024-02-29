@@ -21,5 +21,6 @@ internal static class DataSource
     internal static List<DO.Engineer> Engineers { get; } = new();//list of engineers.
     internal static List<DO.Dependency> Dependencys { get; } = new();//List of dependencies.
     internal static List<DO.Task> Tasks { get; } = new();//List of tasks.
+    internal static List<DO.User> Users { get; } = new();//list of engineers.
 
 }
