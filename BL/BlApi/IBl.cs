@@ -3,6 +3,7 @@ public interface IBl
 {
     public IEngineer Engineer { get; }
     public ITask Task { get; }
+    public IUser User { get; }
     public void SetProjectStartDate(DateTime startDate);
     public DateTime? GetProjectStartDate();
     public BO.ProjectStatus GetProjectStatus();

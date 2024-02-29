@@ -19,7 +19,7 @@ internal class Bl : IBl
     /// Gets the instance of the business logic for managing tasks.
     /// </summary>
     public ITask Task => new TaskImplementation();
-
+    public IUser User => new UserImplementation();
     public DateTime? GetProjectStartDate()
     {
         return DalApi.Factory.Get.Task.GetProjectStartDate();

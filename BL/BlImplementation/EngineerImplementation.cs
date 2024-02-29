@@ -14,6 +14,7 @@ internal class EngineerImplementation : BlApi.IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private BlImplementation.TaskImplementation taskImplementation = new BlImplementation.TaskImplementation();
+    private BlImplementation.UserImplementation userImplementation = new BlImplementation.UserImplementation();
     /// <summary>
     /// Creates a new engineer in the system.
     /// </summary>
@@ -66,6 +67,9 @@ internal class EngineerImplementation : BlApi.IEngineer
             {
                 throw new BO.BlDoesNotExistException($"Engineer with ID={id} does not exist", ex);
             }
+            BO.User? engUser = userImplementation.Read(id);
+            if (engUser != null)
+                userImplementation.Delete(id);
         }
     }
     /// <summary>

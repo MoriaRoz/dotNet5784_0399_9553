@@ -12,3 +12,4 @@ public enum Statuses { Unscheduled, Scheduled, Started, Done };//InJeopardy
 /// Represents the status of a project.
 /// </summary>
 public enum ProjectStatus { Inlanning, InExecution };
+public enum UserRole { Engineer, Manager };
