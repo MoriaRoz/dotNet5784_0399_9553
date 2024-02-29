@@ -1,7 +1,9 @@
-﻿using System;
+﻿using PL.Engineer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,38 +26,42 @@ namespace PL.Task
         public TaskListWindow()
         {
             InitializeComponent();
-            TaskList = s_bl?.Task.ReadAll()!;
         }
-
-        public IEnumerable<BO.Task> TaskList
+        public IEnumerable<BO.TaskInList> TaskList
         {
-            get { return (IEnumerable<BO.Task>)GetValue(TaskListProperty); }
+            get { return (IEnumerable<BO.TaskInList>)GetValue(TaskListProperty); }
             set { SetValue(TaskListProperty, value); }
         }
 
         public static readonly DependencyProperty TaskListProperty =
-            DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.Task>), typeof(TaskListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
 
-        public BO.Statuses status { get; set; } = BO.Statuses.Unscheduled;
-
-        //private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    TaskList = (status == BO.Statuses.Unscheduled) ?
-        //        s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Status == status)!;
-
-        //}
-
-        private void btnAddEng_Click(object sender, RoutedEventArgs e)
+        private void AddTask_Click(object sender, RoutedEventArgs e)
         {
             new TaskWindow().ShowDialog();
-            TaskList = s_bl.Task.ReadAll();
         }
 
-        private void ListView_UpdateEng_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ListView_UpdateTask_MouseDoubleClick(object sender, MouseEventArgs e) 
         {
-            BO.Task? eng = (sender as ListView)?.SelectedItem as BO.Task;
-            if (eng != null)
-                new TaskWindow(eng.Id).ShowDialog();
+            BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
+            if (task != null)
+                new TaskWindow(task.Id).ShowDialog();
+        }
+        private void selectStatus_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem? statusSelect = e.OriginalSource as MenuItem;
+            BO.Statuses status = (BO.Statuses)statusSelect.Header;
+            TaskList = s_bl.Task.ReadAll(item => item.Status == status);
+        }
+        private void selectComplexity_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem? complexitySelect = e.OriginalSource as MenuItem;
+            BO.LevelEngineer complexity = (BO.LevelEngineer)complexitySelect.Header;
+            TaskList = s_bl.Task.ReadAll(item => item.Complexity == complexity);
+        }
+
+        private void ActivatedRefresh(object sender, EventArgs e)
+        {
             TaskList = s_bl.Task.ReadAll();
         }
     }

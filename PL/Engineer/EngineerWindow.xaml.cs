@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BO;
+using DalApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,62 +14,83 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Engineer
+namespace PL.Engineer;
+
+/// <summary>
+/// Interaction logic for EngineerWindow.xaml
+/// </summary>
+public partial class EngineerWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for EngineerWindow.xaml
-    /// </summary>
-    public partial class EngineerWindow : Window
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+    public EngineerWindow(int Id=0)
     {
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        InitializeComponent();
+        if (Id == 0)
+            CurrentEngineer = new();
+        else
+            try { CurrentEngineer = s_bl.Engineer.Read(Id); }
+            catch(Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
+    }
+    public BO.Engineer CurrentEngineer
+    {
+        get { return (BO.Engineer)GetValue(EngineerProperty); }
+        set { SetValue(EngineerProperty, value); }
+    }
+    
+    public static readonly DependencyProperty EngineerProperty =
+        DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
-        public EngineerWindow(int Id=0)
-        {
-            InitializeComponent();
-            if (Id == 0)
-                CurrentEngineer = new();
-            else
-                try { CurrentEngineer = s_bl.Engineer.Read(Id); }
-                catch(Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
-        }
-        public BO.Engineer CurrentEngineer
-        {
-            get { return (BO.Engineer)GetValue(EngineerProperty); }
-            set { SetValue(EngineerProperty, value); }
-        }
-        public static readonly DependencyProperty EngineerProperty =
-            DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+    public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
+    //public List<BO.TaskInEngineer> tasks { get; set; } = null;
+    //public BO.TaskInEngineer engTask { get; set; } = null;
+    //private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    //{
+    //    tasks.Clear();
+    //    //var TaskList = s_bl.Task.ReadAll();
+    //    var temp = (from BO.TaskInList task in s_bl.Task.ReadAll()
+    //                let boTask = s_bl.Task.Read(task.Id)
+    //                where boTask.Complexity <= Level
+    //                let taskEng = new BO.TaskInEngineer()
+    //                {
+    //                    Id = task.Id,
+    //                    Alias = task.Alias
+    //                }
+    //                select taskEng);
+    //    foreach(BO.TaskInEngineer task in temp) 
+    //    {
+    //        tasks.Add(task);
+    //    }
+    //}
 
-        public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
-
-        private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        Button? btn = sender! as Button;
+        if (btn != null)
         {
-            TaskList = s_bl.Task.ReadAll(Level);
-        }
-        private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
-        {
-            Button? btn = sender! as Button;
-            if (btn != null)
+            try
             {
-                try
+                if (btn.Content.ToString() == "Add")
                 {
-                    if (btn.Content.ToString() == "Add")
-                    {
-                        s_bl.Engineer.Create(CurrentEngineer);
-                        MessageBox.Show($"Engineer with Id:{CurrentEngineer.Id} added successfully");
-                    }
-                    if (btn.Content.ToString() == "Update")
-                    {
-                        s_bl.Engineer.Update(CurrentEngineer);
-                        MessageBox.Show($"Engineer with Id:{CurrentEngineer.Id} successfully updated");
-                    }
+                    s_bl.Engineer.Create(CurrentEngineer);
+                    MessageBox.Show($"Engineer with Id:{CurrentEngineer.Id} added successfully");
                 }
-                catch (Exception ex)
+                if (btn.Content.ToString() == "Update")
                 {
-                    Console.WriteLine(ex.Message);
+                    s_bl.Engineer.Update(CurrentEngineer);
+                    MessageBox.Show($"Engineer with Id:{CurrentEngineer.Id} successfully updated");
                 }
-                Close();
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Close();
         }
+    }
+
+    private void BtnBack_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }

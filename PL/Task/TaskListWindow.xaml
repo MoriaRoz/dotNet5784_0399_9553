@@ -6,9 +6,8 @@
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
         Title="TaskListWindow" Height="450" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-
-
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Activated="ActivatedRefresh">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
@@ -20,17 +19,20 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Select:" Grid.Column="0" HorizontalAlignment="Left" Margin="111,-4,0,0" VerticalAlignment="Center" FontFamily="MV Boli" FontSize="20" Width="105" Height="40"/>
-            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=Level, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" HorizontalAlignment="Stretch" 
-                      VerticalAlignment="Stretch" SelectionChanged="EngLevel_SelectionChanged"/>
+            <Menu Grid.Column="1">
+                <MenuItem Header="Filter selection:" FontFamily="MV Boli" FontSize="22">
+                    <MenuItem Header="Status" ItemsSource="{Binding Source={StaticResource StatusesCollectionKey}}" Click="selectStatus_Click"/>
+                    <MenuItem Header="Complexity" ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" Click="selectComplexity_Click"/>
+                </MenuItem>
+            </Menu>
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="ListView_UpdateEng_MouseDoubleClick">
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding TaskList,Mode=TwoWay}" MouseDoubleClick="ListView_UpdateTask_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Background="#FF3498DB" FontFamily="MV Boli" FontSize="22" Click="btnAddEng_Click"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Background="#FF3498DB" FontFamily="MV Boli" FontSize="22" Click="AddTask_Click"/>
     </Grid>
 </Window>
