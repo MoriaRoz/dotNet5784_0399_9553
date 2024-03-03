@@ -5,7 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskWindow" Height="600" Width="800">
+        Title="Task Window" Height="800" Width="450"
+        DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <!--Id task-->
+        <Label Content="ID:" Grid.Row="0" Grid.Column="0"  
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=OneTime,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+        
+        <!--Alias task-->
+        <Label Grid.Row="1" Grid.Column="0" Text="Alias: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Alias, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
 
+        <!--Description task-->
+        <Label Grid.Row="2" Grid.Column="0" Text="Description: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Description, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+
+        <!--CreatedAtDate task-->
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="CreatedAtDate: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+        <DatePicker Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="170"/>
+
+        <!--Status task-->
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Status: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Status,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+
+        <!--RequiredEffortTime task-->
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="RequiredEffortTime: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+
+        <!--StartDate task-->
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="StartDate: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+
+        <!--DeadlineDate task-->
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="DeadlineDate: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+
+        <!--ScheduledDate task-->
+        <TextBlock Grid.Row="8" Grid.Column="0" Text="ScheduledDate: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+
+        <!--ForecastDate task-->
+        <TextBlock Grid.Row="9" Grid.Column="0" Text="ForecastDate: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+
+        <!--CompleteDate task-->
+        <TextBlock Grid.Row="10" Grid.Column="0" Text="CompleteDate: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+
+        <!--Deliverables task-->
+        <TextBlock Grid.Row="11" Grid.Column="0" Text="Deliverables: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+        <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding Deliverables, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+
+        <!--Remarks task-->
+        <TextBlock Grid.Row="12" Grid.Column="0" Text="Remarks: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+        <TextBox Grid.Row="12" Grid.Column="1" Text="{Binding Remarks, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+
+        <!--Complexity task-->
+        <TextBlock Grid.Row="13" Grid.Column="0" Text="Complexity: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+
+        <!--Engineer task-->
+        <TextBlock Grid.Row="14" Grid.Column="0" Text="Engineer: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+
+        <!--Dependencies task-->
+        <TextBlock Grid.Row="15" Grid.Column="0" Text="Dependencies: " 
+                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+
+
+    </Grid>
 </Window>
 

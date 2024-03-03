@@ -3,17 +3,17 @@
 namespace PL;
 internal class LevelEngineerCollection : IEnumerable
 {
-    static readonly IEnumerable<BO.LevelEngineer> s_enums =
+    static readonly IEnumerable<BO.LevelEngineer> s_enum =
         (Enum.GetValues(typeof(BO.LevelEngineer)) as IEnumerable<BO.LevelEngineer>)!;
 
-    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+    public IEnumerator GetEnumerator() => s_enum.GetEnumerator();
 }
-internal class Statuses : IEnumerable
+internal class StatusesCollection : IEnumerable
 {
-    static readonly IEnumerable<BO.Statuses> s_enums =
+    static readonly IEnumerable<BO.Statuses> s_enumStats =
         (Enum.GetValues(typeof(BO.Statuses)) as IEnumerable<BO.Statuses>)!;
 
-    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+    public IEnumerator GetEnumerator() => s_enumStats.GetEnumerator();
 }
 internal class UserRole : IEnumerable
 {

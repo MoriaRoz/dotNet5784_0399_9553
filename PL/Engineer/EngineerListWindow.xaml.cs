@@ -24,7 +24,6 @@ namespace PL.Engineer
         public EngineerListWindow()
         {
             InitializeComponent();
-            EngineerList = s_bl?.Engineer.ReadAll()!;
         }
 
         public IEnumerable<BO.Engineer> EngineerList
@@ -41,14 +40,12 @@ namespace PL.Engineer
         private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             EngineerList = (Level == BO.LevelEngineer.None) ?
-                s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Level)!;
-
+                s_bl.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Level)!;
         }
 
         private void btnAddEng_Click(object sender, RoutedEventArgs e)
         {
             new EngineerWindow().ShowDialog();
-            EngineerList = s_bl.Engineer.ReadAll();
         }
 
         private void ListView_UpdateEng_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -56,6 +53,10 @@ namespace PL.Engineer
             BO.Engineer? eng = (sender as ListView)?.SelectedItem as BO.Engineer;
             if(eng != null)
                new EngineerWindow(eng.Id).ShowDialog();
+        }
+
+        private void ActivatedRefresh(object sender, EventArgs e)
+        {
             EngineerList = s_bl.Engineer.ReadAll();
         }
     }

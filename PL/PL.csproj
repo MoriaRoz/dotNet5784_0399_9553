@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <None Remove="CodeMaster.png" />
-    <None Remove="Engineer\CodeMaster Logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +23,6 @@
 
   <ItemGroup>
     <Resource Include="CodeMaster.png" />
-    <Resource Include="Engineer\CodeMaster Logo.png" />
   </ItemGroup>
 
 </Project>

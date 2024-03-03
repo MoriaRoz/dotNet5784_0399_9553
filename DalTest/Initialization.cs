@@ -192,15 +192,11 @@ public static class Initialization
         }
     }
     public static void Do()
-    { 
+    {
         s_dal = DalApi.Factory.Get; //stage 4
         createEngineer();
         createTask();
         createDependency();
-    }
-    public static void Reset() 
-    { 
-
     }
 }
 

@@ -5,5 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskListWindow" Height="450" Width="800">
+        Title="TaskListWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Activated="ActivatedRefresh">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Menu Grid.Column="1">
+                <MenuItem Header="Filter selection:" FontFamily="MV Boli" FontSize="22">
+                    <MenuItem Header="Status" ItemsSource="{Binding Source={StaticResource StatusesCollectionKey}}" Click="selectStatus_Click"/>
+                    <MenuItem Header="Complexity" ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" Click="selectComplexity_Click"/>
+                </MenuItem>
+            </Menu>
+        </Grid>
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding TaskList,Mode=TwoWay}" MouseDoubleClick="ListView_UpdateTask_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Background="#FF3498DB" FontFamily="MV Boli" FontSize="22" Click="AddTask_Click"/>
+    </Grid>
 </Window>

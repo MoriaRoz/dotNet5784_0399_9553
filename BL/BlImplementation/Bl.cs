@@ -14,7 +14,6 @@ internal class Bl : IBl
     /// Gets the instance of the business logic for managing engineers.
     /// </summary>
     public IEngineer Engineer => new EngineerImplementation();
-
     /// <summary>
     /// Gets the instance of the business logic for managing tasks.
     /// </summary>
@@ -24,17 +23,14 @@ internal class Bl : IBl
     {
         return DalApi.Factory.Get.Task.GetProjectStartDate();
     }
-
     public ProjectStatus GetProjectStatus()
     {
         return (BO.ProjectStatus)DalApi.Factory.Get.Task.GetProjectStatus();
     }
-
     public void SetProjectStartDate(DateTime startDate)
     {
         DalApi.Factory.Get.Task.SetProjectStartDate(startDate);
     }
-
     public void CreateSchedule(DateTime startDate)
     {
         IEnumerable<BO.TaskInList> allTasksINList = s_bl.Task.ReadAll();
@@ -141,5 +137,5 @@ internal class Bl : IBl
         }
     }
     public void InitializeDB() => DalTest.Initialization.Do();
-    public void ResetDB() => DalTest.Initialization.Reset();
+    public void ResetDB() => DalApi.Factory.Get.Reset();
 }

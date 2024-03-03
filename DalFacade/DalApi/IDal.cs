@@ -10,4 +10,5 @@ public interface IDal
     ITask Task { get; }
     IDependency Dependency { get; }
     IUser User { get; }
+    public void Reset() { }
 }

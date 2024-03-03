@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BO;
+using DalApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,33 +14,54 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Engineer
+namespace PL.Engineer;
+
+/// <summary>
+/// Interaction logic for EngineerWindow.xaml
+/// </summary>
+public partial class EngineerWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for EngineerWindow.xaml
-    /// </summary>
-    public partial class EngineerWindow : Window
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+    public EngineerWindow(int Id=0)
     {
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        InitializeComponent();
+        if (Id == 0)
+            CurrentEngineer = new();
+        else
+            try { CurrentEngineer = s_bl.Engineer.Read(Id); }
+            catch(Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
+    }
+    public BO.Engineer CurrentEngineer
+    {
+        get { return (BO.Engineer)GetValue(EngineerProperty); }
+        set { SetValue(EngineerProperty, value); }
+    }
+    
+    public static readonly DependencyProperty EngineerProperty =
+        DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
-        public EngineerWindow(int Id=0)
-        {
-            InitializeComponent();
-            if (Id == 0)
-                CurrentEngineer = new();
-            else
-                try { CurrentEngineer = s_bl.Engineer.Read(Id); }
-                catch(Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
-        }
-        public BO.Engineer CurrentEngineer
-        {
-            get { return (BO.Engineer)GetValue(EngineerProperty); }
-            set { SetValue(EngineerProperty, value); }
-        }
-        public static readonly DependencyProperty EngineerProperty =
-            DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
-
-        public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
+    public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
+    //public List<BO.TaskInEngineer> tasks { get; set; } = null;
+    //public BO.TaskInEngineer engTask { get; set; } = null;
+    //private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    //{
+    //    tasks.Clear();
+    //    //var TaskList = s_bl.Task.ReadAll();
+    //    var temp = (from BO.TaskInList task in s_bl.Task.ReadAll()
+    //                let boTask = s_bl.Task.Read(task.Id)
+    //                where boTask.Complexity <= Level
+    //                let taskEng = new BO.TaskInEngineer()
+    //                {
+    //                    Id = task.Id,
+    //                    Alias = task.Alias
+    //                }
+    //                select taskEng);
+    //    foreach(BO.TaskInEngineer task in temp) 
+    //    {
+    //        tasks.Add(task);
+    //    }
+    //}
 
         private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

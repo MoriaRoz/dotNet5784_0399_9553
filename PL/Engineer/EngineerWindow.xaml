@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerWindow" Height="450" Width="800"
+        Title="Engineer Window" Height="600" Width="600"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,29 +15,50 @@
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="2*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Text="ID: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=OneTime,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
-        <TextBlock Grid.Row="1" Text="Name: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
-        <TextBlock Grid.Row="2" Text="Email: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
-        <TextBlock Grid.Row="3" Text="Level: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <ComboBox Grid.Row="3" Grid.Column="1" SelectedValue="{Binding Level, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"
-                  ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}"
-                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        <TextBlock Grid.Row="4" Text="Cost: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
-        <TextBlock Grid.Row="5" Text="Task: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <ComboBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto"/>
 
-        <Button Grid.Column="0" Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToContentKey}}" 
-                HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center" Width="100" Height="30" Click="BtnAddOrUpdate_Click"/>
+        <!--Engineer Id-->
+        <Label Grid.Row="0" Content="ID: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold" />
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=OneTime,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Margin="0,10,40,10" FontSize="15"/>
+
+        <!--Engineer Name-->
+        <Label Grid.Row="1" Content="Name: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Margin="0,10,36,10" FontSize="15"/>
+
+        <!--Engineer Email-->
+        <Label Grid.Row="2" Content="Email: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Margin="0,10,36,10" FontSize="15"/>
+
+        <!--Engineer Level-->
+        <Label Grid.Row="3" Content="Level: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <ComboBox Grid.Row="3" Grid.Column="1" SelectedValue="{Binding Level, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"
+                  ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" Margin="0,10,36,10" FontSize="15"/>
+
+        <!--Engineer Cost-->
+        <Label Grid.Row="4" Content="Cost: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Margin="0,10,36,10" FontSize="15"/>
+
+        <!--Engineer Task-->
+        <Label Grid.Row="5" Content="Task: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <ComboBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" FontSize="15"
+                  ItemsSource="{Binding tasks}" SelectedValue="{Binding engTask, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+        
+        
+        <Grid Grid.Row="6" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Content="{Binding Id, Converter={StaticResource ConvertIdToContentKey}, Mode=OneTime}" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Height="50" Click="BtnAddOrUpdate_Click" FontFamily="Segoe Print" FontWeight="Bold" FontSize="20" Margin="60,0,0,0" Grid.Column="1"/>
+            <Button Grid.Column="0" Grid.ColumnSpan="2" Content="Back" Width="120" Height="50" FontFamily="Segoe Print" FontWeight="Bold" FontSize="20" Margin="120,16,360,17" Click="BtnBack_Click"/>
+        </Grid>
+
     </Grid>
 
 </Window>
