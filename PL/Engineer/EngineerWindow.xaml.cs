@@ -42,7 +42,7 @@ namespace PL.Engineer
 
         private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TaskList = s_bl.Task.ReadAll(Level);
+            var TaskList = s_bl.Task.ReadAll(task => task.Complexity==Level);
         }
         private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
         {

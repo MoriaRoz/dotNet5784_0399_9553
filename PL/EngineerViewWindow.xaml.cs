@@ -3,6 +3,7 @@ using PL.Task;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,6 +67,20 @@ namespace PL
             LoginPage loginWindow = new LoginPage();
             loginWindow.Show();
             Close();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        public class EnumToStringConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                if (value == null)
+                    return null;
+                return ((Enum)value).ToString();
+            }
         }
     }
 }
