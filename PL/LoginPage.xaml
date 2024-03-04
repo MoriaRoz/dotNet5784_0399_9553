@@ -28,7 +28,7 @@
         <TextBlock Grid.Column="1" Grid.Row="2" Text="ID :" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" FontFamily="MV Boli"/>
         <TextBox Grid.Column="2"  Grid.Row="2" HorizontalAlignment="Stretch"  TextWrapping="Wrap" Text="{Binding EngineerId, Mode=OneTime,NotifyOnValidationError=True,ValidatesOnExceptions=True}" VerticalAlignment="Center" FontSize="22" FontFamily="MV Boli"/>
         <TextBlock Grid.Column="1" Grid.Row="3" Text="Password :" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Stretch" FontSize="22" FontFamily="MV Boli"/>
-        <PasswordBox Grid.Column="2"  Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="22" FontFamily="MV Boli" Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <PasswordBox Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="22" FontFamily="MV Boli" PasswordChanged="PasswordBox_PasswordChanged"/>
         <Button Grid.Column="1" Content="to create a new user" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Stretch" FontSize="15" FontFamily="MV Boli" Click="Button_CreateUser_Click"/>
         <Button Grid.Column="2" Content="Login" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Bottom" FontSize="22" FontFamily="MV Boli" />
     </Grid>

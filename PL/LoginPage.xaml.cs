@@ -1,36 +1,29 @@
-﻿using PL.Engineer;
+﻿using BO;
+using DalApi;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL
 {
-    /// <summary>
-    /// Interaction logic for LoginPage.xaml
-    /// </summary>
     public partial class LoginPage : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
         public LoginPage()
         {
-            InitializeComponent();        }
+            InitializeComponent();
+        }
+
         public BO.User CurrentUser
         {
             get { return (BO.User)GetValue(UserProperty); }
             set { SetValue(UserProperty, value); }
         }
+
         private SecureString _password;
+
         public SecureString Password
         {
             get { return _password; }
@@ -43,19 +36,21 @@ namespace PL
                 }
             }
         }
+
+        public static readonly DependencyProperty UserProperty =
+            DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
+
         private void Button_CreateUser_Click(object sender, RoutedEventArgs e)
         {
             CreateUserWindow createUserWindow = new CreateUserWindow();
             createUserWindow.Show();
             Close();
         }
+
         private DependencyPropertyChangedEventArgs nameof(SecureString password)
         {
             throw new NotImplementedException();
         }
-
-        public static readonly DependencyProperty UserProperty =
-    DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -67,6 +62,7 @@ namespace PL
                     MessageBox.Show("User with the provided ID does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
                 var passwordBox = sender as PasswordBox;
                 string enteredPassword = passwordBox.Password;
                 var securePassword = user.Password;
@@ -77,6 +73,7 @@ namespace PL
                     MessageBox.Show("Incorrect password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
                 if (user.Rool == BO.UserRole.Manager)
                 {
                     ManagerViewWindow managerViewWindow = new ManagerViewWindow(CurrentUser.EngineerId);
@@ -84,15 +81,29 @@ namespace PL
                 }
                 else if (user.Rool == BO.UserRole.Engineer)
                 {
-                    // Open the EngineerViewWindow
                     EngineerViewWindow engineerViewWindow = new EngineerViewWindow(CurrentUser.EngineerId);
                     engineerViewWindow.Show();
                 }
+
                 Close();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (sender is PasswordBox passwordBox)
+            {
+                SecureString securePassword = new SecureString();
+                foreach (char c in passwordBox.Password)
+                {
+                    securePassword.AppendChar(c);
+                }
+
+                Password = securePassword;
             }
         }
     }

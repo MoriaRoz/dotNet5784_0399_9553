@@ -26,9 +26,9 @@ namespace PL
             //this.Icon = BitmapFrame.Create(iconUri);
         }
 
-        private void btnEngineer_Click(object sender, RoutedEventArgs e)
+        private void btnLofin_Click(object sender, RoutedEventArgs e)
         {
-            new EngineerListWindow().Show();
+            new LoginPage().Show();
             //new TaskListWindow().Show();
         }
 

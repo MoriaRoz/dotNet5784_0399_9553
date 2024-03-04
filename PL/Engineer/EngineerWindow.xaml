@@ -56,7 +56,7 @@
             </Grid.ColumnDefinitions>
             <Button Content="{Binding Id, Converter={StaticResource ConvertIdToContentKey}, Mode=OneTime}" 
                     HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Height="50" Click="BtnAddOrUpdate_Click" FontFamily="Segoe Print" FontWeight="Bold" FontSize="20" Margin="60,0,0,0" Grid.Column="1"/>
-            <Button Grid.Column="0" Grid.ColumnSpan="2" Content="Back" Width="120" Height="50" FontFamily="Segoe Print" FontWeight="Bold" FontSize="20" Margin="120,16,360,17" Click="BtnBack_Click"/>
+            <!--Button Grid.Column="0" Grid.ColumnSpan="2" Content="Back" Width="120" Height="50" FontFamily="Segoe Print" FontWeight="Bold" FontSize="20" Margin="120,16,360,17" Click="BtnBack_Click"-->
         </Grid>
 
     </Grid>

@@ -1,4 +1,7 @@
-﻿using PL.Engineer;
+﻿using BO;
+using DalApi;
+using DO;
+using PL.Engineer;
 using PL.Task;
 using System;
 using System.Collections.Generic;
@@ -18,69 +21,93 @@ using System.Windows.Shapes;
 
 namespace PL
 {
-    /// <summary>
-    /// Interaction logic for EngineerViewWindow.xaml
-    /// </summary>
-    public partial class EngineerViewWindow : Window, INotifyPropertyChanged
+    public partial class EngineerViewWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public EngineerViewWindow(int Id)
+        private bool _engHasTask;
+        private bool _engDoesntHasTask;
+        private double _projectProgress;
+        public EngineerViewWindow(int engineerId = 0)
         {
             InitializeComponent();
-            //        try {
-            //        //TaskWindow taskWindow = new TaskWindow(s_bl.Task.Read(s_bl.Engineer.Read(Id).Task.Id).Id);
-            //        //taskWindow.Show();
-            //            }
-            //        catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
+            try { CurrentEngineer = engineerId != 0 ? s_bl.Engineer.Read(engineerId) : null; }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
         }
-        private double _projectProgress;
 
-        public double ProjectProgress
+        public BO.Engineer CurrentEngineer
         {
-            get { return _projectProgress; }
-            set
+            get { return (BO.Engineer)GetValue(EngineerProperty); }
+            set { SetValue(EngineerProperty, value); }
+        }
+        public static readonly DependencyProperty EngineerProperty =
+         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+        public bool EngHasTask
+        {
+            get { return _engHasTask; }
+        }
+
+        public bool EngDoesntHasTask
+        {
+            get { return _engDoesntHasTask; }
+        }
+        private void checkIfEngHasTask()
+        {
+            BO.TaskInEngineer engTask = CurrentEngineer.Task;
+            if (engTask != null)
             {
-                if (_projectProgress != value)
+                _engHasTask = true;
+                _engDoesntHasTask = false;
+            }
+            else
+            {
+                _engHasTask = false;
+                _engDoesntHasTask = true;
+            }
+        }
+        private IEnumerable<BO.TaskInList>? engineerTasks;
+
+        private void LoadEngineerTasks(int engineerId)
+        {
+            engineerTasks = s_bl.Task.ReadAll(task => task.Complexity <= s_bl.Engineer.Read(engineerId).Level && task.Engineer == null);
+        }
+        private void ListView_ChooseTask_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var result = MessageBox.Show("choosing a task", "Do you want to work on this task?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                BO.TaskInList taskinlist  = (sender as ListView)?.SelectedItem as BO.TaskInList;
+                if (taskinlist != null)
                 {
-                    _projectProgress = value;
-                    OnPropertyChanged(nameof(ProjectProgress));
+                    BO.Task? currentTask = s_bl.Task.Read(taskinlist.Id);
+                    if (currentTask != null)
+                    {
+                        currentTask.Engineer = new EngineerInTask { Id = CurrentEngineer.Id, Name = CurrentEngineer.Name };
+                        s_bl.Task.Update(currentTask); 
+                        LoadEngineerTasks(CurrentEngineer.Id); 
+                        _engDoesntHasTask = false;
+                        _engHasTask = true;
+                    }
                 }
             }
         }
-
-        private void CalculateProjectProgress()
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-                var tasks = s_bl.Task.ReadAll();
-                int totalTasks = tasks.Count();
-                int numOfDoneTasks = tasks.Count(t => t.Status == BO.Statuses.Done);
-                double progressPercentage = (numOfDoneTasks / (double)totalTasks) * 100;
-                ProjectProgress = progressPercentage;
-        }
-
-    private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            LoginPage loginWindow = new LoginPage();
-            loginWindow.Show();
+            LoginPage loginPage = new LoginPage();
+            loginPage.Show();
             Close();
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //processbur:
+        private void CalculateProjectProgress()
         {
-
+            var tasks = s_bl.Task.ReadAll();
+            int totalTasks = tasks.Count();
+            int numOfDoneTasks = tasks.Count(t => t.Status == BO.Statuses.Done);
+            double progressPercentage = (numOfDoneTasks / (double)totalTasks) * 100;
+            _projectProgress = progressPercentage;
         }
-        public class EnumToStringConverter
+        public double ProjectProgress
         {
-            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                if (value == null)
-                    return null;
-                return ((Enum)value).ToString();
-            }
+            get { return _projectProgress; }
         }
     }
 }

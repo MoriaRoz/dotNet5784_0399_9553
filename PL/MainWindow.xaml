@@ -7,9 +7,26 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="ENGINEER" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top" Height="70" Width="150" Click="btnEngineer_Click" FontSize="22" FontFamily="MV Boli" FontWeight="Bold" Background="#FF3498DB"/>
+        <Button Content="Login" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top" Height="70" Width="150" Click="btnLofin_Click" FontSize="22" FontFamily="MV Boli" FontWeight="Bold" Background="#FF3498DB"/>
         <Button Content="INITDB" HorizontalAlignment="Left" Margin="650,300,0,0" VerticalAlignment="Top" Height="70" Width="100" FontFamily="MV Boli" FontSize="22" FontWeight="Bold" Click="btnInitDB_Click" Background="#FF7A59B6"/>
         <Button Content="RESET" HorizontalAlignment="Left" Margin="530,300,0,0" VerticalAlignment="Top" Height="70" Width="100" FontFamily="MV Boli" FontSize="22" FontWeight="Bold" Click="btnReset_Click" Background="#FF7A59B6"/>
+        <Border BorderBrush="#FF7A59B6" BorderThickness="2" Margin="218,273,282,21" Height="100" Width="200" >
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <DatePicker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDate="{Binding currentDate}"  IsEnabled="False"/>
+                <Button Content="Add One Day" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontFamily="MV Boli" Background="#FF3498DB"/>
+                <Button Content="Add One Hour" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" FontFamily="MV Boli" Background="#FF3498DB"/>
+                <Button Content="Restart The Clock" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" FontFamily="MV Boli" Background="#FF3498DB"/>
+            </Grid>
+        </Border>
         <Image HorizontalAlignment="Center" Height="285" VerticalAlignment="Top" Width="800" Source="/CodeMaster.png" />
     </Grid>
 </Window>

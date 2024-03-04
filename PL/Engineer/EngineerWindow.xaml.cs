@@ -23,21 +23,21 @@ public partial class EngineerWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-    public EngineerWindow(int Id=0)
+    public EngineerWindow(int Id = 0)
     {
         InitializeComponent();
         if (Id == 0)
             CurrentEngineer = new();
         else
             try { CurrentEngineer = s_bl.Engineer.Read(Id); }
-            catch(Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
     }
     public BO.Engineer CurrentEngineer
     {
         get { return (BO.Engineer)GetValue(EngineerProperty); }
         set { SetValue(EngineerProperty, value); }
     }
-    
+
     public static readonly DependencyProperty EngineerProperty =
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
@@ -62,7 +62,11 @@ public partial class EngineerWindow : Window
     //        tasks.Add(task);
     //    }
     //}
-
+    private void BtnBack_Click(object sender, SelectionChangedEventArgs e)
+    {
+        Close();    
+    }
+    
         private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var TaskList = s_bl.Task.ReadAll(task => task.Complexity==Level);
@@ -93,4 +97,3 @@ public partial class EngineerWindow : Window
             }
         }
     }
-}

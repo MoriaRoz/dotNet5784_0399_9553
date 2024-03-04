@@ -38,12 +38,11 @@
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=OneTime,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
         
         <!--Alias task-->
-        <Label Grid.Row="1" Grid.Column="0" Text="Alias: " 
-                FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+        <Label Grid.Row="1" Grid.Column="0" Content="Alias: " FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Alias, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
 
         <!--Description task-->
-        <Label Grid.Row="2" Grid.Column="0" Text="Description: " 
+        <Label Grid.Row="2" Grid.Column="0" Content="Description: " 
                 FontSize="22" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Description, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
 
