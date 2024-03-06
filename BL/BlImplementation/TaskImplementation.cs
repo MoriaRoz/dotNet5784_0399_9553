@@ -35,7 +35,7 @@ internal class TaskImplementation : ITask
         DO.Task doTask = new DO.Task(boTask.Id, boTask.Alias, boTask.Description,
             boTask.CreatedAtDate, boTask.RequiredEffortTime,
             (DO.LevelEngineer)boTask.Complexity, boTask.StartDate,
-            boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
+            boTask.ScheduledDate, boTask.CompleteDate,
             boTask.Deliverables, boTask.Remarks, engId);
 
         try
@@ -68,7 +68,7 @@ internal class TaskImplementation : ITask
                 if (boTask.Engineer != null)
                     engId = boTask.Engineer.Id;
                 DO.Task doTask = new DO.Task(boTask.Id, boTask.Alias, boTask.Description, boTask.CreatedAtDate, boTask.RequiredEffortTime,
-                (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, boTask.ScheduledDate, boTask.DeadlineDate, boTask.CompleteDate,
+                (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, boTask.ScheduledDate, boTask.CompleteDate,
                 boTask.Deliverables, boTask.Remarks, engId);
 
                 var dependenceis = _dal.Dependency.ReadAll();
@@ -115,7 +115,7 @@ internal class TaskImplementation : ITask
             StartDate = doTask?.StartDate,
             ScheduledDate = doTask.ScheduledDate,
             ForecastDate = ForecastDateCalculation(doTask),
-            DeadlineDate = doTask.DeadlineDate,
+            //DeadlineDate = doTask.DeadlineDate,
             CompleteDate = doTask.CompleteDate,
             Deliverables = doTask.Deliverables,
             Remarks = doTask.Remarks,
@@ -173,7 +173,7 @@ internal class TaskImplementation : ITask
             var depTasks = (from BO.TaskInList depTask in boTask.Dependencies
                             let task = _dal.Task.Read(depTask.Id)
                             select task);
-            var endDates = depTasks.Where(t => start < t.DeadlineDate).ToList();
+            var endDates = depTasks.Where(t => start < (t.StartDate+t.RequiredEffortTime)).ToList();
             if (endDates.Any())
                 throw new BO.BlUnUpdatedTaskStartDate($"The given date is earlier than the deadline date of the task that the task with ID={id} depends on");
             DO.Task? doTask = new DO.Task
@@ -186,7 +186,7 @@ internal class TaskImplementation : ITask
                 Complexity = (DO.LevelEngineer)boTask.Complexity,
                 StartDate = start,
                 ScheduledDate = boTask.ScheduledDate,
-                DeadlineDate = boTask.DeadlineDate,
+                //DeadlineDate = boTask.DeadlineDate,
                 CompleteDate = boTask.CompleteDate,
                 Deliverables = boTask.Deliverables,
                 Remarks = boTask.Remarks,
@@ -238,7 +238,6 @@ internal class TaskImplementation : ITask
                 RequiredEffortTime = boTask.RequiredEffortTime,
                 Complexity = (DO.LevelEngineer)boTask.Complexity,
                 StartDate = boTask.StartDate,
-                DeadlineDate = boTask.DeadlineDate,
                 ScheduledDate = boTask.ScheduledDate,
                 CompleteDate = boTask.CompleteDate,
                 Deliverables = boTask.Deliverables,

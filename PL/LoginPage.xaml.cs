@@ -14,86 +14,90 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL;
+
+/// <summary>
+/// Code-behind Login window
+/// </summary>
+public partial class LoginPage : Window
 {
-    /// <summary>
-    /// Interaction logic for LoginPage.xaml
-    /// </summary>
-    public partial class LoginPage : Window
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    public LoginPage()
     {
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public LoginPage()
+        InitializeComponent();        
+    }
+
+    public BO.User CurrentUser
+    {
+        get { return (BO.User)GetValue(UserProperty); }
+        set { SetValue(UserProperty, value); }
+    }
+    public static readonly DependencyProperty UserProperty =
+            DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
+    
+    private SecureString _password;
+    public SecureString Password
+    {
+        get { return _password; }
+        set
         {
-            InitializeComponent();        }
-        public BO.User CurrentUser
-        {
-            get { return (BO.User)GetValue(UserProperty); }
-            set { SetValue(UserProperty, value); }
-        }
-        private SecureString _password;
-        public SecureString Password
-        {
-            get { return _password; }
-            set
+            if (_password != value)
             {
-                if (_password != value)
-                {
-                    _password = value;
-                    OnPropertyChanged(nameof(Password));
-                }
+                _password = value;
+                OnPropertyChanged(nameof(Password));
             }
         }
-        private void Button_CreateUser_Click(object sender, RoutedEventArgs e)
+    }
+
+    private DependencyPropertyChangedEventArgs nameof(SecureString password)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Btn_Login_Click(object sender, RoutedEventArgs e)
+    {
+        try
         {
-            CreateUserWindow createUserWindow = new CreateUserWindow();
-            createUserWindow.Show();
+            BO.User user = s_bl.User.Read(CurrentUser.EngineerId);
+            if (user == null)
+            {
+                MessageBox.Show("User with the provided ID does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var passwordBox = sender as PasswordBox;
+            string enteredPassword = passwordBox.Password;
+            var securePassword = user.Password;
+            string storedPassword = new System.Net.NetworkCredential(string.Empty, securePassword).Password;
+
+            if (enteredPassword != storedPassword)
+            {
+                MessageBox.Show("Incorrect password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (user.Role == BO.UserRole.Manager)
+            {
+                new ManagerViewWindow(CurrentUser.EngineerId).ShowDialog();
+            }
+            else if (user.Role == BO.UserRole.Engineer)
+            {
+                // Open the EngineerViewWindow
+                new EngineerViewWindow(CurrentUser.EngineerId).Show();
+            }
             Close();
         }
-        private DependencyPropertyChangedEventArgs nameof(SecureString password)
+        catch (Exception ex)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(ex.Message);
         }
+    }
 
-        public static readonly DependencyProperty UserProperty =
-    DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
+    private void Create_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        new SingUpWindow().Show(); 
+    }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var user = s_bl?.User.Read(CurrentUser.EngineerId);
-                if (user == null)
-                {
-                    MessageBox.Show("User with the provided ID does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                var passwordBox = sender as PasswordBox;
-                string enteredPassword = passwordBox.Password;
-                var securePassword = user.Password;
-                string storedPassword = new System.Net.NetworkCredential(string.Empty, securePassword).Password;
-
-                if (enteredPassword != storedPassword)
-                {
-                    MessageBox.Show("Incorrect password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                if (user.Rool == BO.UserRole.Manager)
-                {
-                    ManagerViewWindow managerViewWindow = new ManagerViewWindow(CurrentUser.EngineerId);
-                    managerViewWindow.Show();
-                }
-                else if (user.Rool == BO.UserRole.Engineer)
-                {
-                    // Open the EngineerViewWindow
-                    EngineerViewWindow engineerViewWindow = new EngineerViewWindow(CurrentUser.EngineerId);
-                    engineerViewWindow.Show();
-                }
-                Close();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+    private void Btn_Back_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }

@@ -13,51 +13,55 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Engineer
+namespace PL.Engineer;
+
+/// <summary>
+/// Code-behind List engineer window
+/// </summary>
+public partial class EngineerListWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for EngineerListWindow.xaml
-    /// </summary>
-    public partial class EngineerListWindow : Window
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    public EngineerListWindow()
     {
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public EngineerListWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        public IEnumerable<BO.Engineer> EngineerList
-        {
-            get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
-            set { SetValue(EngineerListProperty, value); }
-        }
+    public IEnumerable<BO.Engineer> EngineerList
+    {
+        get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
+        set { SetValue(EngineerListProperty, value); }
+    }
 
-        public static readonly DependencyProperty EngineerListProperty =
-            DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
+    public static readonly DependencyProperty EngineerListProperty =
+        DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
 
-        public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
+    public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
 
-        private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            EngineerList = (Level == BO.LevelEngineer.None) ?
-                s_bl.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Level)!;
-        }
+    private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        EngineerList = (Level == BO.LevelEngineer.None) ?
+            s_bl.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Level)!;
+    }
 
-        private void btnAddEng_Click(object sender, RoutedEventArgs e)
-        {
-            new EngineerWindow().ShowDialog();
-        }
+    private void btnAddEng_Click(object sender, RoutedEventArgs e)
+    {
+        new EngineerWindow().ShowDialog();
+    }
 
-        private void ListView_UpdateEng_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            BO.Engineer? eng = (sender as ListView)?.SelectedItem as BO.Engineer;
-            if(eng != null)
-               new EngineerWindow(eng.Id).ShowDialog();
-        }
+    private void ListView_UpdateEng_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        BO.Engineer? eng = (sender as ListView)?.SelectedItem as BO.Engineer;
+        if(eng != null)
+           new EngineerWindow(eng.Id).ShowDialog();
+    }
 
-        private void ActivatedRefresh(object sender, EventArgs e)
-        {
-            EngineerList = s_bl.Engineer.ReadAll();
-        }
+    private void ActivatedRefresh(object sender, EventArgs e)
+    {
+        EngineerList = s_bl.Engineer.ReadAll();
+    }
+
+    private void Back_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }

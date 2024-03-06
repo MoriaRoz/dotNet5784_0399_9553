@@ -17,12 +17,11 @@ using System.Windows.Shapes;
 namespace PL.Engineer;
 
 /// <summary>
-/// Interaction logic for EngineerWindow.xaml
+/// Code-behind Engineer window
 /// </summary>
 public partial class EngineerWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
     public EngineerWindow(int Id=0)
     {
         InitializeComponent();
@@ -42,26 +41,10 @@ public partial class EngineerWindow : Window
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
     public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
-    //public List<BO.TaskInEngineer> tasks { get; set; } = null;
-    //public BO.TaskInEngineer engTask { get; set; } = null;
-    //private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    //{
-    //    tasks.Clear();
-    //    //var TaskList = s_bl.Task.ReadAll();
-    //    var temp = (from BO.TaskInList task in s_bl.Task.ReadAll()
-    //                let boTask = s_bl.Task.Read(task.Id)
-    //                where boTask.Complexity <= Level
-    //                let taskEng = new BO.TaskInEngineer()
-    //                {
-    //                    Id = task.Id,
-    //                    Alias = task.Alias
-    //                }
-    //                select taskEng);
-    //    foreach(BO.TaskInEngineer task in temp) 
-    //    {
-    //        tasks.Add(task);
-    //    }
-    //}
+    private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        CurrentEngineer.Level = Level;
+    }
 
     private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
     {
@@ -70,6 +53,11 @@ public partial class EngineerWindow : Window
         {
             try
             {
+                MessageBoxResult result= MessageBox.Show($"Do you want to assign a task to an engineer{CurrentEngineer.Name}?", 
+                                                        "Message", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes) { 
+                    new TaskSelectionWindow(CurrentEngineer).ShowDialog(); }
+            
                 if (btn.Content.ToString() == "Add")
                 {
                     s_bl.Engineer.Create(CurrentEngineer);
@@ -89,7 +77,7 @@ public partial class EngineerWindow : Window
         }
     }
 
-    private void BtnBack_Click(object sender, RoutedEventArgs e)
+    private void Btn_Back_Click(object sender, RoutedEventArgs e)
     {
         Close();
     }

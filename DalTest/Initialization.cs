@@ -103,9 +103,9 @@ public static class Initialization
             string? _description = descripTasks[i];
             
             DateTime _createdAtDate = DateTime.Now; //Entering the creation time - the current time at the time of creation
-            DateTime? _deadlineDate = _createdAtDate.AddDays(rnd.Next(1, 60)); // deadline - random draw from another day for another two months
+            //DateTime? _deadlineDate = _createdAtDate.AddDays(rnd.Next(1, 60)); // deadline - random draw from another day for another two months
 
-            TimeSpan? _requiredEffortTime=_deadlineDate-_createdAtDate; //requiredEffortTime - the end date minus the creation time
+            TimeSpan? _requiredEffortTime= TimeSpan.FromDays(rnd.Next(1, 30)); //requiredEffortTime - the end date minus the creation time
 
             LevelEngineer _complexity = LevelEngineer.Beginner; //Level adjustment for each task at random
             int _compNum = rnd.Next(0, 5);
@@ -149,7 +149,7 @@ public static class Initialization
 
             Task newTa = new Task(0,_name,_description,_createdAtDate,
                 _requiredEffortTime,_complexity,_startDate, _scheduledDate,
-                _deadlineDate,_completeDate,_deliverables,_remarks,_engineerId);
+                _completeDate,_deliverables,_remarks,_engineerId);
             s_dal!.Task.Create(newTa);
             i++;
         }

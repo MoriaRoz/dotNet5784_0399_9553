@@ -34,9 +34,9 @@ internal class Bl : IBl
     public void CreateSchedule(DateTime startDate)
     {
         IEnumerable<BO.TaskInList> allTasksINList = s_bl.Task.ReadAll();
-        var allTasks =(from t in allTasksINList
-                       let task= s_bl.Task.Read(t.Id)
-                       select task);
+        var allTasks = (from t in allTasksINList
+                        let task = s_bl.Task.Read(t.Id)
+                        select task);
         List<BO.Task> undatedTasks = null;
         foreach (BO.Task task in allTasks)
         {
@@ -46,18 +46,18 @@ internal class Bl : IBl
                 undatedTasks.Add(task);
 
         }
-       while (undatedTasks != null)
+        while (undatedTasks != null)
         {
-            foreach(BO.Task task in undatedTasks)
+            foreach (BO.Task task in undatedTasks)
             {
                 bool canUpdata = true;
-                foreach(BO.TaskInList depTask in task.Dependencies)
+                foreach (BO.TaskInList depTask in task.Dependencies)
                 {
-                    if(depTask.Status==BO.Statuses.Unscheduled)
-                        canUpdata = false;break;
+                    if (depTask.Status == BO.Statuses.Unscheduled)
+                        canUpdata = false; break;
                 }
 
-                if(canUpdata)
+                if (canUpdata)
                 {
                     DataForTask(task);
                     undatedTasks.Remove(task);
@@ -85,7 +85,7 @@ internal class Bl : IBl
             {
                 DateTime endOfTask = taskDep.StartDate.Value.Add(taskDep.RequiredEffortTime.Value);
                 if (endOfTask > theLastDate)
-                        theLastDate = endOfTask;
+                    theLastDate = endOfTask;
             }
         }
 
@@ -130,7 +130,7 @@ internal class Bl : IBl
             {
                 task.StartDate = null;
                 task.Status = BO.Statuses.Unscheduled;
-                if(task.Dependencies!=null)
+                if (task.Dependencies != null)
                     foreach (BO.TaskInList dependency in task.Dependencies)
                         dependency.Status = Statuses.Unscheduled;
             }
@@ -138,4 +138,31 @@ internal class Bl : IBl
     }
     public void InitializeDB() => DalTest.Initialization.Do();
     public void ResetDB() => DalApi.Factory.Get.Reset();
+    
+    #region Clock
+    private static DateTime s_Clock = DateTime.Now.Date;
+    public DateTime Clock { get { return s_Clock; } private set { s_Clock = value; } }
+    public void addHourToClockd()
+    {
+        Clock= s_Clock.AddHours(1);
+    }
+    public void addDayToClockd()
+    {
+        Clock=s_Clock.AddDays(1);
+    }
+    public void restartClock()
+    {
+        Clock=s_Clock = DateTime.Now.Date;
+    }
+
+    //public void addHourToClock()
+    //{
+    //    s_bl.addHourToClock();
+    //}
+
+    //public void addDayToClock()
+    //{
+    //    s_bl.addDayToClock();
+    //}
+    #endregion
 }

@@ -23,7 +23,7 @@ namespace BlImplementation
             if (boUser == null)
                 throw new BO.BlNullPropertyException("User is null");
             DO.User doUser = new DO.User
-        (boUser.EngineerId, boUser.Password, (DO.UserRole)boUser.Rool);
+        (boUser.EngineerId, boUser.Password, (DO.UserRole)boUser.Role);
             try
             {
                 int idUser = _dal.User.Create(doUser);
@@ -71,7 +71,7 @@ namespace BlImplementation
             {
                 EngineerId = id,
                 Password = doUser.Password,
-                Rool = (BO.UserRole)doUser.Rool,
+                Role = (BO.UserRole)doUser.Role,
             };
         }
         /// <summary>
@@ -113,7 +113,7 @@ namespace BlImplementation
                 {
                     EngineerId = boUser.EngineerId,
                     Password = boUser.Password,
-                    Rool = (DO.UserRole)boUser.Rool,
+                    Role = (DO.UserRole)boUser.Role,
                 });
             }
             catch (DO.DalAlreadyExistsException ex)

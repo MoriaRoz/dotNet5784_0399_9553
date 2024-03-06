@@ -18,30 +18,27 @@ using System.Windows.Shapes;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for ManagerViewWindow.xaml
+    /// Code-behind Manager window
     /// </summary>
     public partial class ManagerViewWindow : Window
     {
         static readonly IBl s_bl = Factory.Get();
+        public BO.User CurrentUser { get; set; }
         public ManagerViewWindow(int id)
         {
             InitializeComponent();
-
+            //CurrentUser = s_bl.User.Read(id);
         }
-        private void btnTask_Click(object sender, RoutedEventArgs e)
+        private void Btn_TaskList_Click(object sender, RoutedEventArgs e)
         {
-            Task.TaskListWindow taskListWindow = new Task.TaskListWindow();
-            taskListWindow.Show();
+            new Task.TaskListWindow().Show();
         }
-        private void btnEngineer_Click(object sender, RoutedEventArgs e)
+        private void Btn_EngineerList_Click(object sender, RoutedEventArgs e)
         {
-            Engineer.EngineerListWindow engineerListWindow = new Engineer.EngineerListWindow();
-            engineerListWindow.Show();
+            new Engineer.EngineerListWindow().Show();
         }
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        private void Btn_Back_Click(object sender, RoutedEventArgs e)
         {
-            LoginPage loginPage = new LoginPage();
-            loginPage.Show();
             Close();
         }
         public class BooleanToVisibilityConverter : IValueConverter
@@ -55,9 +52,6 @@ namespace PL
             {
                 throw new NotImplementedException();
             }
-        }
-        private void btnSchedule_Click(object sender, RoutedEventArgs e)
-        { 
         }
     }
 }
