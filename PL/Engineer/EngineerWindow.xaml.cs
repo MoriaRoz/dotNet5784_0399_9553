@@ -29,14 +29,14 @@ public partial class EngineerWindow : Window
             CurrentEngineer = new();
         else
             try { CurrentEngineer = s_bl.Engineer.Read(Id); }
-            catch(Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
     }
     public BO.Engineer CurrentEngineer
     {
         get { return (BO.Engineer)GetValue(EngineerProperty); }
         set { SetValue(EngineerProperty, value); }
     }
-    
+
     public static readonly DependencyProperty EngineerProperty =
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 

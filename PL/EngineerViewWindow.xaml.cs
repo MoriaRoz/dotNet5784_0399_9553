@@ -4,6 +4,7 @@ using PL.Task;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,7 +89,7 @@ namespace PL
 
         private double _projectProgress;
 
-        public double ProjectProgress
+        public bool EngDoesntHasTask
         {
             get { return _projectProgress; }
             set
@@ -100,14 +101,46 @@ namespace PL
                 //}
             }
         }
+        private IEnumerable<BO.TaskInList>? engineerTasks;
 
+        private void LoadEngineerTasks(int engineerId)
+        {
+            engineerTasks = s_bl.Task.ReadAll(task => task.Complexity <= s_bl.Engineer.Read(engineerId).Level && task.Engineer == null);
+        }
+        private void ListView_ChooseTask_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var result = MessageBox.Show("choosing a task", "Do you want to work on this task?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                BO.TaskInList taskinlist  = (sender as ListView)?.SelectedItem as BO.TaskInList;
+                if (taskinlist != null)
+                {
+                    BO.Task? currentTask = s_bl.Task.Read(taskinlist.Id);
+                    if (currentTask != null)
+                    {
+                        currentTask.Engineer = new EngineerInTask { Id = CurrentEngineer.Id, Name = CurrentEngineer.Name };
+                        s_bl.Task.Update(currentTask); 
+                        LoadEngineerTasks(CurrentEngineer.Id); 
+                        _engDoesntHasTask = false;
+                        _engHasTask = true;
+                    }
+                }
+            }
+        }
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginPage loginPage = new LoginPage();
+            loginPage.Show();
+            Close();
+        }
+        //processbur:
         private void CalculateProjectProgress()
         {
-                var tasks = s_bl.Task.ReadAll();
-                int totalTasks = tasks.Count();
-                int numOfDoneTasks = tasks.Count(t => t.Status == BO.Statuses.Done);
-                double progressPercentage = (numOfDoneTasks / (double)totalTasks) * 100;
-                ProjectProgress = progressPercentage;
+            var tasks = s_bl.Task.ReadAll();
+            int totalTasks = tasks.Count();
+            int numOfDoneTasks = tasks.Count(t => t.Status == BO.Statuses.Done);
+            double progressPercentage = (numOfDoneTasks / (double)totalTasks) * 100;
+            _projectProgress = progressPercentage;
         }
 
         private void Btn_Back_Click(object sender, RoutedEventArgs e)

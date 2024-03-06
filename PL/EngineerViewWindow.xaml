@@ -73,4 +73,48 @@
         </Grid>
     </Grid>
 
+            <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Expander.Header>
+                    <TextBlock Text="for more infotmation" FontFamily="MV Boli"  FontSize="14"/>
+                </Expander.Header>
+                <Expander.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Description " FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Description , Mode=OneWay}" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Created At Date  " FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+                        <DatePicker Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDate="{Binding CreatedAtDate}"  IsEnabled="False"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Required Effort Time " FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Start Date" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+                        <DatePicker Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDate="{Binding StartDate}"  IsEnabled="False"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Deadline Date " FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+                        <DatePicker Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDate="{Binding DeadlineDate }"  IsEnabled="False"/>
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="Deadline Date " FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+                        <DatePicker Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDate="{Binding DeadlineDate}"  IsEnabled="False" />
+                        <TextBlock Grid.Row="6" Grid.Column="0" Text="Scheduled Date " FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli" />
+                        <DatePicker Grid.Row="6" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDate="{Binding ScheduledDate}"  IsEnabled="False"/>
+                        <TextBlock Grid.Row="7" Grid.Column="0" Text="Deliverables " FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+                        <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Deliverables  , Mode=OneWay}" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+                        <TextBlock Grid.Row="8" Grid.Column="0" Text="Remarks " FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+                        <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding Remarks, Mode=OneWay}" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
+
+                    </Grid>
+                </Expander.Content>
+            </Expander>
+        </Grid>
+    </Grid>
 </Window>
