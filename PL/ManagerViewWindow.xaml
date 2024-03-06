@@ -40,7 +40,7 @@
                 Grid.Row="0" Click="Btn_TaskList_Click" Margin="607,280,35,46"/>
 
         <!--Back-->
-        <Button Content="Back" Background="#FF9B59B6" Margin="16,15,696,320"
+        <Button Content="Back" Background="#FF9B59B6" Margin="11,10,701,325"
                 FontFamily="MV Boli" FontSize="22" Click="Btn_Back_Click"/>
         <!--ProgressBar-->
         <ProgressBar Grid.Row="2" Value="{Binding ProjectProgress, Mode=OneWay}" Minimum="0" Maximum="100" Margin="183,0,192,0"/>
