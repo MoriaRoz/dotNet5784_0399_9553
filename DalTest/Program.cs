@@ -328,7 +328,7 @@ namespace DalTest
             engineerId = int.TryParse(Console.ReadLine(), out engId) ? engId : null;
 
             DO.Task? task = new DO.Task(0,alias,description,DateTime.Now,requiredEffortTime,level,startDate
-                ,scheduledDate, deadlineDate, completeDate,deliverables,remarks,engineerId);
+                ,scheduledDate, completeDate,deliverables,remarks,engineerId);
             return task;
         }
 

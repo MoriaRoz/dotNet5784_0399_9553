@@ -37,10 +37,10 @@ public class Task
     /// Gets or sets the start date of the task.
     /// </summary>
     public DateTime? StartDate { get; set; }
-    /// <summary>
-    /// Gets or sets the deadline date of the task.
-    /// </summary>
-    public DateTime? DeadlineDate { get; set; }
+    ///// <summary>
+    ///// Gets or sets the deadline date of the task.
+    ///// </summary>
+    ////public DateTime? DeadlineDate { get; set; }
     /// <summary>
     /// Gets or sets the scheduled date of the task.
     /// </summary>

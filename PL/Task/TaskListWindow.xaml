@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskListWindow" Height="450" Width="800"
+        Title="TaskListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Activated="ActivatedRefresh">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="475*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
+
+        <!--Sort view-->
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -21,18 +24,33 @@
             </Grid.ColumnDefinitions>
             <Menu Grid.Column="1">
                 <MenuItem Header="Filter selection:" FontFamily="MV Boli" FontSize="22">
-                    <MenuItem Header="Status" ItemsSource="{Binding Source={StaticResource StatusesCollectionKey}}" Click="selectStatus_Click"/>
-                    <MenuItem Header="Complexity" ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" Click="selectComplexity_Click"/>
+                    <MenuItem Header="Status" ItemsSource="{Binding Source={StaticResource StatusesCollectionKey}}" 
+                              Click="selectStatus_Click"/>
+                    <MenuItem Header="Complexity" ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" 
+                              Click="selectComplexity_Click"/>
                 </MenuItem>
             </Menu>
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding TaskList,Mode=TwoWay}" MouseDoubleClick="ListView_UpdateTask_MouseDoubleClick">
+
+        <!--Text explanation-->
+        <TextBlock Text="To update a tesk, double click on the task's details" Grid.Row="1" 
+           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="MV Boli" Foreground="#FF3498DB"/>
+
+        <!--List Tasks-->
+        <ListView Margin="5" Grid.Row="2" ItemsSource="{Binding TaskList,Mode=TwoWay}" 
+                  MouseDoubleClick="ListView_UpdateTask_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Background="#FF3498DB" FontFamily="MV Boli" FontSize="22" Click="AddTask_Click"/>
+        
+        <!--Add-->
+        <Button Content="Add" Grid.Row="3" HorizontalAlignment="Center" Height="50" Width="130" 
+        Background="#FF3498DB" FontFamily="MV Boli" FontSize="22" Click="AddTask_Click" Margin="0,5,0,5"/>
+        <!--Back-->
+        <Button Content="Back" Grid.Row="3" HorizontalAlignment="Left" Height="40" Width="80" Background="#FF9B59B6"
+                FontFamily="MV Boli" FontSize="22" Click="Back_Click" Margin="10,10,0,10" RenderTransformOrigin="0.928,0.437"/>
     </Grid>
 </Window>

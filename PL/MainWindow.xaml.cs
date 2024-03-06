@@ -11,45 +11,54 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL;
+/// <summary>
+/// Code-behind Main window
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    public MainWindow()
     {
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public MainWindow()
-        {
-            InitializeComponent();
-            //Uri iconUri = new Uri("pack:dotNet5784_0399_9553/PL/LogoIcon.ico", UriKind.RelativeOrAbsolute);
-            //this.Icon = BitmapFrame.Create(iconUri);
-        }
+        InitializeComponent();
+    }
 
-        private void btnLofin_Click(object sender, RoutedEventArgs e)
-        {
-            new LoginPage().Show();
-            //new TaskListWindow().Show();
-        }
+    private void btnLogin_Click(object sender, RoutedEventArgs e)
+    {
+        new LoginPage().Show();
+    }
 
-        private void btnInitDB_Click(object sender, RoutedEventArgs e)
-        {
+    private void btnInitDB_Click(object sender, RoutedEventArgs e)
+    {
 
-            var result = MessageBox.Show("Initialize Database?", "Confirm Initialization", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-               s_bl.InitializeDB();
-            }
+        var result = MessageBox.Show("Initialize Database?", "Confirm Initialization", MessageBoxButton.YesNo);
+        if (result == MessageBoxResult.Yes) { s_bl.InitializeDB(); }
+    }
 
-        }
+    private void btnReset_Click(object sender, RoutedEventArgs e)
+    {
+        var result = MessageBox.Show("Reset Database?", "Confirm Initialization", MessageBoxButton.YesNo);
+        if (result == MessageBoxResult.Yes) { s_bl.ResetDB(); }
+    }
 
-        private void btnReset_Click(object sender, RoutedEventArgs e)
-        {
-            var result = MessageBox.Show("Reset Database?", "Confirm Initialization", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                s_bl.ResetDB();
-            }
-        }
+    //Temporary buttons
+    private void Button_e_Click(object sender, RoutedEventArgs e)
+    {
+        new EngineerListWindow().Show();
+    }
+
+    private void Button_t_Click(object sender, RoutedEventArgs e)
+    {
+        new TaskListWindow().Show();
+    }
+
+    private void Button_Me_Click(object sender, RoutedEventArgs e)
+    {
+        new EngineerViewWindow(123).Show();
+    }
+
+    private void Button_Mt_Click(object sender, RoutedEventArgs e)
+    {
+        new ManagerViewWindow(0).ShowDialog();
     }
 }

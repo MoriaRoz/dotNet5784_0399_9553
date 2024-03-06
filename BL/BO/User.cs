@@ -15,7 +15,7 @@ namespace BO
     {
         public int EngineerId { get; init; }
         public SecureString? Password { get; set; }
-        public UserRole Rool { get; set; }
+        public UserRole Role { get; set; }
     }
     
 }

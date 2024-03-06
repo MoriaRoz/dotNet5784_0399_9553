@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="EngineerViewWindow" Height="450" Width="800">
+        Icon="/Logo.png"
+        SizeToContent="Manual"
+        Title="Engineer" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -17,44 +20,58 @@
             <ColumnDefinition Width="5*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
+
+        <!--Details and disconnection-->
         <Grid Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch">
-            <TextBlock Text="{Binding CurrentUser.FullName}" VerticalAlignment="Center" HorizontalAlignment="Right" FontFamily="MV Boli" FontSize="15"/>
-            <Button Content="Logout" Click="LogoutButton_Click" HorizontalAlignment="Left" FontFamily="MV Boli" FontSize="10" />
+            <Button Content="Back" Click="Btn_Back_Click" HorizontalAlignment="Left" FontFamily="MV Boli" FontSize="10" Margin="126,0,0,0" Width="52" />
         </Grid>
+
+        <!--Monitor project progress-->
         <ProgressBar Grid.Row="2" Grid.Column="1" Value="{Binding ProjectProgress, Mode=OneWay}" Minimum="0" Maximum="100"/>
         <TextBlock Grid.Row="2" Text="Project progress : " FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <Grid Visibility="Visible"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+
+        <!--Hello engineer-->
+        <TextBlock Text="Hello" HorizontalAlignment="Left" Margin="81,161,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="65" FontSize="36" FontFamily="MV Boli" Grid.ColumnSpan="2"/>
+        <TextBlock Text="{Binding CurrentEngineer.Name}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="MV Boli" FontSize="30" Grid.Row="1" Margin="0,168,0,0" Grid.Column="1" Width="240" Height="38"/>
+
+        <!--Select/Done-->
+        <Button Content="Select task" FontSize="20" FontFamily="MV Boli" HorizontalAlignment="Left" Margin="168,255,0,0" Grid.Row="1" 
+                VerticalAlignment="Top" Width="117" Height="53" Grid.ColumnSpan="2" Click="Btn_Select_Click" Visibility="{Binding _hasNoTask}"/>
+        <Button Content="Done task" FontSize="20" FontFamily="MV Boli" HorizontalAlignment="Left" Height="53" Margin="132,255,0,0" Grid.Row="1" 
+                VerticalAlignment="Top" Width="116" Grid.Column="1" Click="Btn_Done_Click" Visibility="{Binding _hasTask}"/>
+
+        <!--Logo-->
+        <Image Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="201" Margin="-15,-5,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="529" Source="/CodeMaster.png"/>
+
+        <!--current task-->
+        <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="328,66,18,23" Grid.Row="1" Visibility="{Binding _hasTask}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="10*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="19*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="Chosse a new task to work on: : " FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-            <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding properTaskList,Mode=OneWay}" MouseDoubleClick="ListView_ChooseTask_MouseDoubleClick">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF6BBCF6"/>
+                    <GradientStop Color="#FFD190ED" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <TextBlock HorizontalAlignment="Left" Height="30" Margin="10,4,0,0" TextWrapping="Wrap" Text="ID:" VerticalAlignment="Top" Width="42" FontFamily="MV Boli" FontSize="20" FontWeight="Bold" Grid.Row="1"/>
+            <TextBlock Text="{Binding CurrentEngineer.Task.Id}" VerticalAlignment="Top" FontFamily="MV Boli" FontSize="20" Margin="10,41,43,0" Grid.Row="1"/>
+            <TextBlock HorizontalAlignment="Left" Height="30" Margin="10,78,0,0" TextWrapping="Wrap" Text="ALIAS:" VerticalAlignment="Top" Width="80" FontFamily="MV Boli" FontSize="20" FontWeight="Bold" Grid.Row="1"/>
+            <TextBlock Text="{Binding CurrentEngineer.Task.Alias}" Margin="10,110,10,98" FontFamily="MV Boli" FontSize="20" Grid.Row="1"/>
         </Grid>
-        <Grid Visibility="Hidden"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="5*"/>
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Current task" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="MV Boli" Grid.ColumnSpan="2"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="ID" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ID, Mode=OneWay}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="Alias" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Alias, Mode=OneWay}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-            <Button Grid.Column="2" Grid.Row="3" Content="Done" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="MV Boli" FontSize="18" />
+
+        <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="328,66,18,23" Grid.Row="1" Visibility="{Binding _hasNoTask}">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF6BBCF6"/>
+                    <GradientStop Color="#FFD190ED" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <TextBlock Text="Choose a task:" HorizontalAlignment="Left" Height="30" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" FontFamily="MV Boli" FontSize="20" FontWeight="Bold"/>
+            <ListView ItemsSource="{Binding ListTasks}" MouseDoubleClick="selectTask_MouseDoubleClick"/>
+        </Grid>
+    </Grid>
 
             <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Expander.Header>

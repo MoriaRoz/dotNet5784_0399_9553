@@ -15,54 +15,61 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Task
+namespace PL.Task;
+
+/// <summary>
+/// Code-behind List Task window
+/// </summary>
+public partial class TaskListWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for TaskListWindow.xaml
-    /// </summary>
-    public partial class TaskListWindow : Window
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    public TaskListWindow()
     {
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public TaskListWindow()
-        {
-            InitializeComponent();
-        }
-        public IEnumerable<BO.TaskInList> TaskList
-        {
-            get { return (IEnumerable<BO.TaskInList>)GetValue(TaskListProperty); }
-            set { SetValue(TaskListProperty, value); }
-        }
+        InitializeComponent();
+    }
+    public IEnumerable<BO.TaskInList> TaskList
+    {
+        get { return (IEnumerable<BO.TaskInList>)GetValue(TaskListProperty); }
+        set { SetValue(TaskListProperty, value); }
+    }
 
-        public static readonly DependencyProperty TaskListProperty =
-            DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
+    public static readonly DependencyProperty TaskListProperty =
+        DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
 
-        private void AddTask_Click(object sender, RoutedEventArgs e)
-        {
-            new TaskWindow().ShowDialog();
-        }
+    private void AddTask_Click(object sender, RoutedEventArgs e)
+    {
+        new TaskWindow().ShowDialog();
+    }
 
-        private void ListView_UpdateTask_MouseDoubleClick(object sender, MouseEventArgs e) 
-        {
-            BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
-            if (task != null)
-                new TaskWindow(task.Id).ShowDialog();
-        }
-        private void selectStatus_Click(object sender, RoutedEventArgs e)
-        {
-            MenuItem? statusSelect = e.OriginalSource as MenuItem;
-            BO.Statuses status = (BO.Statuses)statusSelect.Header;
-            TaskList = s_bl.Task.ReadAll(item => item.Status == status);
-        }
-        private void selectComplexity_Click(object sender, RoutedEventArgs e)
-        {
-            MenuItem? complexitySelect = e.OriginalSource as MenuItem;
-            BO.LevelEngineer complexity = (BO.LevelEngineer)complexitySelect.Header;
-            TaskList = s_bl.Task.ReadAll(item => item.Complexity == complexity);
-        }
-
-        private void ActivatedRefresh(object sender, EventArgs e)
-        {
+    private void ListView_UpdateTask_MouseDoubleClick(object sender, MouseEventArgs e) 
+    {
+        BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
+        if (task != null)
+            new TaskWindow(task.Id).ShowDialog();
+    }
+    private void selectStatus_Click(object sender, RoutedEventArgs e)
+    {
+        MenuItem? statusSelect = e.OriginalSource as MenuItem;
+        BO.Statuses status = (BO.Statuses)statusSelect.Header;
+        TaskList = s_bl.Task.ReadAll(item => item.Status == status);
+    }
+    private void selectComplexity_Click(object sender, RoutedEventArgs e)
+    {
+        MenuItem? complexitySelect = e.OriginalSource as MenuItem;
+        BO.LevelEngineer complexity = (BO.LevelEngineer)complexitySelect.Header;
+        if (complexity == BO.LevelEngineer.None)
             TaskList = s_bl.Task.ReadAll();
-        }
+        else
+            TaskList = s_bl.Task.ReadAll(item => item.Complexity == complexity);
+    }
+
+    private void ActivatedRefresh(object sender, EventArgs e)
+    {
+        TaskList = s_bl.Task.ReadAll();
+    }
+
+    private void Back_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }

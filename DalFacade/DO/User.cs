@@ -15,7 +15,7 @@ public record User
 (
     int EngineerId,
     SecureString? Password = null,
-    UserRole Rool = UserRole.Engineer
+    UserRole Role = UserRole.Engineer
 )
 {
     //Empty constructor

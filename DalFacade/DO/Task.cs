@@ -11,7 +11,7 @@ namespace DO;
 /// <param name="RequiredEffortTime">Estimated effort time required for the task</param>
 /// <param name="Complexity">The level of complexity of the task - that is, what is the minimum level of an engineer who can work on it</param>
 /// <param name="StartDate">Start date of the task</param>
-/// <param name="DeadlineDate">Deadline for completing the task</param>
+///// <param name="DeadlineDate">Deadline for completing the task</param>
 /// <param name="CompleteDate">Date when the task was completed</param>
 /// <param name="Deliverables">Deliverables associated with the task</param>
 /// <param name="Remarks">Additional remarks or notes about the task</param>
@@ -25,7 +25,7 @@ public record Task
     TimeSpan? RequiredEffortTime = null,
     LevelEngineer Complexity = LevelEngineer.Beginner,
     DateTime? StartDate = null,
-    DateTime? DeadlineDate = null,
+    //DateTime? DeadlineDate = null,
     DateTime? ScheduledDate = null,
     DateTime? CompleteDate = null,
     string? Deliverables = null,

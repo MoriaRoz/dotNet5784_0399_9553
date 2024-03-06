@@ -13,25 +13,38 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="475*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
+
+        <!--Sort view-->
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Select:" Grid.Column="0" HorizontalAlignment="Left" Margin="111,-4,0,0" VerticalAlignment="Center" FontFamily="MV Boli" FontSize="20" Width="105" Height="40"/>
-            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=Level, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" HorizontalAlignment="Stretch" 
+            <Label Content="Select level:" Grid.Column="0" HorizontalAlignment="Left" Margin="249,0,0,0" 
+                   VerticalAlignment="Center" FontFamily="MV Boli" FontSize="20" Width="141" Height="40"/>
+            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=Level, Mode=TwoWay}" 
+                      ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" HorizontalAlignment="Stretch" 
                       VerticalAlignment="Stretch" SelectionChanged="EngLevel_SelectionChanged"/>
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="ListView_UpdateEng_MouseDoubleClick">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+
+        <!--Text explanation-->
+        <TextBlock Text="To update an engineer, double click on the engineer's details" Grid.Row="1" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="MV Boli" Foreground="#FF3498DB"/>
+        
+        <!--List engineers-->
+        <ListView Margin="5" Grid.Row="2" ItemsSource="{Binding EngineerList}" 
+                  MouseDoubleClick="ListView_UpdateEng_MouseDoubleClick">
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Background="#FF3498DB" FontFamily="MV Boli" FontSize="22" Click="btnAddEng_Click"/>
+
+        <!--Add-->
+        <Button Content="Add" Grid.Row="3" HorizontalAlignment="Center" Height="50" Width="130" 
+                Background="#FF3498DB" FontFamily="MV Boli" FontSize="22" Click="btnAddEng_Click" Margin="0,5,0,5"/>
+        <!--Back-->
+        <Button Content="Back" Grid.Row="3" HorizontalAlignment="Left" Height="40" Width="80" Background="#FF9B59B6" 
+                FontFamily="MV Boli" FontSize="22" Click="Back_Click" Margin="10,10,0,10" RenderTransformOrigin="0.928,0.437"/>
     </Grid>
 </Window>

@@ -11,7 +11,7 @@ public interface IBl
     public void InitializeDB();
     public void ResetDB();
     public DateTime Clock { get; }
-    public void addHourToClock();
-    public void addDayToClock();
+    public void addHourToClockd();
+    public void addDayToClockd();
     public void restartClock();
 }

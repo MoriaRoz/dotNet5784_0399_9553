@@ -13,32 +13,63 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.Task
+namespace PL.Task;
+
+/// <summary>
+/// Code-behind Task window
+/// </summary>
+public partial class TaskWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for TaskWindow.xaml
-    /// </summary>
-    public partial class TaskWindow : Window
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+    public TaskWindow(int id = 0)
     {
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        InitializeComponent();
+        if (id == 0)
+            CurrentTask = new();
+        else
+            try { CurrentTask = s_bl.Task.Read(id); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
+    }
 
-        public TaskWindow(int id = 0)
+    public BO.Task CurrentTask
+    {
+        get { return (BO.Task)GetValue(TaskProperty); }
+        set { SetValue(TaskProperty, value); }
+    }
+
+    public static readonly DependencyProperty TaskProperty =
+        DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
+
+
+    private void BtnBack_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+
+    private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        Button? btn = sender! as Button;
+        if (btn != null)
         {
-            InitializeComponent();
-            if (id == 0)
-                CurrentTask = new();
-            else
-                try { CurrentTask = s_bl.Task.Read(id); }
-                catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
+            try
+            {
+                if (btn.Content.ToString() == "Add")
+                {
+                    s_bl.Task.Create(CurrentTask);
+                    MessageBox.Show($"Task with Id:{CurrentTask.Id} added successfully");
+                }
+                if (btn.Content.ToString() == "Update")
+                {
+                    s_bl.Task.Update(CurrentTask);
+                    MessageBox.Show($"Task with Id:{CurrentTask.Id} successfully updated");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Close();
         }
-
-        public BO.Task CurrentTask
-        {
-            get { return (BO.Task)GetValue(TaskProperty); }
-            set { SetValue(TaskProperty, value); }
-        }
-
-        public static readonly DependencyProperty TaskProperty =
-            DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
     }
 }

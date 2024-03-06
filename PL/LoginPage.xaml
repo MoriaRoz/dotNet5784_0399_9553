@@ -5,31 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="LoginPage" Height="450" Width="800" 
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        Icon="/Logo.png"
+        SizeToContent="Manual"
+        Title="Login" Height="420" Width="430" 
+        DataContext="{Binding CurrentUser,RelativeSource={RelativeSource Self}}">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="3*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="1" Grid.Row="1" Text="User login" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="22" FontFamily="MV Boli"/>
-        <TextBlock Grid.Column="1" Grid.Row="2" Text="ID :" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" FontFamily="MV Boli"/>
-        <TextBox Grid.Column="2"  Grid.Row="2" HorizontalAlignment="Stretch"  TextWrapping="Wrap" Text="{Binding EngineerId, Mode=OneTime,NotifyOnValidationError=True,ValidatesOnExceptions=True}" VerticalAlignment="Center" FontSize="22" FontFamily="MV Boli"/>
-        <TextBlock Grid.Column="1" Grid.Row="3" Text="Password :" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Stretch" FontSize="22" FontFamily="MV Boli"/>
-        <PasswordBox Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="22" FontFamily="MV Boli" PasswordChanged="PasswordBox_PasswordChanged"/>
-        <Button Grid.Column="1" Content="to create a new user" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Stretch" FontSize="15" FontFamily="MV Boli" Click="Button_CreateUser_Click"/>
-        <Button Grid.Column="2" Content="Login" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Bottom" FontSize="22" FontFamily="MV Boli" />
+        <!--Title-->
+        <TextBlock Text=" Login" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
+           FontSize="36" FontFamily="MV Boli" Margin="0,10,0,0" Height="59" Width="134"/>
+        <!--Logo-->
+        <Image HorizontalAlignment="Left" Height="65" Margin="10,10,0,0" VerticalAlignment="Top" Width="76" Source="/Logo.png"/>
+
+        <!--User Id-->
+        <TextBlock Text="ID:" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" 
+                   FontSize="22" FontFamily="MV Boli" Margin="82,86,0,0"/>
+        <TextBox VerticalAlignment="Top" FontSize="22" FontFamily="MV Boli" Margin="82,126,82,0" TextWrapping="Wrap"
+                 Text="{Binding EngineerId, Mode=OneTime,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+
+        <!--User Password-->
+        <TextBlock Text="Password:" HorizontalAlignment="Left" TextWrapping="Wrap" 
+                   FontSize="22" FontFamily="MV Boli" Margin="82,177,0,151" Width="123"/>
+        <!--<PasswordBox VerticalAlignment="Top" FontSize="22" FontFamily="MV Boli" 
+                   Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="75,229,75,0"/>-->
+
+        <!--Login-->
+        <Button  Content="Login" Style="{StaticResource myButtonStyle}" Background="#FF3498DB"
+                 Margin="218,283,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Click="Btn_Login_Click" />
+
+        <!--Back-->
+        <Button Content="Back" Style="{StaticResource myButtonStyle}" Background="#FF9B59B6"
+                Margin="82,283,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Click="Btn_Back_Click"/>
+
+        <!--Sing up-->
+        <TextBlock  Text="Create a new user" TextDecorations="Underline" Width="144" FontSize="15" FontFamily="MV Boli" 
+            Margin="143,328,143,32" PreviewMouseDown="Create_PreviewMouseDown" Foreground="#FF408DD5"/>
     </Grid>
 </Window>
