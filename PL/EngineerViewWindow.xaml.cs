@@ -41,7 +41,7 @@ namespace PL
         }
         public static readonly DependencyProperty EngineerProperty =
          DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
-        public bool EngHasTask
+        public bool EngHasTask 
         {
             get { return _engHasTask; }
         }

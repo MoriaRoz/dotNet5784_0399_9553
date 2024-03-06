@@ -138,4 +138,28 @@ internal class Bl : IBl
     }
     public void InitializeDB() => DalTest.Initialization.Do();
     public void ResetDB() => DalApi.Factory.Get.Reset();
+    private static DateTime s_Clock = DateTime.Now.Date;
+    public DateTime Clock { get { return s_Clock; } private set { s_Clock = value; } }
+    public void addHourToClockd()
+    {
+        s_Clock.AddHours(1);
+    }
+    public void addDayToClockd()
+    {
+        s_Clock.AddDays(1);
+    }
+    public void restartClock()
+    {
+        s_Clock = DateTime.Now.Date;
+    }
+
+    public void addHourToClock()
+    {
+        s_bl.addHourToClock();
+    }
+
+    public void addDayToClock()
+    {
+        s_bl.addDayToClock();
+    }
 }

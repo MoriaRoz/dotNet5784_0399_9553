@@ -23,7 +23,7 @@
         </Grid>
         <ProgressBar Grid.Row="2" Grid.Column="1" Value="{Binding ProjectProgress, Mode=OneWay}" Minimum="0" Maximum="100"/>
         <TextBlock Grid.Row="2" Text="Project progress : " FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-        <Grid Visibility="{Binding engDosntHasTask, Mode=OneWay}"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+        <Grid Visibility="Visible"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="10*"/>
@@ -37,7 +37,7 @@
                 </ListView.View>
             </ListView>
         </Grid>
-        <Grid Visibility="{Binding engHasTask, Mode=OneWay}"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+        <Grid Visibility="Hidden"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
