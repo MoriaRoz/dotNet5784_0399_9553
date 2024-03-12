@@ -6,12 +6,12 @@ namespace DO;
 /// </summary>
 /// <param name="Id">Personal identifier of a dependecy</param>
 /// <param name="PreviousTask">Previous assignment ID number</param>
-/// <param name="DependsTask">ID number of pending task</param>
+/// <param name="DependsOnTask">ID number of pending task</param>
 public record Dependency
 (
     int Id,
     int? PreviousTask=null,
-    int? DependsTask = null
+    int? DependsOnTask = null
 )
 {
     //Empty constructor

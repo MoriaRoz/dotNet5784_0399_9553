@@ -13,7 +13,7 @@ internal class DependencyImplementation : IDependency
     {
         int idNew = DataSource.Config.NextDependencyId;//ID for the new dependency.
         //Creating a new dependency with the new ID and values from 'item':
-        Dependency dependencyNew = new Dependency(idNew, item.PreviousTask,item.DependsTask);
+        Dependency dependencyNew = new Dependency(idNew, item.PreviousTask,item.DependsOnTask);
         DataSource.Dependencys.Add(dependencyNew);//Adding the new dependency to the list.
         return idNew;//Returning the dependency ID.
     }

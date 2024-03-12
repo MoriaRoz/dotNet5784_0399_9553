@@ -5,8 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
         Title="EngineerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Activated="ActivatedRefresh">
@@ -27,15 +25,15 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Select level:" Grid.Column="0" HorizontalAlignment="Left" Margin="249,0,0,0" 
-                   VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="20" Width="141" Height="40"/>
-            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=Level, Mode=TwoWay}" FontFamily="Comic Sans MS" FontSize="18"
+                   VerticalAlignment="Center" FontFamily="MV Boli" FontSize="20" Width="141" Height="40"/>
+            <ComboBox Grid.Column="1" SelectedValue="{Binding Path=Level, Mode=TwoWay}" 
                       ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" HorizontalAlignment="Stretch" 
                       VerticalAlignment="Stretch" SelectionChanged="EngLevel_SelectionChanged"/>
         </Grid>
 
         <!--Text explanation-->
         <TextBlock Text="To update an engineer, double click on the engineer's details" Grid.Row="1" 
-                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Comic Sans MS" Foreground="#FF3498DB"/>
+                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="MV Boli" Foreground="#FF3498DB"/>
         
         <!--List engineers-->
         <ListView Margin="5" Grid.Row="2" ItemsSource="{Binding EngineerList}" 
@@ -44,9 +42,9 @@
 
         <!--Add-->
         <Button Content="Add" Grid.Row="3" HorizontalAlignment="Center" Height="50" Width="130" 
-                Background="#FF3498DB" FontFamily="Comic Sans MS" FontSize="22" Click="btnAddEng_Click" Margin="0,5,0,5"/>
+                Background="#FF3498DB" FontFamily="MV Boli" FontSize="22" Click="btnAddEng_Click" Margin="0,5,0,5"/>
         <!--Back-->
         <Button Content="Back" Grid.Row="3" HorizontalAlignment="Left" Height="40" Width="80" Background="#FF9B59B6" 
-                FontFamily="Comic Sans MS" FontSize="22" Click="Back_Click" Margin="10,10,0,10" RenderTransformOrigin="0.928,0.437"/>
+                FontFamily="MV Boli" FontSize="22" Click="Back_Click" Margin="10,10,0,10" RenderTransformOrigin="0.928,0.437"/>
     </Grid>
 </Window>

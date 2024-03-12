@@ -18,7 +18,7 @@ internal class DependencyImplementation : IDependency
         //Creating a new dependency with the new ID and values from 'item':
         Dependency dependencyNew = entity with { Id = nextId };
         dependencies.Add(dependencyNew);//Adding the new dependency to the list.
-        XMLTools.SaveListToXMLSerializer(dependencies, s_dependency_xml);
+        XMLTools.SaveListToXMLSerializer(dependencies, "s_dependencys_xml");
         return nextId;
     }
 
@@ -30,14 +30,14 @@ internal class DependencyImplementation : IDependency
     public Dependency? Read(int id)
     {
         List<Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(s_dependency_xml);
-        XMLTools.SaveListToXMLSerializer(dependencies, s_dependency_xml);
+        XMLTools.SaveListToXMLSerializer(dependencies, "s_dependencys_xml");
         return dependencies.FirstOrDefault(Dependency => Dependency.Id == id);
     }
 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
         List<Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(s_dependency_xml);
-        XMLTools.SaveListToXMLSerializer(dependencies, s_dependency_xml);
+        XMLTools.SaveListToXMLSerializer(dependencies, "s_dependencys_xml");
         return dependencies.FirstOrDefault(filter);
     }
 
@@ -50,7 +50,7 @@ internal class DependencyImplementation : IDependency
                    where filter(item)
                    select item;
         }
-        XMLTools.SaveListToXMLSerializer(dependencies, s_dependency_xml);
+        XMLTools.SaveListToXMLSerializer(dependencies, "s_dependencys_xml");
         return from item in dependencies
                select item;
     }
@@ -60,6 +60,6 @@ internal class DependencyImplementation : IDependency
         List<Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(s_dependency_xml);
         if (dependencies.RemoveAll(it => it.Id == entity.Id) == 0)
             throw new DalDoesNotExistException($"Dependency with ID={entity.Id} dose not exist");
-        XMLTools.SaveListToXMLSerializer(dependencies, s_dependency_xml);
+        XMLTools.SaveListToXMLSerializer(dependencies, "s_dependencys_xml");
     }
 }

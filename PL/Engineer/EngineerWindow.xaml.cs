@@ -11,7 +11,6 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -27,29 +26,21 @@ public partial class EngineerWindow : Window
     {
         InitializeComponent();
         if (Id == 0)
-            CurrentEngineer = new BO.Engineer();
+            CurrentEngineer = new();
         else
             try { CurrentEngineer = s_bl.Engineer.Read(Id); }
             catch(Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
     }
-    #region Property
     public BO.Engineer CurrentEngineer
     {
         get { return (BO.Engineer)GetValue(EngineerProperty); }
         set { SetValue(EngineerProperty, value); }
     }
+    
     public static readonly DependencyProperty EngineerProperty =
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
-    public BO.LevelEngineer Level
-    {
-        get { return (BO.LevelEngineer)GetValue(LevelProperty); }
-        set { SetValue(LevelProperty, value); }
-    }
-    public static readonly DependencyProperty LevelProperty =
-        DependencyProperty.Register("Level", typeof(BO.LevelEngineer), typeof(EngineerWindow), new PropertyMetadata(null));
-    #endregion
-
+    public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
     private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         CurrentEngineer.Level = Level;
@@ -62,29 +53,25 @@ public partial class EngineerWindow : Window
         {
             try
             {
+                MessageBoxResult result= MessageBox.Show($"Do you want to assign a task to an engineer{CurrentEngineer.Name}?", 
+                                                        "Message", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes) { 
+                    new TaskSelectionWindow(CurrentEngineer).ShowDialog(); }
+            
                 if (btn.Content.ToString() == "Add")
                 {
                     s_bl.Engineer.Create(CurrentEngineer);
-                    MessageBox.Show($"Engineer with Id-{CurrentEngineer.Id} added successfully");
+                    MessageBox.Show($"Engineer with Id:{CurrentEngineer.Id} added successfully");
                 }
                 if (btn.Content.ToString() == "Update")
                 {
                     s_bl.Engineer.Update(CurrentEngineer);
-                    MessageBox.Show($"Engineer with Id-{CurrentEngineer.Id} successfully updated");
+                    MessageBox.Show($"Engineer with Id:{CurrentEngineer.Id} successfully updated");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-            if (CurrentEngineer.Task == null)
-            {
-                MessageBoxResult result = MessageBox.Show($"Do you want to assign a task to {CurrentEngineer.Name}?",
-                        "Message", MessageBoxButton.YesNo);
-                if (result == MessageBoxResult.Yes)
-                {
-                    new TaskSelectionWindow(CurrentEngineer).ShowDialog();
-                }
             }
             Close();
         }

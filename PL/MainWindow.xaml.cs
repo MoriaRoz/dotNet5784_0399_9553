@@ -30,6 +30,7 @@ public partial class MainWindow : Window
 
     private void btnInitDB_Click(object sender, RoutedEventArgs e)
     {
+
         var result = MessageBox.Show("Initialize Database?", "Confirm Initialization", MessageBoxButton.YesNo);
         if (result == MessageBoxResult.Yes) { s_bl.InitializeDB(); }
     }
@@ -40,7 +41,7 @@ public partial class MainWindow : Window
         if (result == MessageBoxResult.Yes) { s_bl.ResetDB(); }
     }
 
-    #region Temporary buttons
+    //Temporary buttons
     private void Button_e_Click(object sender, RoutedEventArgs e)
     {
         new EngineerListWindow().Show();
@@ -53,12 +54,11 @@ public partial class MainWindow : Window
 
     private void Button_Me_Click(object sender, RoutedEventArgs e)
     {
-        new EngineerViewWindow(212940399).Show();
+        new EngineerViewWindow(123).Show();
     }
 
     private void Button_Mt_Click(object sender, RoutedEventArgs e)
     {
         new ManagerViewWindow(0).ShowDialog();
     }
-    #endregion
 }
