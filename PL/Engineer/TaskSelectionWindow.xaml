@@ -6,15 +6,20 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Icon="/Logo.png"
-        Title="Task Selection" Height="300" Width="400"
-        DataContext="{Binding TaskList,RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="Task Selection" Height="350" Width="400"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Grid>
         <!--Engineer Task-->
         <Label Content="Choose a task from the list:" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Top" 
-               FontFamily="Segoe Print" FontWeight="Bold" Margin="0,75,0,0"/>
-        <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center" Width="324" FontSize="15"
-          ItemsSource="{Binding TaskList}" SelectedValue="{Binding engTask, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
-        <Button Content="Done" HorizontalAlignment="Left" Height="50" Margin="149,216,0,0" VerticalAlignment="Top" Width="100"
-                FontFamily="MV Boli" FontWeight="Bold" FontSize="30" Foreground="Black" Background="#FF3498DB"/>
+               FontFamily="Comic Sans MS" Margin="0,10,0,0"/>
+
+
+        <ListView ItemsSource="{Binding ListTasks}" 
+                  SelectedItem="{Binding SelectedTask,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,50,10,73"/>
+        
+        <Button Content="Done" HorizontalAlignment="Center" Height="50" Margin="0,250,0,0" VerticalAlignment="Top" Width="112"
+                FontFamily="Comic Sans MS" FontSize="30" Background="#FF3498DB" Click="Btn_Done_Click"/>
     </Grid>
 </Window>

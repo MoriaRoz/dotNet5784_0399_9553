@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Icon="/Logo.png"
-        SizeToContent="Manual"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         Title="Engineer" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -21,30 +23,27 @@
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
 
-        <!--Details and disconnection-->
-        <Grid Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch">
-            <Button Content="Back" Click="Btn_Back_Click" HorizontalAlignment="Left" FontFamily="MV Boli" FontSize="10" Margin="126,0,0,0" Width="52" />
+        <!--Logo-->
+        <Image Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="201" Margin="0,9,0,0" VerticalAlignment="Top" Width="529" Source="/CodeMaster.png" Grid.Row="1"/>
+
+        <!--Select task-->
+        <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="328,39,18,23" Grid.Row="1" Visibility="{Binding CurrentEngineer.Task, Converter={StaticResource ConvertDontHaveTaskKey}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="127*"/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF6BBCF6"/>
+                    <GradientStop Color="#FFD190ED" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <TextBlock Text="Choose a task:" HorizontalAlignment="Left" Height="30" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" FontFamily="Comic Sans MS" FontSize="20" FontWeight="Bold"/>
+            <ListView ItemsSource="{Binding ListTasks}" SelectedItem="{Binding SelectedTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,47,0,0" Grid.ColumnSpan="2" Background="{x:Null}"/>
         </Grid>
 
-        <!--Monitor project progress-->
-        <ProgressBar Grid.Row="2" Grid.Column="1" Value="{Binding ProjectProgress, Mode=OneWay}" Minimum="0" Maximum="100"/>
-        <TextBlock Grid.Row="2" Text="Project progress : " FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="MV Boli"/>
-
-        <!--Hello engineer-->
-        <TextBlock Text="Hello" HorizontalAlignment="Left" Margin="81,161,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="65" FontSize="36" FontFamily="MV Boli" Grid.ColumnSpan="2"/>
-        <TextBlock Text="{Binding CurrentEngineer.Name}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="MV Boli" FontSize="30" Grid.Row="1" Margin="0,168,0,0" Grid.Column="1" Width="240" Height="38"/>
-
-        <!--Select/Done-->
-        <Button Content="Select task" FontSize="20" FontFamily="MV Boli" HorizontalAlignment="Left" Margin="168,255,0,0" Grid.Row="1" 
-                VerticalAlignment="Top" Width="117" Height="53" Grid.ColumnSpan="2" Click="Btn_Select_Click" Visibility="{Binding _hasNoTask}"/>
-        <Button Content="Done task" FontSize="20" FontFamily="MV Boli" HorizontalAlignment="Left" Height="53" Margin="132,255,0,0" Grid.Row="1" 
-                VerticalAlignment="Top" Width="116" Grid.Column="1" Click="Btn_Done_Click" Visibility="{Binding _hasTask}"/>
-
-        <!--Logo-->
-        <Image Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="201" Margin="-15,-5,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="529" Source="/CodeMaster.png"/>
-
         <!--current task-->
-        <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="328,66,18,23" Grid.Row="1" Visibility="{Binding _hasTask}">
+        <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="328,39,18,23" Grid.Row="1" Visibility="{Binding CurrentEngineer.Task, Converter={StaticResource ConvertHaveTaskKey}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="19*"/>
@@ -55,22 +54,34 @@
                     <GradientStop Color="#FFD190ED" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <TextBlock HorizontalAlignment="Left" Height="30" Margin="10,4,0,0" TextWrapping="Wrap" Text="ID:" VerticalAlignment="Top" Width="42" FontFamily="MV Boli" FontSize="20" FontWeight="Bold" Grid.Row="1"/>
-            <TextBlock Text="{Binding CurrentEngineer.Task.Id}" VerticalAlignment="Top" FontFamily="MV Boli" FontSize="20" Margin="10,41,43,0" Grid.Row="1"/>
-            <TextBlock HorizontalAlignment="Left" Height="30" Margin="10,78,0,0" TextWrapping="Wrap" Text="ALIAS:" VerticalAlignment="Top" Width="80" FontFamily="MV Boli" FontSize="20" FontWeight="Bold" Grid.Row="1"/>
-            <TextBlock Text="{Binding CurrentEngineer.Task.Alias}" Margin="10,110,10,98" FontFamily="MV Boli" FontSize="20" Grid.Row="1"/>
+            <TextBlock Text="Your current task" TextDecorations="Underline" HorizontalAlignment="Left" Height="37" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="201" FontFamily="Comic Sans MS" FontSize="20" FontWeight="Bold" Grid.RowSpan="2"/>
+            <TextBlock HorizontalAlignment="Left" Height="30" Margin="10,17,0,0" Text="ID:" VerticalAlignment="Top" Width="42" FontFamily="Comic Sans MS" FontSize="20" FontWeight="Bold" Grid.Row="1"/>
+            <TextBlock Text="{Binding CurrentEngineer.Task.Id}" VerticalAlignment="Top" FontFamily="Comic Sans MS" FontSize="16" Margin="10,45,43,0" Grid.Row="1" Height="41"/>
+            <TextBlock HorizontalAlignment="Left" Height="30" Margin="10,102,0,0" Text="ALIAS:" VerticalAlignment="Top" Width="80" FontFamily="Comic Sans MS" FontSize="20" FontWeight="Bold" Grid.Row="1"/>
+            <TextBlock Text="{Binding CurrentEngineer.Task.Alias}" Margin="10,136,10,10" FontFamily="Comic Sans MS" FontSize="16" Grid.Row="1" TextWrapping="Wrap"/>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="328,66,18,23" Grid.Row="1" Visibility="{Binding _hasNoTask}">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF6BBCF6"/>
-                    <GradientStop Color="#FFD190ED" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
-            <TextBlock Text="Choose a task:" HorizontalAlignment="Left" Height="30" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" FontFamily="MV Boli" FontSize="20" FontWeight="Bold"/>
-            <ListView ItemsSource="{Binding ListTasks}" MouseDoubleClick="selectTask_MouseDoubleClick"/>
-        </Grid>
+        <!--Monitor project progress-->
+        <ProgressBar Grid.Row="2" Grid.Column="1" Value="{Binding ProjectProgress, Mode=OneWay}" Minimum="0" Maximum="100"/>
+        <TextBlock Grid.Row="2" Text="Project progress : " FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Comic Sans MS"/>
+
+        <!--Hello engineer-->
+        <TextBlock Text="Hello" HorizontalAlignment="Left" Margin="81,190,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="65" FontSize="36" FontFamily="Comic Sans MS" Grid.ColumnSpan="2"/>
+        <TextBlock Text="{Binding CurrentEngineer.Name}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Comic Sans MS" FontSize="30" Grid.Row="1" Margin="0,197,0,0" Grid.Column="1" Width="240" Height="38"/>
+
+        <!--Select new task-->
+        <Button Content="Select a new task" FontSize="28" FontFamily="Comic Sans MS" Grid.ColumnSpan="2"
+                HorizontalAlignment="Left" Height="53" Margin="130,264,0,0" Grid.Row="1" 
+                VerticalAlignment="Top" Width="248"
+                Visibility="{Binding CurrentEngineer.Task, Converter={StaticResource ConvertDontHaveTaskKey}}" Click="Btn_Select_Click"/>
+
+        <!--Done button-->
+        <Button Content="Complete a current task" FontSize="20" FontFamily="Comic Sans MS" HorizontalAlignment="Left" Height="53" Margin="130,264,0,0" Grid.Row="1" 
+                VerticalAlignment="Top" Width="248" Click="Btn_Done_Click" 
+                Visibility="{Binding CurrentEngineer.Task, Converter={StaticResource ConvertHaveTaskKey}}" Grid.ColumnSpan="2"/>
+
+        <!--Back button-->
+        <Button Content="Back" Background="#FF9B59B6" HorizontalAlignment="Left" Height="38" Margin="10,15,0,0" 
+                Grid.RowSpan="2" VerticalAlignment="Top" Width="90" FontFamily="Comic Sans MS" FontSize="22" Click="Btn_Back_Click"/>
     </Grid>
-
 </Window>

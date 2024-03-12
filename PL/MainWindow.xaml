@@ -7,26 +7,28 @@
         mc:Ignorable="d"
         Icon="/Logo.png"
         Height="450" Width="800"
-        Title="Code Master">
+        Title="Code Master"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
 
-    <!--#B58DFF-->
     <Grid>
-        <Grid.ColumnDefinitions>
-            <!--<ColumnDefinition Width="61*"/>
-            <ColumnDefinition Width="739*"/>-->
-        </Grid.ColumnDefinitions>
+
+        <!--Logo-->
+        <Image HorizontalAlignment="Left" Height="313" VerticalAlignment="Top" Width="800" Source="/CodeMaster.png" Margin="0,-39,0,0" Grid.ColumnSpan="2" />
+        
         <!--Login-->
         <Button Content="Login" HorizontalAlignment="Left" Margin="125,266,0,0" VerticalAlignment="Top" Background="#FF3498DB"
-                Height="63" Width="150" Click="btnLogin_Click" FontSize="40" FontFamily="MV Boli"/>
+                Height="63" Width="150" Click="btnLogin_Click" FontSize="40" FontFamily="Comic Sans MS"/>
+        
         <!--Initialization-->
         <Button Content="INITDB" Style="{StaticResource myButtonStyle}" Background="#FF9B59B6"
                 HorizontalAlignment="Left" Margin="204,344,0,0" VerticalAlignment="Top" Width="100"  Click="btnInitDB_Click" />
+        
         <!--Reset-->
         <Button Content="RESET" Style="{StaticResource myButtonStyle}" Background="#FF9B59B6"
                 HorizontalAlignment="Left" Margin="88,344,0,0" VerticalAlignment="Top" Width="100" Click="btnReset_Click"/>
-        <!--Logo-->
-        <Image HorizontalAlignment="Left" Height="313" VerticalAlignment="Top" Width="800" Source="/CodeMaster.png" Margin="0,-39,0,0" Grid.ColumnSpan="2" />
 
+        <!--Clock-->
         <Border BorderBrush="#FF7A59B6" BorderThickness="2" Margin="410,241,40,13" Height="180" Width="350" >
             <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
@@ -39,9 +41,9 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <DatePicker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDate="{Binding currentDate}"  IsEnabled="False"/>
-                <Button Content="Add One Day" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontFamily="MV Boli" Background="#FF3498DB" FontSize="20"/>
-                <Button Content="Add One Hour" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" FontFamily="MV Boli" Background="#FF3498DB" FontSize="20"/>
-                <Button Content="Restart The Clock" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="MV Boli" Background="#FF3498DB" FontSize="20"/>
+                <Button Content="Add One Day" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontFamily="Comic Sans MS" Background="#FF3498DB" FontSize="20"/>
+                <Button Content="Add One Hour" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" FontFamily="Comic Sans MS" Background="#FF3498DB" FontSize="20"/>
+                <Button Content="Restart The Clock" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="Comic Sans MS" Background="#FF3498DB" FontSize="20"/>
             </Grid>
         </Border>
 
