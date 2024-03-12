@@ -49,18 +49,6 @@
     <EngineerId xsi:nil="true" />
   </Task>
   <Task>
-    <Id>5</Id>
-    <Alias>Perform risk analysis and develop risk management strategies</Alias>
-    <Description>Identify potential risks that may impact the project. Develop strategies to mitigate, monitor, and manage risks throughout the project lifecycle.</Description>
-    <CreatedAtDate>2024-03-10T09:05:48.8039238+02:00</CreatedAtDate>
-    <RequiredEffortTime>P7D</RequiredEffortTime>
-    <Complexity>Beginner</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
     <Id>6</Id>
     <Alias>Determine internal and public communication and protocols</Alias>
     <Description>Define communication channels and protocols for both internal team members and external stakeholders.</Description>
@@ -475,6 +463,18 @@
     <CreatedAtDate>2024-03-12T17:06:44.4953182+02:00</CreatedAtDate>
     <RequiredEffortTime>P26D</RequiredEffortTime>
     <Complexity>AdvancedBeginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>5</Id>
+    <Alias>Perform risk analysis and develop risk management strategies</Alias>
+    <Description>Identify potential risks that may impact the project. Develop strategies to mitigate, monitor, and manage risks throughout the project lifecycle.</Description>
+    <CreatedAtDate>2024-03-10T09:05:48.8039238+02:00</CreatedAtDate>
+    <RequiredEffortTime>P7D</RequiredEffortTime>
+    <Complexity>Beginner</Complexity>
     <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />

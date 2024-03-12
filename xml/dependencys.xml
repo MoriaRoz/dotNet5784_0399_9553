@@ -390,4 +390,24 @@
     <PreviousTask>17</PreviousTask>
     <DependsTask>18</DependsTask>
   </Dependency>
+  <Dependency>
+    <Id>79</Id>
+    <PreviousTask>1</PreviousTask>
+    <DependsTask>5</DependsTask>
+  </Dependency>
+  <Dependency>
+    <Id>80</Id>
+    <PreviousTask>4</PreviousTask>
+    <DependsTask>5</DependsTask>
+  </Dependency>
+  <Dependency>
+    <Id>81</Id>
+    <PreviousTask>1</PreviousTask>
+    <DependsTask>5</DependsTask>
+  </Dependency>
+  <Dependency>
+    <Id>82</Id>
+    <PreviousTask>4</PreviousTask>
+    <DependsTask>5</DependsTask>
+  </Dependency>
 </ArrayOfDependency>
