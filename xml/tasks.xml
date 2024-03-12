@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>1217</Id>
+    <Id>1</Id>
+    <Alias>Define the purpose and scope of the project</Alias>
+    <Description>Define the boundaries and limitations of the project, specifying what is included and excluded.</Description>
+    <CreatedAtDate>2024-03-10T09:05:48.5528774+02:00</CreatedAtDate>
+    <RequiredEffortTime>P5D</RequiredEffortTime>
+    <Complexity>Advanced</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>3</Id>
+    <Alias>Decide on a budget for the project</Alias>
+    <Description>Establish financial constraints and allocations for resources, materials, and other project-related expenses.</Description>
+    <CreatedAtDate>2024-03-10T09:05:48.7482865+02:00</CreatedAtDate>
+    <RequiredEffortTime>P23D</RequiredEffortTime>
+    <Complexity>Expert</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>4</Id>
     <Alias>Assign resources to the project</Alias>
     <Description>Identify and allocate human, financial, and material resources needed for the successful execution of the project.</Description>
     <CreatedAtDate>2024-02-28T15:33:20.9548239+02:00</CreatedAtDate>
@@ -239,5 +263,17 @@
     <ScheduledDate>2024-03-01T15:33:20.9157638+02:00</ScheduledDate>
     <CompleteDate xsi:nil="true" />
     <EngineerId>123</EngineerId>
+  </Task>
+  <Task>
+    <Id>2</Id>
+    <Alias>Create a schedule for the project</Alias>
+    <Description>Develop a timeline that outlines key milestones, tasks, and deadlines for the entire project duration.</Description>
+    <CreatedAtDate>2024-03-10T09:05:48.7130322+02:00</CreatedAtDate>
+    <RequiredEffortTime>P16D</RequiredEffortTime>
+    <Complexity>Advanced</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
   </Task>
 </ArrayOfTask>
