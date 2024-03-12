@@ -31,7 +31,9 @@ internal class TaskImplementation : ITask
         Task? toDel = Read(id);//Reference to the task with Id=id or null to if it doesn't exist.
         if (toDel == null)//Task does not exist, error.
             throw new DalDeletionImpossible($"Task with ID={id} dose not exist");
-        if (toDel.CompleteDate == null&&toDel.StartDate!=null)//Task not completed, error.
+        if (toDel.ScheduledDate==null)
+            tasks.Remove(toDel);//Deleting the task.
+        else
             throw new DalDeletionImpossible($"Task with ID={id} already scheduled");
         
         tasks.Remove(toDel);//Deleting the task.
@@ -89,7 +91,7 @@ internal class TaskImplementation : ITask
         else return 1;
     }
 
-    public void SetProjectStartDate(DateTime startDate)
+    public void SetProjectStartDate(DateTime? startDate)
     {
         var doc = XDocument.Load("data-config.xml");
         Config.ProjectStartDate = startDate;
