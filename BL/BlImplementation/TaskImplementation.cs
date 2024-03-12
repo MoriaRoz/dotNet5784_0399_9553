@@ -72,7 +72,7 @@ internal class TaskImplementation : ITask
                 boTask.Deliverables, boTask.Remarks, engId);
 
                 var dependenceis = _dal.Dependency.ReadAll();
-                var depend = dependenceis.Where(d => d.DependsTask == id).Select(p => p).FirstOrDefault();
+                var depend = dependenceis.Where(d => d.DependsOnTask == id).Select(p => p).FirstOrDefault();
 
                 if (depend != null)
                     throw new BO.BlDalDeletionImpossible($"There is a task that depends on the task with ID={doTask.Id} so it cannot be deleted.");
@@ -227,18 +227,6 @@ internal class TaskImplementation : ITask
         int? engId = null;
         if (boTask.Engineer != null)
             engId = boTask.Engineer.Id;
-        if (boTask.Dependencies != null)
-            foreach (var dep in boTask.Dependencies)
-            {
-                try
-                {
-                    _dal.Dependency.Create(new Dependency() { Id = 0, DependsTask = boTask.Id, PreviousTask = dep.Id });
-                }
-                catch (DO.DalAlreadyExistsException ex)
-                {
-                    throw new BO.BlDalAlreadyExistsException($"Dependency all ready exist", ex);
-                }
-            }
         try
         {
             _dal.Task.Update(new DO.Task()
@@ -256,6 +244,10 @@ internal class TaskImplementation : ITask
                 Remarks = boTask.Remarks,
                 EngineerId = engId,
             });
+        }
+        catch (DO.DalAlreadyExistsException ex)
+        {
+            throw new BO.BlDalAlreadyExistsException($"Task with ID={boTask!.Id} already exists", ex);
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -287,7 +279,7 @@ internal class TaskImplementation : ITask
                            {
                                Id = 0,
                                PreviousTask = taskInList.Id,
-                               DependsTask = taskId
+                               DependsOnTask = taskId
                            }
                            select new
                            {
@@ -320,7 +312,7 @@ internal class TaskImplementation : ITask
     List<BO.TaskInList>? DependenciesCalculation(int idTask)
     {
         return (from DO.Dependency dep in _dal.Dependency.ReadAll()
-                where dep.DependsTask == idTask
+                where dep.DependsOnTask == idTask
                 let prevTask = _dal.Task.Read((int)dep.PreviousTask)
                 select new BO.TaskInList()
                 {

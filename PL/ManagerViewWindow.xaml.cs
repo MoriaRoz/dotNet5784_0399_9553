@@ -39,18 +39,19 @@ namespace PL
         }
         private void Btn_Back_Click(object sender, RoutedEventArgs e)
         {
-            new LoginPage().Show();
             Close();
         }
-
-        private void Btn_Schedule_Click(object sender, RoutedEventArgs e)
+        public class BooleanToVisibilityConverter : IValueConverter
         {
-            new StartDateWindow().Show();
-        }
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                return s_bl.GetProjectStartDate() != null ? Visibility.Visible : Visibility.Collapsed;
+            }
 
-        private void Btn_Gantt_Click(object sender, RoutedEventArgs e)
-        {
-            new GanttChartWindow().Show();
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

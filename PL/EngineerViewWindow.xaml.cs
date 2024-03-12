@@ -4,6 +4,7 @@ using PL.Task;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,8 +33,10 @@ namespace PL
             catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
             ListTasks = new List<BO.TaskInEngineer>();
 
-            if (CurrentEngineer.Task == null)
+            if (CurrentEngineer.Task==null)
             {
+                _hasNoTask = true;
+                _hasTask = false;
                 foreach (BO.TaskInList task in s_bl.Task.ReadAll())
                 {
                     BO.Task t = s_bl.Task.Read(task.Id);
@@ -41,8 +44,14 @@ namespace PL
                         ListTasks.Add(new BO.TaskInEngineer { Id = t.Id, Alias = t.Alias });
                 }
             }
-        }
+            else
+            {
+                _hasNoTask = false;
+                _hasTask = true;
+            }
 
+        }
+        
         #region Property
         public BO.Engineer CurrentEngineer
         {
@@ -52,7 +61,23 @@ namespace PL
 
         public static readonly DependencyProperty EngineerProperty =
             DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerViewWindow), new PropertyMetadata(null));
+        public bool _hasTask
+        {
+            get { return (bool)GetValue(_hasTaskProperty); }
+            set { SetValue(_hasTaskProperty, value); }
+        }
 
+        public static readonly DependencyProperty _hasTaskProperty =
+            DependencyProperty.Register("_hasTask", typeof(bool), typeof(EngineerViewWindow), new PropertyMetadata(null));
+        public bool _hasNoTask
+        {
+            get { return (bool)GetValue(_hasNoTaskProperty); }
+            set { SetValue(_hasNoTaskProperty, value); }
+        }
+
+        public static readonly DependencyProperty _hasNoTaskProperty =
+            DependencyProperty.Register("_hasNoTask", typeof(bool), typeof(EngineerViewWindow), new PropertyMetadata(null));
+        
         public List<BO.TaskInEngineer> ListTasks
         {
             get { return (List<BO.TaskInEngineer>)GetValue(ListTaskProperty); }
@@ -61,15 +86,6 @@ namespace PL
 
         public static readonly DependencyProperty ListTaskProperty =
             DependencyProperty.Register("ListTasks", typeof(List<BO.TaskInEngineer>), typeof(EngineerViewWindow), new PropertyMetadata(null));
-
-        public BO.TaskInEngineer SelectedTask
-        {
-            get { return (BO.TaskInEngineer)GetValue(SelectedTaskProperty); }
-            set { SetValue(SelectedTaskProperty, value); }
-        }
-
-        public static readonly DependencyProperty SelectedTaskProperty =
-            DependencyProperty.Register("SelectedTask", typeof(BO.TaskInEngineer), typeof(EngineerViewWindow), new PropertyMetadata(null));
         #endregion
 
         private void Btn_Back_Click(object sender, RoutedEventArgs e)
@@ -80,77 +96,36 @@ namespace PL
 
         private void Btn_Select_Click(object sender, RoutedEventArgs e)
         {
-            BO.Task selectTask = s_bl.Task.Read(SelectedTask.Id);
+
+        }
+
+        private void Btn_Done_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void selectTask_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BO.TaskInEngineer selectTask = (sender as ListView)?.SelectedItem as BO.TaskInEngineer;
             var result = MessageBox.Show($"Do you want to work on task Id:{selectTask.Id}?", "choosing a task", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 if (selectTask != null)
                 {
-                    selectTask.Engineer = new EngineerInTask { Id = CurrentEngineer.Id, Name = CurrentEngineer.Name };
-                    selectTask.Status = BO.Statuses.Started;
-                    selectTask.StartDate = s_bl.Clock;
-                    s_bl.Task.Update(selectTask);
-                    CurrentEngineer.Task = new TaskInEngineer { Id = selectTask.Id, Alias = selectTask.Alias };
-                    s_bl.Engineer.Update(CurrentEngineer);
+                    BO.Task? currentTask = s_bl.Task.Read(selectTask.Id);
+                    if (currentTask != null)
+                    {
+                        currentTask.Engineer = new EngineerInTask { Id = CurrentEngineer.Id, Name = CurrentEngineer.Name };
+                        currentTask.Status = BO.Statuses.Started;
+                        currentTask.StartDate = s_bl.Clock;
+                        s_bl.Task.Update(currentTask);
+                        CurrentEngineer.Task=new TaskInEngineer { Id = currentTask.Id,Alias=currentTask.Alias };
+                        s_bl.Engineer.Update(CurrentEngineer);
+                        _hasNoTask = false;
+                        _hasTask = true;
+                    }
                 }
             }
-            RefreshWindow();
         }
-
-        private void Btn_Done_Click(object sender, RoutedEventArgs e)
-        {
-            BO.Task doneTask = s_bl.Task.Read(CurrentEngineer.Task.Id);
-            if (doneTask != null) 
-            { 
-                doneTask.Status = BO.Statuses.Done;
-                doneTask.CompleteDate = s_bl.Clock;
-                CurrentEngineer.Task = null;
-                s_bl.Task.Update(doneTask);
-                s_bl.Engineer.Update(CurrentEngineer);
-            }
-            RefreshWindow();
-        }
-
-        private void RefreshWindow()
-        {
-            CurrentEngineer = s_bl.Engineer.Read(CurrentEngineer.Id);
-            ListTasks = new List<BO.TaskInEngineer>();
-
-            foreach (BO.TaskInList task in s_bl.Task.ReadAll())
-            {
-                BO.Task t = s_bl.Task.Read(task.Id);
-                if (t.Status == BO.Statuses.Scheduled && t.Complexity <= CurrentEngineer.Level)
-                    ListTasks.Add(new BO.TaskInEngineer { Id = t.Id, Alias = t.Alias });
-            }
-        }
-
-        #region progresBar
-        private double _projectProgress;
-
-        public double ProjectProgress
-        {
-            get { return _projectProgress; }
-            set
-            {
-                //if (_projectProgress != value)
-                //{
-                //    _projectProgress = value;
-                //    OnPropertyChanged(nameof(ProjectProgress));
-                //}
-            }
-        }
-
-        private void CalculateProjectProgress()
-        {
-            var tasks = s_bl.Task.ReadAll();
-            int totalTasks = tasks.Count();
-            int numOfDoneTasks = tasks.Count(t => t.Status == BO.Statuses.Done);
-            double progressPercentage = (numOfDoneTasks / (double)totalTasks) * 100;
-            //    ProjectProgress = progressPercentage;
-            //}
-
-        }
-        #endregion
     }
 }
-

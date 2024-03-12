@@ -71,7 +71,7 @@ internal class TaskImplementation : ITask
         return DataSource.Config.ProjectStartDate;
     }
 
-    public void SetProjectStartDate(DateTime? startDate)
+    public void SetProjectStartDate(DateTime startDate)
     {
         DataSource.Config.ProjectStartDate = startDate;
     }
