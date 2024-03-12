@@ -23,22 +23,23 @@ namespace PL.Engineer;
 public partial class TaskSelectionWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public static List<BO.TaskInEngineer> TaskList { get; set; }
-    public TaskSelectionWindow(BO.Engineer currentEng)
+    public TaskSelectionWindow(BO.Engineer eng)
     {
         InitializeComponent();
-        
-        TaskList =new List<BO.TaskInEngineer>();
-        var tasks = (from BO.TaskInList task in s_bl.Task.ReadAll()
-                     let taskList = s_bl.Task.Read(task.Id)
-                     where taskList.Complexity <= currentEng.Level
-                     select new BO.TaskInEngineer
-                     {
-                         Id = taskList.Id,
-                         Alias = taskList.Alias,
-                     });
-        foreach (BO.TaskInEngineer task in tasks)
-            TaskList.Add(task);
+        CurrentEng = eng;
+        ListTasks = new List<TaskInEngineer>();
+        if (CurrentEng.Level != BO.LevelEngineer.None)
+        {
+            foreach (BO.TaskInList task in s_bl.Task.ReadAll())
+            {
+                BO.Task? t = s_bl.Task.Read(task.Id);
+                if (t != null)
+                {
+                    if (t.Status == BO.Statuses.Scheduled && t.Complexity <= CurrentEng.Level)
+                        ListTasks.Add(new BO.TaskInEngineer { Id = t.Id, Alias = t.Alias });
+                }
+            }
+        }
     }
     public BO.Engineer CurrentEng
     {
@@ -47,10 +48,30 @@ public partial class TaskSelectionWindow : Window
     }
 
     public static readonly DependencyProperty EngineerProperty =
-        DependencyProperty.Register("CurrentEng", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
-    public BO.TaskInEngineer TaskSelect { get; set; } = null;
-    private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        DependencyProperty.Register("CurrentEng", typeof(BO.Engineer), typeof(TaskSelectionWindow), new PropertyMetadata(null));
+    public List<BO.TaskInEngineer> ListTasks
     {
-        CurrentEng.Task = TaskSelect;
+        get { return (List<BO.TaskInEngineer>)GetValue(ListTaskProperty); }
+        set { SetValue(ListTaskProperty, value); }
+    }
+
+    public static readonly DependencyProperty ListTaskProperty =
+        DependencyProperty.Register("ListTasks", typeof(List<BO.TaskInEngineer>), typeof(TaskSelectionWindow), new PropertyMetadata(null));
+
+    public BO.TaskInEngineer SelectedTask
+    {
+        get { return (BO.TaskInEngineer)GetValue(SelectedTaskProperty); }
+        set { SetValue(SelectedTaskProperty, value); }
+    }
+
+    public static readonly DependencyProperty SelectedTaskProperty =
+        DependencyProperty.Register("SelectedTask", typeof(BO.TaskInEngineer), typeof(TaskSelectionWindow), new PropertyMetadata(null));
+
+    private void Btn_Done_Click(object sender, RoutedEventArgs e)
+    {
+        CurrentEng.Task = SelectedTask;
+        s_bl.Engineer.Update(CurrentEng);
+        MessageBox.Show($"{CurrentEng.Name} was assigned to the task {SelectedTask.Id}");
+        Close();
     }
 }

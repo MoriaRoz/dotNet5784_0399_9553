@@ -1,0 +1,290 @@
+[33mcommit 29cecf39f7e4aa417b363e0cf9f664f98585f482[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/new-branch[m[33m)[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Tue Mar 12 18:03:38 2024 +0200
+
+    Adding windows for selecting dependents and engineers.
+    Inserting a schedule
+
+[33mcommit c250e21391c352a62b338ec7b784b5d90c79a19e[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Wed Mar 6 17:56:57 2024 +0200
+
+    Step 6 Update Windows
+
+[33mcommit 072ab9d8f83c9962eeb66ae48846afc4bb5ceee8[m
+Merge: 55929e2 c9d2f99
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Thu Feb 29 14:38:52 2024 +0200
+
+    Merge
+
+[33mcommit 55929e287e6fc19b5a4942c99f53d2fe852ffd51[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Thu Feb 29 14:31:25 2024 +0200
+
+    stage 6-task window
+
+[33mcommit c9d2f99f63352ee480d455fdf193c9764ad2f0af[m
+Merge: 394ce5d 9428b4d
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Feb 29 12:50:13 2024 +0200
+
+    Merge branch 'main' of https://github.com/MoriaRoz/dotNet5784_0399_9553
+
+[33mcommit 394ce5d4cfbb56c8d8cf67c75a4e0bedac57a0b9[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Feb 29 12:49:29 2024 +0200
+
+    addind windows
+
+[33mcommit 9428b4d040b41a79dd501f0e4f9c9c5ff822e67a[m
+Merge: 6e266c8 964b157
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Mon Feb 26 09:48:57 2024 +0200
+
+    marge
+
+[33mcommit 6e266c8ad4eb8ce6ddbc94b30cc6846c9ed2f992[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Mon Feb 26 09:47:52 2024 +0200
+
+    fix engineerwindow
+
+[33mcommit 964b1577613b78d624ddf9685b2938d3a51c4ee5[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Feb 22 22:21:04 2024 +0200
+
+    Stage 6 - tasks windows
+
+[33mcommit 3b7ceb0c186f31aac70d360e870f199b5acc1a47[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Mon Feb 19 16:20:26 2024 +0200
+
+    Fix stage 5
+
+[33mcommit 782792d9ea253103b426a968a0d245fa9abb4096[m[33m ([m[1;33mtag: [m[1;33mstage5[m[33m)[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Sun Feb 18 00:22:24 2024 +0200
+
+    stage5-final commit
+
+[33mcommit f3f8ecb2c156c49b03e9d8255a2cc2ea9d33989e[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Fri Feb 16 13:02:59 2024 +0200
+
+    stage 5 - parts 8-10
+
+[33mcommit 736c381d44165e861d05b5c8bf0e5773279c7ce8[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Thu Feb 15 20:29:05 2024 +0200
+
+    stage 5- part 7
+
+[33mcommit bf05d398982f95a5e2faf4478d497451b4968bd7[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Feb 15 19:01:12 2024 +0200
+
+    stage 4 part 6
+
+[33mcommit fd5599a1e1137570e7171cd231165083b44ee3a2[m
+Merge: b7de240 1c78eab
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Thu Feb 15 13:54:31 2024 +0200
+
+    Merge branch 'main' of https://github.com/MoriaRoz/dotNet5784_0399_9553
+
+[33mcommit b7de2404c5ef4ba2cd24b3bd89d0d61dfbea5e0f[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Thu Feb 15 13:53:31 2024 +0200
+
+    Stage 5 Part 1-5
+
+[33mcommit 1c78eab7fd527d2f32e23e64150746f3bd6fa015[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Thu Feb 15 13:53:31 2024 +0200
+
+    שלב 5 חלק 1-5
+
+[33mcommit be4c7c8b5c895873c602a39a41c2c7c79ba8b75e[m[33m ([m[1;33mtag: [m[1;33mstage4[m[33m)[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Mon Feb 12 11:44:47 2024 +0200
+
+    Amending the schedule
+
+[33mcommit cdc9c13cd32dd79ac4b2a22050faf9b172a59807[m
+Merge: 29319ba 9e71f8c
+Author: einatma <einatmazuz@gmail.com>
+Date:   Sun Feb 11 23:43:23 2024 +0200
+
+    Merge branch 'main' of https://github.com/MoriaRoz/dotNet5784_0399_9553
+
+[33mcommit 9e71f8cd51126c4dc05389a97b9ffa7c58db8867[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Sun Feb 11 23:40:41 2024 +0200
+
+    Fixes of bltest and the dal layer
+
+[33mcommit 29319ba38d00d5444911aacac0012d798d0c3563[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Sun Feb 11 23:27:38 2024 +0200
+
+    Added the schedule
+
+[33mcommit 69e41c66b78a8bc1b4e89a0c68531e0d8cab490f[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Sun Feb 11 15:37:37 2024 +0200
+
+    Added fields for start date and project status
+
+[33mcommit a898c18b658eb162282b91493fe9b6c11ded4128[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Thu Feb 8 23:43:37 2024 +0200
+
+    update BlTest
+
+[33mcommit 8d8f111003f8a2d88806953c1081ee0a364f0c4a[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Feb 8 20:09:04 2024 +0200
+
+    stage 4 part 13
+
+[33mcommit 3d16e564b3071b130d4992a9d578495a2f79bb50[m
+Merge: 1d2a182 11a2dca
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Feb 8 15:15:28 2024 +0200
+
+    Merging and adding documentation
+
+[33mcommit 1d2a182abafd52f39f90a502555a64929914fa12[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Feb 8 14:42:40 2024 +0200
+
+    stafe 4 part 8
+
+[33mcommit 11a2dca5fc5c96de949713f2adb9e33acff6cc74[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Thu Feb 8 14:03:42 2024 +0200
+
+    TaskImplementation
+    stage 4-parts 9-10+12
+
+[33mcommit 56c863220cb274a159baf07f034a1deaa34f928d[m[33m ([m[1;33mtag: [m[1;33mstage3[m[33m)[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Wed Feb 7 17:52:11 2024 +0200
+
+    stage3- final update
+
+[33mcommit ab576a2570082e73bc20acfce99b28fd61767d72[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Wed Feb 7 17:40:17 2024 +0200
+
+    Stage 3 - updated
+
+[33mcommit dc2b452df8904e7fd8a9fe2557d26f8114a820da[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Wed Feb 7 10:47:47 2024 +0200
+
+    realization of EngineerImplementation
+
+[33mcommit 46a9af18fa96f55b0935508fa9b652f3ff07891f[m
+Merge: d52f406 bd12594
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Sun Feb 4 21:42:09 2024 +0200
+
+    marge
+
+[33mcommit d52f406e4baa38761c30270b46f3bd7f6d7122a4[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Sun Feb 4 21:38:50 2024 +0200
+
+    Stage 4- part 6-7 and begin 8
+
+[33mcommit bd12594e0086ad491d5a90d25c95c078abf70d14[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Sun Feb 4 21:10:22 2024 +0200
+
+    exeptions
+
+[33mcommit f08784151975d0cdaf49adca66379791cda79b5b[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Wed Jan 31 14:49:29 2024 +0200
+
+    stage 4 - parts 1-5
+
+[33mcommit 4b1a800ee650f82adc17f92ef1263fbaf59bce09[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Sun Jan 21 18:04:42 2024 +0200
+
+    Stage3 Final commit
+
+[33mcommit eed278d9311399b6b04486df7b105e2956e030aa[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Jan 18 16:42:08 2024 +0200
+
+    stage 3 - parts 1-4
+
+[33mcommit bd00fbb2b8ab4edd581fc7fa3ffc47919bb2596c[m[33m ([m[1;33mtag: [m[1;33mstage2[m[33m)[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Jan 18 13:55:34 2024 +0200
+
+    Stage 2 Final commit
+
+[33mcommit 4f1887b6fdeee2d753c46ab57cd6083f290d5868[m
+Merge: e0bd70e 38aa5ad
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Jan 18 13:50:22 2024 +0200
+
+    Merge branch 'main' of https://github.com/MoriaRoz/dotNet5784_0399_9553
+
+[33mcommit e0bd70ef6ea274024f3a6680ef77c3e4d1a3f705[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Thu Jan 18 13:48:34 2024 +0200
+
+    Added documentation to engineer, dependency and task
+
+[33mcommit 38aa5ad88c3b6f4d67ef1ecdd2bc96c9c528adb1[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Thu Jan 18 11:11:41 2024 +0200
+
+    Stage2 Final commit
+
+[33mcommit ab8f1a441d20695c2a7a839d1ec4ad1f6e3bc130[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Wed Jan 17 17:40:20 2024 +0200
+
+    stage 2,  parts 8-11
+
+[33mcommit 308f7606592ce377f2851d1739401a044e4114e1[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Sun Jan 14 22:50:02 2024 +0200
+
+    Sync Updates Step 2 Parts 1-7
+
+[33mcommit 28ac8f4daf8958c992ba2e4ecb476bd27cca837a[m
+Author: einatma <einatmazuz@gmail.com>
+Date:   Sun Jan 14 22:42:22 2024 +0200
+
+    ICRUD recovery
+
+[33mcommit 13ab0518962c193dc3025240d7e95e7fdef44e31[m
+Merge: 011b615 b02fccc
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Sun Jan 14 22:09:50 2024 +0200
+
+    Marge
+
+[33mcommit 011b615b73fe5ecb0204bf2926f43d8c6ed09d0c[m
+Author: MoriaRoz <ruznurhv@gmail.com>
+Date:   Sun Jan 14 22:08:32 2024 +0200
+
+    ICrud+IDal
+
+[33mcommit b02fccc93b89679c759f9ccc5f8b8290a21512e6[m
+Merge: 0b9f943 ec2bc8c
+Author: einatma <einatmazuz@gmail.com>
+Date:   Sun Jan 14 22:07:15 2024 +0200
+
+    merge
+
+[33mcommit 0b9f943fa0a99d25baef70fb5db7cf029605198f[m
+Author: einatma <einatm

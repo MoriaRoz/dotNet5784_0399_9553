@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
-        mc:Ignorable="d"
-        Title="Engineer Window" Height="600" Width="600"
-        DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+        mc:Ignorable="d"        
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="Engineer Window" Height="450" Width="600"
+        DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Mode=Self}}">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
@@ -22,25 +25,36 @@
         </Grid.ColumnDefinitions>
 
         <!--Engineer Id-->
-        <Label Grid.Row="0" Content="ID: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold" />
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=OneTime,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Margin="0,10,40,10" FontSize="15"/>
+        <Label Grid.Row="0" Content="ID: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" />
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Margin="0,10,40,10" FontSize="15"/>
 
         <!--Engineer Name-->
-        <Label Grid.Row="1" Content="Name: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <Label Grid.Row="1" Content="Name: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS"/>
         <TextBox Grid.Row="1" Grid.Column="1"  Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Margin="0,10,36,10" FontSize="15"/>
 
         <!--Engineer Email-->
-        <Label Grid.Row="2" Content="Email: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <Label Grid.Row="2" Content="Email: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS"/>
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Margin="0,10,36,10" FontSize="15"/>
 
         <!--Engineer Level-->
-        <Label Grid.Row="3" Content="Level: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <Label Grid.Row="3" Content="Level: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS"/>
         <ComboBox Grid.Row="3" Grid.Column="1" SelectedValue="{Binding Level, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"
                   ItemsSource="{Binding Source={StaticResource LevelEngineerCollectionKey}}" Margin="0,10,36,10" FontSize="15"/>
 
         <!--Engineer Cost-->
-        <Label Grid.Row="4" Content="Cost: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe Print" FontWeight="Bold"/>
+        <Label Grid.Row="4" Content="Cost: " FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS"/>
         <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Margin="0,10,36,10" FontSize="15"/>
+
+        <!--Engineer Task--><!--
+        <Grid Grid.Row="5" Visibility="{Binding Id, Converter={StaticResource ConvertIdToContentKey}, Mode=OneWay}" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Task:" Grid.Column="0" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Comic Sans MS" Width="80" Margin="60,0,0,0"/>
+            <ListBox Margin="200,10,36,10"
+                    ItemsSource="{Binding ListTasks}" SelectionMode="Single" SelectedItem="{Binding SelectedTask,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+        </Grid>-->
 
         <!--Buttons-->
         <Grid Grid.Row="6" Grid.ColumnSpan="2">
@@ -51,10 +65,10 @@
             <!--Add/Update-->
             <Button Content="{Binding Id, Converter={StaticResource ConvertIdToContentKey}, Mode=OneTime}" 
                     HorizontalAlignment="Left" Width="130" Height="50" Click="BtnAddOrUpdate_Click" Margin="235,0,0,10"
-                    FontFamily="Segoe Print" FontWeight="Bold" FontSize="20" Background="#FF3498DB" Grid.ColumnSpan="2"/>
+                    FontFamily="Comic Sans MS" FontSize="20" Background="#FF3498DB" Grid.ColumnSpan="2"/>
             <!--Back-->
             <Button Content="Back" Grid.Row="3" HorizontalAlignment="Left" Height="40" Width="80" Background="#FF9B59B6" 
-                    FontFamily="MV Boli" FontSize="22" Click="Btn_Back_Click" Margin="10,10,0,10" RenderTransformOrigin="0.928,0.437"/>
+                    FontFamily="Comic Sans MS" FontSize="22" Click="Btn_Back_Click" Margin="10,10,0,10" RenderTransformOrigin="0.928,0.437"/>
         </Grid>
     </Grid>
 </Window>

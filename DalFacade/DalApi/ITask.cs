@@ -7,7 +7,7 @@ using DO;
 /// </summary>
 public interface ITask : ICrud<Task> 
 { 
-    void SetProjectStartDate(DateTime startDate);
+    void SetProjectStartDate(DateTime? startDate);
     DateTime? GetProjectStartDate();
     int GetProjectStatus();
 }

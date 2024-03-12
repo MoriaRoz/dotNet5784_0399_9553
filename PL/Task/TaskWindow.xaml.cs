@@ -30,6 +30,7 @@ public partial class TaskWindow : Window
         else
             try { CurrentTask = s_bl.Task.Read(id); }
             catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
+        Dependencies = CurrentTask.Dependencies;
     }
 
     public BO.Task CurrentTask
@@ -40,6 +41,14 @@ public partial class TaskWindow : Window
 
     public static readonly DependencyProperty TaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
+    public List<BO.TaskInList> Dependencies
+    {
+        get { return (List<BO.TaskInList>)GetValue(DependenciesProperty); }
+        set { SetValue(DependenciesProperty, value); }
+    }
+
+    public static readonly DependencyProperty DependenciesProperty =
+        DependencyProperty.Register("Dependencies", typeof(List<BO.TaskInList>), typeof(TaskWindow), new PropertyMetadata(null));
 
 
     private void BtnBack_Click(object sender, RoutedEventArgs e)
@@ -69,7 +78,19 @@ public partial class TaskWindow : Window
             {
                 Console.WriteLine(ex.Message);
             }
+            MessageBoxResult result = MessageBox.Show($"You want to add dependencies to a task {CurrentTask.Id}?",
+                        "Message", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                new DependencySelectionWindow(CurrentTask).ShowDialog();
+            }
             Close();
         }
+    }
+
+    private void delete_dependency_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
+        CurrentTask.Dependencies.Remove(task);
     }
 }

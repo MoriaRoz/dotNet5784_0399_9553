@@ -162,10 +162,11 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <returns>True if the engineer object is valid, otherwise false.</returns>
     bool EngineerCheck(BO.Engineer eng)
     {
-        if (eng.Id < 0)
+        if (eng.Id <= 0)
             return false;
-        if ((eng.Email != "") && (!(eng.Email.Contains('@')) || eng.Email.Contains(' ')))
-            return false;
+        if(eng.Email!= null)
+            if ((eng.Email != "") && (!(eng.Email.Contains('@')) || eng.Email.Contains(' ')))
+                return false;
         if (eng.Cost != null && eng.Cost < 0) 
             return false;
         return true;
@@ -204,7 +205,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         DO.Task? doTask = _dal.Task.Read(taskE.Id);
         if (doTask == null)
             throw new BO.BlDoesNotExistException("AA");
-        if (doTask.EngineerId != engId || doTask.EngineerId != null)
+        if (doTask.EngineerId != engId && doTask.EngineerId != null)
             throw new BO.BlInvalidValueException("BB");
         BO.Task? task = taskImplementation.Read(doTask.Id);
         if (task.Dependencies != null)
