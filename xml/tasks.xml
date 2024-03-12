@@ -13,18 +13,6 @@
     <EngineerId xsi:nil="true" />
   </Task>
   <Task>
-    <Id>2</Id>
-    <Alias>Create a schedule for the project</Alias>
-    <Description>Develop a timeline that outlines key milestones, tasks, and deadlines for the entire project duration.</Description>
-    <CreatedAtDate>2024-03-10T09:05:48.7130322+02:00</CreatedAtDate>
-    <RequiredEffortTime>P16D</RequiredEffortTime>
-    <Complexity>Advanced</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate xsi:nil="true" />
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
     <Id>3</Id>
     <Alias>Decide on a budget for the project</Alias>
     <Description>Establish financial constraints and allocations for resources, materials, and other project-related expenses.</Description>
@@ -475,6 +463,18 @@
     <CreatedAtDate>2024-03-12T17:06:44.4953182+02:00</CreatedAtDate>
     <RequiredEffortTime>P26D</RequiredEffortTime>
     <Complexity>AdvancedBeginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>2</Id>
+    <Alias>Create a schedule for the project</Alias>
+    <Description>Develop a timeline that outlines key milestones, tasks, and deadlines for the entire project duration.</Description>
+    <CreatedAtDate>2024-03-10T09:05:48.7130322+02:00</CreatedAtDate>
+    <RequiredEffortTime>P16D</RequiredEffortTime>
+    <Complexity>Advanced</Complexity>
     <StartDate xsi:nil="true" />
     <ScheduledDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
