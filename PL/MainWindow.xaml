@@ -40,7 +40,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <DatePicker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDate="{Binding currentDate}"  IsEnabled="False"/>
+                <TextBlock Text="{Binding currentDate, ConverterCulture='de-DE', StringFormat=date: {0:D}}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <!--<DatePicker Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedDate="{Binding currentDate}"  IsEnabled="False"/>-->
                 <Button Content="Add One Day" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontFamily="Comic Sans MS" Background="#FF3498DB" FontSize="20"/>
                 <Button Content="Add One Hour" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" FontFamily="Comic Sans MS" Background="#FF3498DB" FontSize="20"/>
                 <Button Content="Restart The Clock" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="Comic Sans MS" Background="#FF3498DB" FontSize="20"/>
