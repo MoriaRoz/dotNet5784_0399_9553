@@ -79,14 +79,7 @@ internal class UserImplementation : IUser
     //A helper method that accepts an object of type element and returns an object of type engineer
     static User getUser(XElement e)
     {
-        string passwordValue = e.Element("Password")?.Value ?? ""; // Retrieve the value of the "Password" element
-        SecureString passwordSecure = new SecureString();
-
-        foreach (char c in passwordValue)
-        {
-            passwordSecure.AppendChar(c); // Populate the SecureString character by character
-        }
-
+        string passwordSecure = e.Element("Password")?.Value ?? ""; // Retrieve the value of the "Password" element
         return new User()
         {
             EngineerId = e.ToIntNullable("EngineerId") ?? throw new FormatException("Can not convert id"),

@@ -14,7 +14,7 @@ namespace DO;
 public record User
 (
     int EngineerId,
-    SecureString? Password = null,
+    String? Password = null,
     UserRole Role = UserRole.Engineer
 )
 {
