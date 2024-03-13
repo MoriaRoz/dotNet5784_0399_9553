@@ -22,46 +22,21 @@ namespace PL
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public GanttChartWindow()
         {
-            DateTime start = s_bl.Clock;
-            if (s_bl.GetProjectStartDate() != null)
-                start = s_bl.GetProjectStartDate() ?? s_bl.Clock;
-            DateTime end = s_bl.Clock;
-
-            var tasks = s_bl.Task.ReadAll();
-            foreach (BO.TaskInList t in tasks)
-            {
-                BO.Task task = s_bl.Task.Read(t.Id);
-
-                DateTime startT = task.ScheduledDate ?? s_bl.Clock;
-                DateTime endT = task.ForecastDate ?? s_bl.Clock;
-
-                if (task.StartDate != null)
-                    startT = task.StartDate ?? s_bl.Clock;
-                if (startT < start)
-                    start = startT;
-
-                if (endT > end)
-                    end = endT;
-
-                BO.TaskGantt tGantt = new BO.TaskGantt()
-                {
-                    TaskId = task.Id,
-                    TaskAlias = task.Alias,
-                    TaskStart = startT,
-                    TaskEnd = endT,
-                };
-                Gantt.Add(tGantt);
-            }
-            foreach (BO.TaskGantt t in Gantt)
-            {
-                t.TimeFromStart = (t.TaskStart - start).Days;
-                t.TimeToEnd = (end - t.TaskEnd).Days;
-            }
+            Gantt = s_bl.tasksGantt();
+            Dates = s_bl.getProjectDates();
             InitializeComponent();
         }
         public List<BO.TaskGantt> Gantt { get; set; }
 
         public static readonly DependencyProperty GanttProperty =
             DependencyProperty.Register("Gantt", typeof(List<BO.TaskGantt>), typeof(GanttChartWindow), new PropertyMetadata(null));
+
+        public List<DateTime?> Dates
+        {
+            get { return (List<DateTime?>)GetValue(DatesProperty); }
+            set { SetValue(DatesProperty, value); }
+        }
+        public static readonly DependencyProperty DatesProperty =
+            DependencyProperty.Register("Dates", typeof(List<DateTime?>), typeof(GanttChartWindow), new PropertyMetadata(null));
     }
 }

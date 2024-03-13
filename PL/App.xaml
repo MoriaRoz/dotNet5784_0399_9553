@@ -11,6 +11,7 @@
         <local:LevelEngineerCollection x:Key="LevelEngineerCollectionKey" />
         <local:StatusesCollection x:Key="StatusesCollectionKey"/>
         <local:RoleCollection x:Key="RolCollectionKey"/>
+        <local:DayToPixelConverter x:Key="DayToPixelConverterKey"/>
         <Style x:Key="myButtonStyle"
                 TargetType="Button">
             <Setter Property="FontSize"

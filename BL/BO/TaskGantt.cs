@@ -14,6 +14,7 @@ public class TaskGantt
     public string? TaskAlias { set; get; }
     public DateTime TaskStart { set; get; }
     public DateTime TaskEnd { set; get; }
+    public int Duration { set; get; }
     public int TimeFromStart { set; get; }
     public int TimeToEnd { set; get; }
 }

@@ -46,7 +46,7 @@ internal class Bl : IBl
                 undatedTasks.Add(task);
 
         }
-        while (undatedTasks != null)
+        while (undatedTasks.Count != 0)
         {
             foreach (BO.Task task in undatedTasks)
             {
@@ -138,7 +138,66 @@ internal class Bl : IBl
     }
     public void InitializeDB() => DalTest.Initialization.Do();
     public void ResetDB() => DalApi.Factory.Get.Reset();
-    
+
+    #region gantt
+    public List<DateTime?> getProjectDates()
+    {
+        List<DateTime?> dates = new List<DateTime?>();
+        foreach(BO.TaskInList t in s_bl.Task.ReadAll())
+        {
+            BO.Task task = s_bl.Task.Read(t.Id);
+            dates.Add(task.StartDate);
+            dates.Add(task.CompleteDate);
+        }
+
+        dates.Distinct().ToList();
+        dates.OrderBy(date => date).ToList();
+        return dates;
+    }
+    public List<BO.TaskGantt> tasksGantt()
+    {
+        List<BO.TaskGantt> tasksG = new List<BO.TaskGantt>();
+        
+        var tasks = s_bl.Task.ReadAll();
+ 
+        DateTime start = s_bl.GetProjectStartDate() ?? s_bl.Clock;
+        DateTime end = s_bl.Clock;
+
+        foreach (BO.TaskInList t in tasks)
+        {
+            BO.Task task = s_bl.Task.Read(t.Id);
+
+            DateTime startT = task.ScheduledDate ?? s_bl.Clock;
+            DateTime endT = task.ForecastDate ?? s_bl.Clock;
+
+            if (task.StartDate != null)
+                startT = task.StartDate ?? s_bl.Clock;
+            if (startT < start)
+                start = startT;
+
+            if (endT > end)
+                end = endT;
+
+            BO.TaskGantt tGantt = new BO.TaskGantt()
+            {
+                TaskId = task.Id,
+                TaskAlias = task.Alias,
+                TaskStart = startT,
+                TaskEnd = endT,
+                Duration = (endT - startT).Days,
+            };
+            tasksG.Add(tGantt);
+        }
+        foreach (BO.TaskGantt t in tasksG)
+        {
+            t.TimeFromStart = (t.TaskStart - start).Days;
+            t.TimeToEnd = (end - t.TaskEnd).Days;
+        }
+
+        return tasksG;
+    }
+    #endregion
+
     #region Clock
     private static DateTime s_Clock = DateTime.Now.Date;
     public DateTime Clock { get { return s_Clock; } private set { s_Clock = value; } }

@@ -25,7 +25,6 @@ public partial class TaskSelectionWindow : Window
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public TaskSelectionWindow(BO.Engineer eng)
     {
-        InitializeComponent();
         CurrentEng = eng;
         ListTasks = new List<TaskInEngineer>();
         if (CurrentEng.Level != BO.LevelEngineer.None)
@@ -40,6 +39,7 @@ public partial class TaskSelectionWindow : Window
                 }
             }
         }
+        InitializeComponent();
     }
     public BO.Engineer CurrentEng
     {

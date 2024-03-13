@@ -82,6 +82,7 @@ internal class TaskImplementation : ITask
         DateTime? projectStartDate = DateTime.Parse(doc.Element("ProjectStartDate").Value);
         XMLTools.SaveListToXMLElement(doc, "data-config");
         return projectStartDate;
+        //return Config.ProjectStartDate;
     }
 
     public int GetProjectStatus()
