@@ -5,29 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="GanttChartWindow" Height="450" Width="800">
-    <Grid>
-        <ItemsControl>
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Icon="/Logo.png"
+        Title="Gantt Chart" Height="700" Width="1200"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
-        </ItemsControl>
-        <ItemsControl ItemsSource="{Binding Gantt}" Margin="65,51,83,44">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderThickness="2" BorderBrush="Aqua">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            <TextBlock HorizontalAlignment="Left" Text="{Binding taskID}" FontWeight="Bold" Background="Aquamarine"/>
-                            <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding timeFromStart}"  Fill="White"/>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
 
-                            <!--Width="{Binding DaysFromStart}"-->
-                            <!--Width="{Binding DaysFromStart}"-->
-                            <TextBlock HorizontalAlignment="Left" Text="{Binding taskName}" Width="{Binding duration}" FontWeight="Bold" Background="Aquamarine"/>
-                            <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding timeToEnd}"  Fill="White"/>
-
-
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </Grid>
+            <!--Dates-->
+            <ItemsControl Grid.Row="0" ItemsSource="{Binding Dates}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Width="70" BorderThickness="1">
+                            <Label HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" VerticalAlignment="Center" Content="{Binding  Date, StringFormat=d}"/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            
+            <!--Gant-->
+            <ItemsControl ItemsSource="{Binding Gantt}" Margin="10,10,10,10" Grid.Row="1">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="2" BorderBrush="Aqua">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding taskID}" FontWeight="Bold" Background="Aquamarine"/>
+                                <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeFromStart}" Fill="White"/>
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding taskName}" Width="{Binding Duration}" FontWeight="Bold" Background="Aquamarine"/>
+                                <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeToEnd}" Fill="White"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </ScrollViewer>
 </Window>

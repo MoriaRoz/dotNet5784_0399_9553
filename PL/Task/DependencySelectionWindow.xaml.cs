@@ -24,7 +24,6 @@ namespace PL.Task
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public DependencySelectionWindow(BO.Task task)
         {
-            InitializeComponent();
             CurrentTask = task;
             ListTasks = new List<TaskInList>();
             SelectedTasks = new List<TaskInList>();
@@ -42,6 +41,7 @@ namespace PL.Task
                         ListTasks.Add(t);
                 }
             }
+            InitializeComponent();
         }
         #region Property
         public BO.Task CurrentTask

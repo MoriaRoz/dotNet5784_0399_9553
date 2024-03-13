@@ -10,6 +10,12 @@ public interface IBl
     public void CreateSchedule(DateTime? startDate);
     public void InitializeDB();
     public void ResetDB();
+
+    #region gantt
+    public List<DateTime?> getProjectDates();
+    public List<BO.TaskGantt> tasksGantt();
+    #endregion
+
     #region Clock
     public DateTime Clock { get; }
     public void addHourToClock();
