@@ -13,8 +13,15 @@ using System.Threading.Tasks;
 internal class EngineerImplementation : BlApi.IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    private BlImplementation.TaskImplementation taskImplementation = new BlImplementation.TaskImplementation();
+    private TaskImplementation taskImplementation;
     private BlImplementation.UserImplementation userImplementation = new BlImplementation.UserImplementation();
+    private readonly IBl _bl;
+    internal EngineerImplementation(IBl bl)
+    {
+        _bl = bl;
+        taskImplementation = new TaskImplementation(bl);
+    }
+
     /// <summary>
     /// Creates a new engineer in the system.
     /// </summary>
@@ -181,7 +188,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         IEnumerable<DO.Task>? dTasks = _dal.Task.ReadAll(item => item.EngineerId == engId);
 
         DO.Task? currentTask = (from DO.Task dTask in dTasks
-                                where new TaskImplementation().Read(dTask.Id).Status == BO.Statuses.Started
+                                where taskImplementation.Read(dTask.Id).Status == BO.Statuses.Started
                                 select dTask).FirstOrDefault();
 
         if (currentTask != null)

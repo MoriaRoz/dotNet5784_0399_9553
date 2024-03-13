@@ -28,8 +28,13 @@ namespace PL
         }
         private void Btn_OK_Click(object sender, RoutedEventArgs e)
         {
-            s_bl.SetProjectStartDate(SelectedDate);
-            s_bl.CreateSchedule(SelectedDate);
+            if (SelectedDate != null)
+            {
+                s_bl.SetProjectStartDate(SelectedDate);
+                s_bl.CreateSchedule(SelectedDate);
+            }
+            else
+                MessageBox.Show("No date entered");
             this.Close();
         }
 

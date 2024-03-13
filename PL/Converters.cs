@@ -33,51 +33,52 @@ namespace PL
             throw new NotImplementedException();
         }
     }
-}
 
-class ConvertHaveTask : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+
+    class ConvertHaveTask : IValueConverter
     {
-        if (value != null)
-            return Visibility.Visible;
-        else
-            return Visibility.Hidden;
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value != null)
+                return Visibility.Visible;
+            else
+                return Visibility.Hidden;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    class ConvertDontHaveTask : IValueConverter
     {
-        throw new NotImplementedException();
-    }
-}
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+                return Visibility.Visible;
+            else
+                return Visibility.Hidden;
+        }
 
-class ConvertDontHaveTask : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value == null)
-            return Visibility.Visible;
-        else
-            return Visibility.Hidden;
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-}
-
-class ConvertLevelSelected : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if ((BO.LevelEngineer)value == BO.LevelEngineer.None)
-            return Visibility.Hidden;
-        else return Visibility.Visible;
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    class ConvertLevelSelected : IValueConverter
     {
-        throw new NotImplementedException();
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((BO.LevelEngineer)value == BO.LevelEngineer.None)
+                return Visibility.Hidden;
+            else return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

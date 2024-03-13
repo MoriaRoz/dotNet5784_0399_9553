@@ -11,8 +11,8 @@ using System.Security.Cryptography;
 /// </summary>
 internal class TaskImplementation : ITask
 {
-
-
+    private readonly IBl _bl;
+    internal TaskImplementation(IBl bl) => _bl = bl;
     private DalApi.IDal _dal = DalApi.Factory.Get;
     /// <summary>
     /// Creates a new task.
@@ -115,7 +115,6 @@ internal class TaskImplementation : ITask
             StartDate = doTask?.StartDate,
             ScheduledDate = doTask.ScheduledDate,
             ForecastDate = ForecastDateCalculation(doTask),
-            //DeadlineDate = doTask.DeadlineDate,
             CompleteDate = doTask.CompleteDate,
             Deliverables = doTask.Deliverables,
             Remarks = doTask.Remarks,
@@ -186,7 +185,6 @@ internal class TaskImplementation : ITask
                 Complexity = (DO.LevelEngineer)boTask.Complexity,
                 StartDate = start,
                 ScheduledDate = boTask.ScheduledDate,
-                //DeadlineDate = boTask.DeadlineDate,
                 CompleteDate = boTask.CompleteDate,
                 Deliverables = boTask.Deliverables,
                 Remarks = boTask.Remarks,

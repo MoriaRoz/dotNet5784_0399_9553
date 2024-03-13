@@ -20,6 +20,7 @@ public partial class MainWindow : Window
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public MainWindow()
     {
+        CurrentDate= s_bl.Clock;
         InitializeComponent();
     }
 
@@ -39,6 +40,15 @@ public partial class MainWindow : Window
         var result = MessageBox.Show("Reset Database?", "Confirm Initialization", MessageBoxButton.YesNo);
         if (result == MessageBoxResult.Yes) { s_bl.ResetDB(); }
     }
+
+    public DateTime CurrentDate
+    {
+        get { return (DateTime)GetValue(CurrentDateProperty); }
+        set { SetValue(CurrentDateProperty, value); }
+    }
+
+    public static readonly DependencyProperty CurrentDateProperty =
+        DependencyProperty.Register("CurrentDate", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(null));
 
     #region Temporary buttons
     private void Button_e_Click(object sender, RoutedEventArgs e)
@@ -61,4 +71,22 @@ public partial class MainWindow : Window
         new ManagerViewWindow(0).ShowDialog();
     }
     #endregion
+
+    private void Btn_addDay_Click(object sender, RoutedEventArgs e)
+    {
+        s_bl.addDayToClock();
+        CurrentDate = s_bl.Clock;
+    }
+
+    private void Btn_addHour_Click(object sender, RoutedEventArgs e)
+    {
+        s_bl.addHourToClock();
+        CurrentDate=s_bl.Clock;
+    }
+
+    private void Btn_resetClock_Click(object sender, RoutedEventArgs e)
+    {
+        s_bl.restartClock();
+        CurrentDate = s_bl.Clock;
+    }
 }
