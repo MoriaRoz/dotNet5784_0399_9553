@@ -13,11 +13,11 @@ internal class Bl : IBl
     /// <summary>
     /// Gets the instance of the business logic for managing engineers.
     /// </summary>
-    public IEngineer Engineer => new EngineerImplementation();
+    public IEngineer Engineer => new EngineerImplementation(this);
     /// <summary>
     /// Gets the instance of the business logic for managing tasks.
     /// </summary>
-    public ITask Task => new TaskImplementation();
+    public ITask Task => new TaskImplementation(this);
     public IUser User => new UserImplementation();
     public DateTime? GetProjectStartDate()
     {
@@ -156,17 +156,7 @@ internal class Bl : IBl
     }
     public void restartClock()
     {
-        Clock=s_Clock = DateTime.Now.Date;
+        Clock=s_Clock = DateTime.Now;
     }
-
-    //public void addHourToClock()
-    //{
-    //    s_bl.addHourToClock();
-    //}
-
-    //public void addDayToClock()
-    //{
-    //    s_bl.addDayToClock();
-    //}
     #endregion
 }

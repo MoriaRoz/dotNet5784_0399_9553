@@ -10,8 +10,10 @@ public interface IBl
     public void CreateSchedule(DateTime? startDate);
     public void InitializeDB();
     public void ResetDB();
+    #region Clock
     public DateTime Clock { get; }
     public void addHourToClock();
     public void addDayToClock();
     public void restartClock();
+    #endregion
 }

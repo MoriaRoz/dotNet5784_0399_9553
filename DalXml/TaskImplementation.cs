@@ -78,7 +78,9 @@ internal class TaskImplementation : ITask
     
     public DateTime? GetProjectStartDate()
     {
-        DateTime? projectStartDate = Config.ProjectStartDate;
+        var doc = XMLTools.LoadListFromXMLElement("data-config");
+        DateTime? projectStartDate = DateTime.Parse(doc.Element("ProjectStartDate").Value);
+        XMLTools.SaveListToXMLElement(doc, "data-config");
         return projectStartDate;
     }
 
@@ -91,6 +93,8 @@ internal class TaskImplementation : ITask
 
     public void SetProjectStartDate(DateTime? startDate)
     {
-        Config.ProjectStartDate = Config.ProjectStartDate;
+        var doc = XMLTools.LoadListFromXMLElement("data-config");
+        doc.Element("ProjectStartDate").Value = startDate?.ToString("dd/MM/yyyy") ?? string.Empty;
+        XMLTools.SaveListToXMLElement(doc, "data-config");
     }
 }

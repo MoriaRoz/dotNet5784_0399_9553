@@ -50,7 +50,6 @@ internal class DependencyImplementation : IDependency
                    where filter(item)
                    select item;
         }
-        XMLTools.SaveListToXMLSerializer(dependencies, s_dependency_xml);
         return from item in dependencies
                select item;
     }
