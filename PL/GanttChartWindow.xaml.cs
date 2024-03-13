@@ -59,11 +59,7 @@ namespace PL
             }
             InitializeComponent();
         }
-        public List<BO.TaskGantt> Gantt
-        {
-            get { return (List<BO.TaskGantt>)GetValue(GanttProperty); }
-            set { SetValue(GanttProperty, value); }
-        }
+        public List<BO.TaskGantt> Gantt { get; set; }
 
         public static readonly DependencyProperty GanttProperty =
             DependencyProperty.Register("Gantt", typeof(List<BO.TaskGantt>), typeof(GanttChartWindow), new PropertyMetadata(null));

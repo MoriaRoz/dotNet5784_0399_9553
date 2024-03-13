@@ -1,7 +1,10 @@
-﻿using BO;
-using DalApi;
+﻿using PL.Engineer;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,7 +19,7 @@ public partial class LoginPage : Window
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public LoginPage()
     {
-        InitializeComponent();        
+        InitializeComponent();
     }
 
     public BO.User CurrentUser
@@ -26,7 +29,7 @@ public partial class LoginPage : Window
     }
     public static readonly DependencyProperty UserProperty =
             DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
-    
+
     private SecureString _password;
     public SecureString Password
     {
@@ -50,7 +53,7 @@ public partial class LoginPage : Window
     {
         try
         {
-            BO.User user = s_bl.User.Read(CurrentUser.EngineerId);
+             BO.User user = s_bl.User.Read(CurrentUser.EngineerId);
             if (user == null)
             {
                 MessageBox.Show("User with the provided ID does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -85,7 +88,7 @@ public partial class LoginPage : Window
 
     private void Create_PreviewMouseDown(object sender, MouseButtonEventArgs e)
     {
-        new SingUpWindow().Show(); 
+        new SingUpWindow().Show();
     }
 
     private void Btn_Back_Click(object sender, RoutedEventArgs e)

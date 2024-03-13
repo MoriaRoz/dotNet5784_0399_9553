@@ -37,7 +37,7 @@ internal class Bl : IBl
         var allTasks = (from t in allTasksINList
                         let task = s_bl.Task.Read(t.Id)
                         select task);
-        List<BO.Task> undatedTasks = null;
+        List<BO.Task> undatedTasks = new List<BO.Task>();
         foreach (BO.Task task in allTasks)
         {
             if (!task.Dependencies.Any())

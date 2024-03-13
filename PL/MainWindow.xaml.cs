@@ -22,8 +22,8 @@ public partial class MainWindow : Window
     {
         CurrentDate= s_bl.Clock;
         InitializeComponent();
+        DataContext = this;
     }
-
     private void btnLogin_Click(object sender, RoutedEventArgs e)
     {
         new LoginPage().Show();
