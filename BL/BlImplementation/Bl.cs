@@ -33,10 +33,14 @@ internal class Bl : IBl
     }
     public void CreateSchedule(DateTime? startDate)
     {
+        if (GetProjectStatus() == ProjectStatus.InExecution)
+            throw new BO.BlDoesNotExistException("Can not create project schedule while project is in Execution stage");
         IEnumerable<BO.TaskInList> allTasksINList = s_bl.Task.ReadAll();
         var allTasks = (from t in allTasksINList
                         let task = s_bl.Task.Read(t.Id)
                         select task);
+        if (allTasks.Any(task => task.RequiredEffortTime == null))
+            throw new BO.BlInvalidValueException("Can not plan project schedule if not all tasks have required effort time assigned");
         List<BO.Task> undatedTasks = new List<BO.Task>();
         foreach (BO.Task task in allTasks)
         {
