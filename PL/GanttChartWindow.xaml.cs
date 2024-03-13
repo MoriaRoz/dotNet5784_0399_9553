@@ -22,6 +22,7 @@ namespace PL
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public GanttChartWindow()
         {
+            Gantt = new List<BO.TaskGantt>();
             DateTime start = DateTime.Now;
             if (s_bl.GetProjectStartDate() != null)
                 start = s_bl.GetProjectStartDate() ?? DateTime.Now;
@@ -59,11 +60,7 @@ namespace PL
             }
             InitializeComponent();
         }
-        public List<BO.TaskGantt> Gantt
-        {
-            get { return (List<BO.TaskGantt>)GetValue(GanttProperty); }
-            set { SetValue(GanttProperty, value); }
-        }
+        public List<BO.TaskGantt> Gantt { get; set; }
 
         public static readonly DependencyProperty GanttProperty =
             DependencyProperty.Register("Gantt", typeof(List<BO.TaskGantt>), typeof(GanttChartWindow), new PropertyMetadata(null));

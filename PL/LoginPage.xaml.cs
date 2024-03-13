@@ -53,7 +53,7 @@ public partial class LoginPage : Window
     {
         try
         {
-            BO.User user = s_bl.User.Read(CurrentUser.EngineerId);
+             BO.User user = s_bl.User.Read(CurrentUser.EngineerId);
             if (user == null)
             {
                 MessageBox.Show("User with the provided ID does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

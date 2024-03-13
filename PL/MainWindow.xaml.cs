@@ -23,7 +23,6 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = this;
     }
-
     private void btnLogin_Click(object sender, RoutedEventArgs e)
     {
         new LoginPage().Show();
