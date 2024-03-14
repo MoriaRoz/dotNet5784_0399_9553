@@ -28,13 +28,13 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = this;
         _timer = new DispatcherTimer();
-        _timer.Interval = TimeSpan.FromSeconds(1);
+        _timer.Interval = TimeSpan.FromMilliseconds(100);
         _timer.Tick += Timer_Tick;
         _timer.Start();
     }
     private void Timer_Tick(object sender, EventArgs e)
     {
-        s_bl.addHourToClock();
+        s_bl.addHalfMinToClock();
         CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
     }
     private void btnLogin_Click(object sender, RoutedEventArgs e)

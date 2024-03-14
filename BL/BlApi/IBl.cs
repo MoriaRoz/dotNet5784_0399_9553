@@ -22,5 +22,6 @@ public interface IBl
     public void addHourToClock();
     public void addDayToClock();
     public void restartClock();
+    public void addHalfMinToClock();
     #endregion
 }

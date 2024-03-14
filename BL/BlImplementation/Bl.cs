@@ -193,6 +193,10 @@ internal class Bl : IBl
     {
         Clock=s_Clock.AddDays(1);
     }
+    public void addHalfMinToClock()
+    {
+        Clock = s_Clock.AddSeconds(31);
+    }
     public void restartClock()
     {
         Clock=s_Clock = DateTime.Now;
