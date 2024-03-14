@@ -92,26 +92,6 @@ internal class Bl : IBl
                     theLastDate = endOfTask;
             }
         }
-
-        //Console.WriteLine($"The earliest date for the task {task.Alias} (with id {task.Id})" +
-        //    $" execution is on {theLastDate} Would you like to schedule it on this date or a later date? (Y/N)\n");
-        //string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-        //if (ans != "Y" && ans != "N")
-        //    throw new FormatException("Wrong input");
-        //else if (ans == "N")
-        //{
-        //    Console.WriteLine($"What is the date on which you would like the task to start, note that this date cannot be earlier than the date {theLastDate}.\n");
-        //    Console.WriteLine("what is the year of the date?\n");
-        //    int year = int.Parse(Console.ReadLine());
-        //    Console.WriteLine("what is the month of the date?\n");
-        //    int month = int.Parse(Console.ReadLine());
-        //    Console.WriteLine("what is the day of the date?\n");
-        //    int day = int.Parse(Console.ReadLine());
-        //    DateTime tasksDate = new DateTime(year, month, day);
-        //    if (tasksDate < theLastDate)
-        //        throw new BlNumberOutOfRangeException("The date is no later than the start date of the project or one of the tasks on which the task depends");
-        //    theLastDate = tasksDate;
-        //}
         task.StartDate = theLastDate;
         task.Status = Statuses.Scheduled;
 
