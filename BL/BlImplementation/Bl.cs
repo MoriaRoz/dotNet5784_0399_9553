@@ -183,7 +183,7 @@ internal class Bl : IBl
     #endregion
 
     #region Clock
-    private static DateTime s_Clock = DateTime.Now.Date;
+    private static DateTime s_Clock = DateTime.Now;
     public DateTime Clock { get { return s_Clock; } private set { s_Clock = value; } }
     public void addHourToClock()
     {

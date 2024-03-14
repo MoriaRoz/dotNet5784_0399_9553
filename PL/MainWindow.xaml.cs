@@ -1,5 +1,7 @@
-﻿using PL.Engineer;
+﻿
+using PL.Engineer;
 using PL.Task;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PL;
 /// <summary>
@@ -18,11 +21,21 @@ namespace PL;
 public partial class MainWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    private readonly DispatcherTimer _timer;
     public MainWindow()
     {
-        CurrentDate= s_bl.Clock;
+        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
         InitializeComponent();
         DataContext = this;
+        _timer = new DispatcherTimer();
+        _timer.Interval = TimeSpan.FromSeconds(1);
+        _timer.Tick += Timer_Tick;
+        _timer.Start();
+    }
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        s_bl.addHourToClock();
+        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
     }
     private void btnLogin_Click(object sender, RoutedEventArgs e)
     {
@@ -41,14 +54,14 @@ public partial class MainWindow : Window
         if (result == MessageBoxResult.Yes) { s_bl.ResetDB(); }
     }
 
-    public DateTime CurrentDate
+    public string CurrentDate
     {
-        get { return (DateTime)GetValue(CurrentDateProperty); }
+        get { return (string)GetValue(CurrentDateProperty); }
         set { SetValue(CurrentDateProperty, value); }
     }
 
     public static readonly DependencyProperty CurrentDateProperty =
-        DependencyProperty.Register("CurrentDate", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("CurrentDate", typeof(string), typeof(MainWindow), new PropertyMetadata(null));
 
     #region Temporary buttons
     private void Button_e_Click(object sender, RoutedEventArgs e)
@@ -63,7 +76,7 @@ public partial class MainWindow : Window
 
     private void Button_Me_Click(object sender, RoutedEventArgs e)
     {
-        new EngineerViewWindow(212940399).Show();
+        new EngineerViewWindow(377390605).Show();
     }
 
     private void Button_Mt_Click(object sender, RoutedEventArgs e)
@@ -75,18 +88,18 @@ public partial class MainWindow : Window
     private void Btn_addDay_Click(object sender, RoutedEventArgs e)
     {
         s_bl.addDayToClock();
-        CurrentDate = s_bl.Clock;
+        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
     }
 
     private void Btn_addHour_Click(object sender, RoutedEventArgs e)
     {
         s_bl.addHourToClock();
-        CurrentDate=s_bl.Clock;
+        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
     }
 
     private void Btn_resetClock_Click(object sender, RoutedEventArgs e)
     {
         s_bl.restartClock();
-        CurrentDate = s_bl.Clock;
+        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
     }
 }

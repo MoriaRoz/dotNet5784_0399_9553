@@ -6,7 +6,7 @@
     <Application.Resources>
         <local:ConvertIdToContent x:Key="ConvertIdToContentKey" />
         <local:ConvertHaveTask x:Key="ConvertHaveTaskKey"/>
-        <local:ConvertDontHaveTask x:Key="ConvertDontHaveTaskKey"/>
+        <local:ConvertDontHaveTask x:Key="ConvertDontHaveTask"/>
         <local:ConvertLevelSelected x:Key="ConvertLevelSelectedKey"/>
         <local:LevelEngineerCollection x:Key="LevelEngineerCollectionKey" />
         <local:StatusesCollection x:Key="StatusesCollectionKey"/>

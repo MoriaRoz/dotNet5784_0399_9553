@@ -44,7 +44,7 @@
                 <Button Content="Add One Day" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontFamily="Comic Sans MS" Background="#537CCA" FontSize="20" Click="Btn_addDay_Click"/>
                 <Button Content="Add One Hour" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" FontFamily="Comic Sans MS" Background="#537CCA" FontSize="20" Click="Btn_addHour_Click"/>
                 <Button Content="Restart The Clock" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="Comic Sans MS" Background="#537CCA" FontSize="20" Height="46" Margin="0,45,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Click="Btn_resetClock_Click"/>
-                <TextBlock Text="{Binding CurrentDate}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Comic Sans MS" FontSize="35" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding CurrentDate, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Comic Sans MS" FontSize="35" TextWrapping="Wrap"/>
             </Grid>
         </Border>
 
