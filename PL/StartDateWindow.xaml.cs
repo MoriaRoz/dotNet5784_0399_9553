@@ -30,8 +30,7 @@ namespace PL
         {
             if (SelectedDate != null)
             {
-                s_bl.SetProjectStartDate(SelectedDate);
-                s_bl.CreateSchedule(SelectedDate);
+                s_bl.CreateSchedule(SelectedDate.Value);
             }
             else
                 MessageBox.Show("No date entered");

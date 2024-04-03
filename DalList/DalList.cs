@@ -18,6 +18,9 @@ sealed internal class DalList : IDal
         DataSource.Tasks.Clear();
 
         DataSource.Config.ProjectStartDate = null;
+    }
+    public void ResetIds()
+    {
         DataSource.Config.NextDependencyId = DataSource.Config.startDependencyId;
         DataSource.Config.NextTaskId = DataSource.Config.startTaskId;
     }

@@ -11,4 +11,5 @@ public interface IDal
     IDependency Dependency { get; }
     IUser User { get; }
     public void Reset() { }
+    public void ResetIds() { }
 }

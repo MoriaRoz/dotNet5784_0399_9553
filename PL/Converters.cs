@@ -35,7 +35,7 @@ namespace PL
     }
 
 
-    class ConvertHaveTask : IValueConverter
+    public class ConvertHaveTask : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -51,7 +51,7 @@ namespace PL
         }
     }
 
-    class ConvertDontHaveTask : IValueConverter
+    public class ConvertDontHaveTask : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -67,7 +67,7 @@ namespace PL
         }
     }
 
-    class ConvertLevelSelected : IValueConverter
+    public class ConvertLevelSelected : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -81,6 +81,7 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
     public class DayToPixelConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
