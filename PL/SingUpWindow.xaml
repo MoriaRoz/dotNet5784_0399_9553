@@ -15,11 +15,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <!--Title-->
         <TextBlock Text="Sign up" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" 
@@ -28,7 +27,7 @@
         <Image HorizontalAlignment="Left" Height="65" Grid.Row="0" VerticalAlignment="Top" Width="76" Source="/Logo.png"/>
 
         <!--User Id-->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -36,18 +35,7 @@
             <TextBlock Text="User ID:" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" 
                    FontSize="22" FontFamily="Comic Sans MS" Grid.Row="0"/>
             <TextBox  TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" Grid.Row="1" FontFamily="Comic Sans MS" HorizontalAlignment="Center" Width="200"
-                  Text="{Binding EngineerId, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
-        </Grid>
-        <!--User Name-->
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <TextBlock Text="User Name:" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" Grid.Row="0"
-                   FontSize="22" FontFamily="Comic Sans MS"/>
-            <TextBox  TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" FontFamily="Comic Sans MS" HorizontalAlignment="Center" Grid.Row="1" Width="200"
-                  Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+                  Text="{Binding EngineerId, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" PreviewTextInput="ID_PreviewTextInput"/>
         </Grid>
         <!--User Password-->
         <Grid Grid.Row="3">
@@ -61,7 +49,7 @@
            Text="{Binding Password, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
         </Grid>
         <!--User Role-->
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -72,7 +60,7 @@
                   Height="34" VerticalAlignment="Top" FontFamily="Comic Sans MS" FontSize="16"/>
         </Grid>
         <!--Back-->
-        <Grid Grid.Row="5">
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>

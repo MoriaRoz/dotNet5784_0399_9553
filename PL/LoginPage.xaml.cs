@@ -74,7 +74,27 @@ namespace PL
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void ID_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                TextBox textBox = sender as TextBox;
+                string newText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
 
+                if (!int.TryParse(newText, out _)) 
+                {
+                    e.Handled = true;
+                }
+                else if (newText.Length > 9)
+                {
+                    e.Handled = true;
+                }
+            }
+        }
         private void Create_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             new SingUpWindow().Show();

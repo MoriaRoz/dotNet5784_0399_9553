@@ -14,11 +14,10 @@ namespace DO;
 public record User
 (
     int Id,
-    String? Name = null,
     String? Password = null,
     UserRole Role = UserRole.Engineer
 )
 {
     //Empty constructor
-    public User() : this(0, null,null, UserRole.Engineer) { }
+    public User() : this(0, null, UserRole.Engineer) { }
 }

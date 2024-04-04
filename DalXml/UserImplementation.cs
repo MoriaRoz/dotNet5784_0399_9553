@@ -20,7 +20,6 @@ internal class UserImplementation : IUser
         XElement userRoot = XMLTools.LoadListFromXMLElement(s_users_xml);
         XElement user = new XElement("User",
             new XElement("Id", entity.Id),
-            new XElement("Name", entity.Name),
             new XElement("Password", entity.Password),
             new XElement("Rool", entity.Role));
         userRoot.Add(user);
@@ -84,7 +83,6 @@ internal class UserImplementation : IUser
         return new User()
         {
             Id = e.ToIntNullable("EngineerId") ?? throw new FormatException("Can not convert id"),
-            Name = e.Element("Name")?.Value ??"",
             Password = passwordSecure,
             Role = e.ToEnumNullable<UserRole>("Rool") ?? UserRole.Engineer,
         };

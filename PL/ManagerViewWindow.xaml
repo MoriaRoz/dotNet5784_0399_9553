@@ -21,12 +21,6 @@
         <Image HorizontalAlignment="Center" Height="222" VerticalAlignment="Top" Width="592" 
                Source="/CodeMaster.png" Grid.Row="0"/>
 
-        <!--Hello-->
-        <TextBlock Text="Hello" HorizontalAlignment="Left" Margin="117,192,0,0" Grid.Row="0" 
-                   TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="65" FontSize="36" FontFamily="Comic Sans MS"/>
-        <!--<TextBlock Text="{Binding CurrentUser.EngineerId,NotifyOnValidationError=True,ValidatesOnExceptions=True}" 
-                   Margin="220,195,280,131" FontSize="36" FontFamily="Comic Sans MS" Height="65" Width="300"/>-->
-
         <!--Task list-->
         <Button Content="Task List" FontFamily="Comic Sans MS" FontSize="22" Background="#FF3498DB"
                 Grid.Row="0" Margin="39,280,612,46" Click="Btn_TaskList_Click"/>

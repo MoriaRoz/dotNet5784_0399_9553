@@ -23,7 +23,7 @@ namespace BlImplementation
             if (boUser == null)
                 throw new BO.BlNullPropertyException("User is null");
             DO.User doUser = new DO.User
-        (boUser.Id, boUser.Password,boUser.Name,(DO.UserRole)boUser.Role);
+        (boUser.Id, boUser.Password,(DO.UserRole)boUser.Role);
             try
             {
                 int idUser = _dal.User.Create(doUser);
@@ -112,7 +112,6 @@ namespace BlImplementation
                 _dal.User.Update(new DO.User()
                 {
                     Id = boUser.Id,
-                    Name = boUser.Name,
                     Password = boUser.Password,
                     Role = (DO.UserRole)boUser.Role,
                 });

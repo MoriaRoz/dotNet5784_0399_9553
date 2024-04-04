@@ -20,9 +20,9 @@
 
         <!--User Id-->
         <TextBlock Text="ID:" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" 
-                   FontSize="22" FontFamily="Comic Sans MS" Margin="82,86,0,0"/>
+                   FontSize="22" FontFamily="Comic Sans MS" Margin="82,86,0,0" />
         <TextBox VerticalAlignment="Top" FontSize="22" FontFamily="Comic Sans MS" Margin="82,126,82,0" TextWrapping="Wrap"
-                 Text="{Binding EngineerId, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+                 Text="{Binding EngineerId, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" PreviewTextInput="ID_PreviewTextInput"/>
 
         <!--User Password-->
         <TextBlock Text="Password:" HorizontalAlignment="Left" TextWrapping="Wrap" 

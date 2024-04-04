@@ -8,43 +8,42 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Icon="/Logo.png"
-        Title="Gantt Chart" Height="700" Width="1200"
+        Title="Gantt Chart" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="100*"/>
-                <RowDefinition Height="10*"/>
-            </Grid.RowDefinitions>
+    <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <!--Dates-->
-            <ItemsControl Grid.Row="0" ItemsSource="{Binding Dates}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Width="70" BorderThickness="1">
-                            <Label HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" VerticalAlignment="Center" Content="{Binding  Date, StringFormat=d}"/>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            
-            <!--Gant-->
-            <ItemsControl ItemsSource="{Binding Gantt}" Margin="10,10,10,10" Grid.Row="1">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderThickness="2" BorderBrush="Aqua">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                <TextBlock HorizontalAlignment="Left" Text="{Binding taskID}" FontWeight="Bold" Background="Aquamarine"/>
-                                <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeFromStart}" Fill="White"/>
-                                <TextBlock HorizontalAlignment="Left" Text="{Binding taskName}" Width="{Binding Duration}" FontWeight="Bold" Background="Aquamarine"/>
-                                <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeToEnd}" Fill="White"/>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>
-    </ScrollViewer>
+        <!--Dates-->
+        <ItemsControl Grid.Row="0"  ItemsSource="{Binding Dates}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="70" BorderThickness="1" >
+                        <Label HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" VerticalAlignment="Center" Content="{Binding  Date, StringFormat=d}"/>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!--Gant-->
+        <ItemsControl ItemsSource="{Binding Gantt}"  Grid.Row="1">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border  BorderThickness="2" BorderBrush="Aqua">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding taskID}" FontWeight="Bold" Background="Aquamarine"/>
+                            <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeFromStart}" Fill="White"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding taskName}" Width="{Binding Duration}" FontWeight="Bold" Background="Aquamarine"/>
+                            <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeToEnd}" Fill="White"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+    <!--</ScrollViewer>-->
 </Window>

@@ -89,7 +89,57 @@ public partial class EngineerWindow : Window
             Close();
         }
     }
+    private void ID_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        if (!char.IsDigit(e.Text, e.Text.Length - 1))
+        {
+            e.Handled = true;
+        }
+        else
+        {
+            TextBox textBox = sender as TextBox;
+            string newText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
 
+            if (!int.TryParse(newText, out _))
+            {
+                e.Handled = true;
+            }
+            else if (newText.Length > 9)
+            {
+                e.Handled = true;
+            }
+        }
+    }
+    private void Cost_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        TextBox textBox = sender as TextBox;
+        string newText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+        if (!IsValidCost(newText))
+        {
+            e.Handled = true;
+        }
+    }
+
+    private bool IsValidCost(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return false;
+        }
+
+        if (!double.TryParse(text, out double cost) || text.Count(c => c == '.') > 1)
+        {
+            return false;
+        }
+
+        if (cost < 0)
+        {
+            return false;
+        }
+
+        return true;
+    }
     private void Btn_Back_Click(object sender, RoutedEventArgs e)
     {
         Close();

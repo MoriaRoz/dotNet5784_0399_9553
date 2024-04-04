@@ -14,7 +14,6 @@ namespace BO
     public class User
     {
         public int Id { get; init; }
-        public String? Name { get; init; }
         public String? Password { get; set; }
         public UserRole Role { get; set; }
     }
