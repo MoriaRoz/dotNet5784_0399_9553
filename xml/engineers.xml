@@ -1,86 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer>
   <Engineer>
-    <id>377390605</id>
+    <id>1</id>
     <name>Dani Levi</name>
-    <email>Dani Levi@gamil.com</email>
+    <email>DaniLevi@gamil.com</email>
+    <level>AdvancedBeginner</level>
+    <cost>200.355</cost>
+  </Engineer>
+  <Engineer>
+    <id>2</id>
+    <name>Eli Amar</name>
+    <email>EliAmar@gamil.com</email>
     <level>Advanced</level>
     <cost>366.783</cost>
   </Engineer>
   <Engineer>
-    <id>347438675</id>
-    <name>Eli Amar</name>
-    <email>Eli Amar@gamil.com</email>
-    <level>Expert</level>
-    <cost>450</cost>
-  </Engineer>
-  <Engineer>
-    <id>388196444</id>
+    <id>3</id>
     <name>Yair Cohen</name>
-    <email>Yair Cohen@gamil.com</email>
-    <level>Intermediate</level>
-    <cost>283.566</cost>
-  </Engineer>
-  <Engineer>
-    <id>293684156</id>
-    <name>Ariela Levin</name>
-    <email>Ariela Levin@gamil.com</email>
-    <level>Beginner</level>
-    <cost>117.133</cost>
-  </Engineer>
-  <Engineer>
-    <id>294217104</id>
-    <name>Dina Klein</name>
-    <email>Dina Klein@gamil.com</email>
-    <level>AdvancedBeginner</level>
-    <cost>200.355</cost>
-  </Engineer>
-  <Engineer>
-    <id>336625173</id>
-    <name>Shira Israelof</name>
-    <email>Shira Israelof@gamil.com</email>
+    <email>YairCohen@gamil.com</email>
     <level>Advanced</level>
     <cost>366.783</cost>
   </Engineer>
   <Engineer>
-    <id>220008080</id>
-    <name>Dani Levi</name>
-    <email>Dani Levi@gamil.com</email>
-    <level>Intermediate</level>
-    <cost>283.566</cost>
-  </Engineer>
-  <Engineer>
-    <id>347743512</id>
-    <name>Eli Amar</name>
-    <email>Eli Amar@gamil.com</email>
-    <level>AdvancedBeginner</level>
-    <cost>200.355</cost>
-  </Engineer>
-  <Engineer>
-    <id>310579507</id>
-    <name>Yair Cohen</name>
-    <email>Yair Cohen@gamil.com</email>
-    <level>Beginner</level>
-    <cost>117.133</cost>
-  </Engineer>
-  <Engineer>
-    <id>307017724</id>
+    <id>4</id>
     <name>Ariela Levin</name>
-    <email>Ariela Levin@gamil.com</email>
-    <level>Expert</level>
-    <cost>450</cost>
-  </Engineer>
-  <Engineer>
-    <id>306225677</id>
-    <name>Dina Klein</name>
-    <email>Dina Klein@gamil.com</email>
+    <email>ArielaLevin@gamil.com</email>
     <level>AdvancedBeginner</level>
     <cost>200.355</cost>
   </Engineer>
   <Engineer>
-    <id>282570254</id>
+    <id>5</id>
+    <name>Dina Klein</name>
+    <email>DinaKlein@gamil.com</email>
+    <level>AdvancedBeginner</level>
+    <cost>200.355</cost>
+  </Engineer>
+  <Engineer>
+    <id>6</id>
     <name>Shira Israelof</name>
-    <email>Shira Israelof@gamil.com</email>
+    <email>ShiraIsraelof@gamil.com</email>
     <level>Advanced</level>
     <cost>366.783</cost>
   </Engineer>

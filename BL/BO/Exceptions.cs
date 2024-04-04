@@ -63,3 +63,8 @@ public class BlTasksLoop : Exception
 {
     public BlTasksLoop(string? message) : base(message) { }
 }
+[Serializable]
+public class BlCreationImpossibleException:Exception
+{
+    public BlCreationImpossibleException(string? message) : base(message) { }
+}

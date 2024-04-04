@@ -20,17 +20,20 @@ public static class Initialization
             "Ariela Levin", "Dina Klein", "Shira Israelof"
         };
 
+        int i = 1;
         foreach (var _name in engineerNames)
         {
             Random rnd = new Random();
 
             int _id;
-            do //Matching a unique ID to each engineer
-                _id = rnd.Next(200000000, 400000000);
-            while (s_dal?.Engineer.Read(_id) != null);
+            do
+            {//Matching a unique ID to each engineer
+                //_id = rnd.Next(200000000, 400000000);
+                _id = i;
+                i++;
+            } while (s_dal?.Engineer.Read(_id) != null);
 
-            string? _email = _name + "@gamil.com"; //Adapting an email to each of the engineers in the following way - name_family name@gmail.com
-            _email.Replace(' ', '_');
+            string? _email = (_name + "@gamil.com").Replace(" ",""); //Adapting an email to each of the engineers in the following way - name_family name@gmail.com
 
             double _cost = 100.0;
 
@@ -197,6 +200,7 @@ public static class Initialization
     public static void Do()
     {
         s_dal = DalApi.Factory.Get; //stage 4
+        s_dal.ResetIds();
         createEngineer();
         createTask();
         createDependency();

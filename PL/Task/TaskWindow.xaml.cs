@@ -88,9 +88,22 @@ public partial class TaskWindow : Window
         }
     }
 
-    private void delete_dependency_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    private void Delete_dependency_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
-        CurrentTask.Dependencies.Remove(task);
+        //BO.TaskInList task = (sender as ListView)?.SelectedItem as BO.TaskInList;
+
+        BO.TaskInList selectedItem = ((ListView)sender).SelectedItem as BO.TaskInList;
+        Dependencies.Remove(selectedItem);
+
+        //CurrentTask.Dependencies.Remove(task);
+    }
+
+    private void DeleteButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.DataContext != null)
+        {
+            BO.TaskInList itemToRemove = (BO.TaskInList)button.DataContext;
+            CurrentTask.Dependencies.Remove(itemToRemove);
+        }
     }
 }

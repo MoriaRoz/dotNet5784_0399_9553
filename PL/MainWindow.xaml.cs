@@ -27,10 +27,10 @@ public partial class MainWindow : Window
         updateClock();
         InitializeComponent();
         DataContext = this;
-        _timer = new DispatcherTimer();
-        _timer.Interval = TimeSpan.FromMilliseconds(100);
-        _timer.Tick += Timer_Tick;
-        _timer.Start();
+        //_timer = new DispatcherTimer();
+        //_timer.Interval = TimeSpan.FromMilliseconds(100);
+        //_timer.Tick += Timer_Tick;
+        //_timer.Start();
     }
     private void Timer_Tick(object sender, EventArgs e)
     {
@@ -80,7 +80,7 @@ public partial class MainWindow : Window
 
     private void Button_Me_Click(object sender, RoutedEventArgs e)
     {
-        new EngineerViewWindow(377390605).Show();
+        new EngineerViewWindow(2).Show();
     }
 
     private void Button_Mt_Click(object sender, RoutedEventArgs e)

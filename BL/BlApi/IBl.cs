@@ -4,10 +4,10 @@ public interface IBl
     public IEngineer Engineer { get; }
     public ITask Task { get; }
     public IUser User { get; }
-    public void SetProjectStartDate(DateTime? startDate);
+    public void SetProjectStartDate(DateTime startDate);
     public DateTime? GetProjectStartDate();
     public BO.ProjectStatus GetProjectStatus();
-    public void CreateSchedule(DateTime? startDate);
+    public void CreateSchedule(DateTime startDate);
     public void UnscheduleProject();
     public void InitializeDB();
     public void ResetDB();

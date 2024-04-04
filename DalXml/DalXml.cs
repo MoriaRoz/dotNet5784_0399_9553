@@ -48,9 +48,14 @@ sealed public class DalXml : IDal
         catch (Exception ex) { Console.WriteLine(ex.Message); }
 
         XElement config = XMLTools.LoadListFromXMLElement("data-config");
+        config.Element("ProjectStartDate")!.Value = null;
+        XMLTools.SaveListToXMLElement(config, "data-config");
+    }
+    public void ResetIds()
+    {
+        XElement config = XMLTools.LoadListFromXMLElement("data-config");
         config.Element("NextTaskId")!.Value = "1";
         config.Element("NextDependencyId")!.Value = "1";
-        config.Element("ProjectStartDate")!.Value = null;
         XMLTools.SaveListToXMLElement(config, "data-config");
     }
 }
