@@ -43,7 +43,7 @@ namespace PL
 
             try
             {
-                BO.User user = s_bl.User.Read(CurrentUser.EngineerId);
+                BO.User user = s_bl.User.Read(CurrentUser.Id);
                 if (user == null)
                 {
                     MessageBox.Show("User with the provided ID does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -59,12 +59,12 @@ namespace PL
 
                 if (user.Role == BO.UserRole.Manager)
                 {
-                    new ManagerViewWindow(CurrentUser.EngineerId).ShowDialog();
+                    new ManagerViewWindow(CurrentUser.Id).ShowDialog();
                 }
                 else if (user.Role == BO.UserRole.Engineer)
                 {
                     // Open the EngineerViewWindow
-                    new EngineerViewWindow(CurrentUser.EngineerId).Show();
+                    new EngineerViewWindow(CurrentUser.Id).Show();
                 }
 
                 Close();

@@ -45,9 +45,9 @@ public partial class SingUpWindow : Window
             MessageBox.Show("User created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             Close();
             if (CurrentUser.Role == BO.UserRole.Engineer)
-                new EngineerViewWindow(CurrentUser.EngineerId).Show();
+                new EngineerViewWindow(CurrentUser.Id).Show();
             if (CurrentUser.Role == BO.UserRole.Manager)
-                new ManagerViewWindow(CurrentUser.EngineerId).ShowDialog();    
+                new ManagerViewWindow(CurrentUser.Id).ShowDialog();    
         }
         catch (Exception ex)
         {
