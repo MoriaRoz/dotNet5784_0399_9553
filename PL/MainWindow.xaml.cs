@@ -24,7 +24,7 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer _timer;
     public MainWindow()
     {
-        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
+        updateClock();
         InitializeComponent();
         DataContext = this;
         _timer = new DispatcherTimer();
@@ -35,6 +35,10 @@ public partial class MainWindow : Window
     private void Timer_Tick(object sender, EventArgs e)
     {
         s_bl.addHalfMinToClock();
+        updateClock();
+    }
+    private void updateClock()
+    {
         CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
     }
     private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -88,18 +92,18 @@ public partial class MainWindow : Window
     private void Btn_addDay_Click(object sender, RoutedEventArgs e)
     {
         s_bl.addDayToClock();
-        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
+        updateClock();
     }
 
     private void Btn_addHour_Click(object sender, RoutedEventArgs e)
     {
         s_bl.addHourToClock();
-        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
+        updateClock();
     }
 
     private void Btn_resetClock_Click(object sender, RoutedEventArgs e)
     {
         s_bl.restartClock();
-        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
+        updateClock();
     }
 }

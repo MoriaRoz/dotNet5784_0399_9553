@@ -19,20 +19,21 @@ internal class UserImplementation : IUser
     {
         XElement userRoot = XMLTools.LoadListFromXMLElement(s_users_xml);
         XElement user = new XElement("User",
-            new XElement("EngineerId", entity.EngineerId),
+            new XElement("Id", entity.Id),
+            new XElement("Name", entity.Name),
             new XElement("Password", entity.Password),
             new XElement("Rool", entity.Role));
         userRoot.Add(user);
         //engineerRoot.Save(s_engineers_xml);
         XMLTools.SaveListToXMLElement(userRoot, s_users_xml);
-        return entity.EngineerId;
+        return entity.Id;
     }
 
     //Deleted an engineer with id=id from an xml file
     public void Delete(int id)
     {
         XElement userRoot = XMLTools.LoadListFromXMLElement(s_users_xml);
-        XElement? delUser = userRoot.Elements("User").FirstOrDefault(e => (int)e.Element("EngineerId") == id);
+        XElement? delUser = userRoot.Elements("User").FirstOrDefault(e => (int)e.Element("Id") == id);
 
         if (delUser != null)
         {
@@ -45,7 +46,7 @@ internal class UserImplementation : IUser
     public User? Read(int id)
     {
         List<User> users = XMLTools.LoadListFromXMLSerializer<User>(s_users_xml);
-        return users.FirstOrDefault(t => t.EngineerId == id);
+        return users.FirstOrDefault(t => t.Id == id);
     }
 
     //Returning an engineer that meets the filter from an xml file
@@ -67,11 +68,11 @@ internal class UserImplementation : IUser
     // updates existing Engineer
     public void Update(User entity)
     {
-        if (Read(entity.EngineerId) == null)
-            throw new DalDoesNotExistException($"User with ID={entity.EngineerId} does Not exist");
+        if (Read(entity.Id) == null)
+            throw new DalDoesNotExistException($"User with ID={entity.Id} does Not exist");
         else
         {
-            Delete(entity.EngineerId); //Remove old entity
+            Delete(entity.Id); //Remove old entity
             Create(entity); //add updated entity
         }
     }
@@ -82,7 +83,8 @@ internal class UserImplementation : IUser
         string passwordSecure = e.Element("Password")?.Value ?? ""; // Retrieve the value of the "Password" element
         return new User()
         {
-            EngineerId = e.ToIntNullable("EngineerId") ?? throw new FormatException("Can not convert id"),
+            Id = e.ToIntNullable("EngineerId") ?? throw new FormatException("Can not convert id"),
+            Name = e.Element("Name")?.Value ??"",
             Password = passwordSecure,
             Role = e.ToEnumNullable<UserRole>("Rool") ?? UserRole.Engineer,
         };

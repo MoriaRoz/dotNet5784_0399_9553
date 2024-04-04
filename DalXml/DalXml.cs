@@ -38,6 +38,12 @@ sealed public class DalXml : IDal
                 foreach (var engineer in engineers)
                     Engineer.Delete(engineer.Id);
             }
+            IEnumerable<DO.User?> users = User.ReadAll();
+            if (users.Count() != 0)
+            {
+                foreach (var user in users)
+                    Engineer.Delete(user.Id);
+            }
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
 

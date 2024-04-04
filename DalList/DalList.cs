@@ -16,6 +16,7 @@ sealed internal class DalList : IDal
         DataSource.Engineers.Clear();
         DataSource.Dependencys.Clear();
         DataSource.Tasks.Clear();
+        DataSource.Users.Clear();
 
         DataSource.Config.ProjectStartDate = null;
         DataSource.Config.NextDependencyId = DataSource.Config.startDependencyId;
