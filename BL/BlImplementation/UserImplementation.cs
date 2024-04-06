@@ -22,8 +22,17 @@ namespace BlImplementation
         {
             if (boUser == null)
                 throw new BO.BlNullPropertyException("User is null");
-            DO.User doUser = new DO.User
-        (boUser.EngineerId, boUser.Password, (DO.UserRole)boUser.Role);
+            if (boUser.Role == UserRole.Engineer)
+            {
+                DO.Engineer userEng = _dal.Engineer.Read(boUser.Id);
+                if (userEng == null) 
+                {
+                    throw new BO.BlCreationImpossibleException($"Engineer with ID={boUser.Id} does not exists");
+                }
+                boUser.Name = userEng.Name;
+            }
+        DO.User doUser = new DO.User
+        (boUser.Id, boUser.Password,boUser.Name,(DO.UserRole)boUser.Role);
             try
             {
                 int idUser = _dal.User.Create(doUser);
@@ -31,7 +40,7 @@ namespace BlImplementation
             }
             catch (DO.DalAlreadyExistsException ex)
             {
-                throw new BO.BlDalAlreadyExistsException($"User with ID={boUser.EngineerId} already exists", ex);
+                throw new BO.BlDalAlreadyExistsException($"User with ID={boUser.Id} already exists", ex);
             }
         }
         /// <summary>
@@ -69,7 +78,7 @@ namespace BlImplementation
 
             return new BO.User()
             {
-                EngineerId = id,
+                Id = id,
                 Password = doUser.Password,
                 Role = (BO.UserRole)doUser.Role,
             };
@@ -83,13 +92,13 @@ namespace BlImplementation
         {
             if (filter != null)
                 return (from DO.User doUser in _dal.User.ReadAll()
-                        let boUser = Read(doUser.EngineerId)
+                        let boUser = Read(doUser.Id)
                         where filter(boUser)
                         select boUser);
 
             return (
                 from DO.User doUser in _dal.User.ReadAll()
-                let boUser = Read(doUser.EngineerId)
+                let boUser = Read(doUser.Id)
                 select boUser);
         }
         /// <summary>
@@ -104,25 +113,25 @@ namespace BlImplementation
         {
             if (boUser == null)
                 throw new BO.BlNullPropertyException("User to update is null");
-            DO.User? doUser = _dal.User.Read(boUser.EngineerId);
+            DO.User? doUser = _dal.User.Read(boUser.Id);
             if (doUser == null)
-                throw new BO.BlDoesNotExistException($"User with ID={boUser!.EngineerId} does Not exist");
+                throw new BO.BlDoesNotExistException($"User with ID={boUser!.Id} does Not exist");
             try
             {
                 _dal.User.Update(new DO.User()
                 {
-                    EngineerId = boUser.EngineerId,
+                    Id = boUser.Id,
                     Password = boUser.Password,
                     Role = (DO.UserRole)boUser.Role,
                 });
             }
             catch (DO.DalAlreadyExistsException ex)
             {
-                throw new BO.BlDalAlreadyExistsException($"User with ID={boUser!.EngineerId} already exists", ex);
+                throw new BO.BlDalAlreadyExistsException($"User with ID={boUser!.Id} already exists", ex);
             }
             catch (DO.DalDoesNotExistException ex)
             {
-                throw new BO.BlDoesNotExistException($"User with ID={boUser!.EngineerId} does Not exist", ex);
+                throw new BO.BlDoesNotExistException($"User with ID={boUser!.Id} does Not exist", ex);
             }
         }
     }

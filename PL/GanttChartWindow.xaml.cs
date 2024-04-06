@@ -35,7 +35,7 @@ namespace PL
         //Fix
         public List<BO.TaskGantt> Gantt { get; set; }
         public static readonly DependencyProperty GanttProperty =
-            DependencyProperty.Register("Gantt", typeof(List<BO.TaskGantt>), typeof(GanttChartWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("Gantt", typeof(List<BO.TaskGantt>), typeof(GanttChartWindow));
 
         public List<DateTime?> Dates
         {
@@ -43,6 +43,6 @@ namespace PL
             set { SetValue(DatesProperty, value); }
         }
         public static readonly DependencyProperty DatesProperty =
-            DependencyProperty.Register("Dates", typeof(List<DateTime?>), typeof(GanttChartWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("Dates", typeof(List<DateTime?>), typeof(GanttChartWindow));
     }
 }

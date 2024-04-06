@@ -13,11 +13,12 @@ namespace DO;
 /// <param name="Cost">The cost per hour of the user's work</param>
 public record User
 (
-    int EngineerId,
+    int Id,
+    String? Name = null,
     String? Password = null,
     UserRole Role = UserRole.Engineer
 )
 {
     //Empty constructor
-    public User() : this(0, null, UserRole.Engineer) { }
+    public User() : this(0, null,null, UserRole.Engineer) { }
 }

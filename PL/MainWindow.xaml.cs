@@ -26,18 +26,18 @@ public partial class MainWindow : Window
         try
         {
             CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
+            updateClock();
+
         }
         catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
 
         DataContext = this;
-        _timer = new DispatcherTimer();
-        _timer.Interval = TimeSpan.FromMilliseconds(100);
-        _timer.Tick += Timer_Tick;
-        _timer.Start();
-
         InitializeComponent();
+        //_timer = new DispatcherTimer();
+        //_timer.Interval = TimeSpan.FromMilliseconds(100);
+        //_timer.Tick += Timer_Tick;
+        //_timer.Start();
     }
-
     #region Property
     public string CurrentDate
     {
@@ -53,6 +53,14 @@ public partial class MainWindow : Window
         try
         {
             s_bl.addHalfMinToClock();
+            updateClock();
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
+    private void updateClock()
+    {
+        try
+        {
             CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
         }
         catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
@@ -61,6 +69,7 @@ public partial class MainWindow : Window
     {
         new Login_SingUP.LoginPage().Show();
     }
+
     private void btnInitDB_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -79,22 +88,6 @@ public partial class MainWindow : Window
         }
         catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
-    private void Btn_addDay_Click(object sender, RoutedEventArgs e)
-    {
-        s_bl.addDayToClock();
-        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
-    }
-    private void Btn_addHour_Click(object sender, RoutedEventArgs e)
-    {
-        s_bl.addHourToClock();
-        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
-    }
-    private void Btn_resetClock_Click(object sender, RoutedEventArgs e)
-    {
-        s_bl.restartClock();
-        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
-    }
-    
     #region Temporary buttons
     private void Button_e_Click(object sender, RoutedEventArgs e)
     {
@@ -113,4 +106,34 @@ public partial class MainWindow : Window
         new View.ManagerViewWindow(0).ShowDialog();
     }
     #endregion
+
+    private void Btn_addDay_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            s_bl.addDayToClock();
+            updateClock();
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
+
+    private void Btn_addHour_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            s_bl.addHourToClock();
+            updateClock();
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
+
+    private void Btn_resetClock_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            s_bl.restartClock();
+            updateClock();
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
 }

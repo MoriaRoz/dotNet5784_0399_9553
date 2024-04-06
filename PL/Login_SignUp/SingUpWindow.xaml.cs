@@ -16,6 +16,7 @@ using System;
 using System.Windows;
 using DalTest;
 using PL.Engineer;
+using System.Reflection.Emit;
 
 namespace PL.Login_SingUP;
 /// <summary>
@@ -27,6 +28,7 @@ public partial class SingUpWindow : Window
     public SingUpWindow()
     {
         InitializeComponent();
+        CurrentUser = new BO.User();
     }
 
     #region Property
@@ -37,6 +39,14 @@ public partial class SingUpWindow : Window
     }
     public static readonly DependencyProperty UserProperty =
         DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(SingUpWindow), new PropertyMetadata(null));
+
+    public BO.UserRole Role
+    {
+        get { return (BO.UserRole)GetValue(RoleProperty); }
+        set { SetValue(RoleProperty, value); }
+    }
+    public static readonly DependencyProperty RoleProperty =
+        DependencyProperty.Register("Role", typeof(BO.UserRole), typeof(SingUpWindow), new PropertyMetadata(null))
     #endregion
 
     private void BtnCreate_Click(object sender, RoutedEventArgs e)
@@ -47,11 +57,39 @@ public partial class SingUpWindow : Window
             MessageBox.Show("User created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             Close();
             if (CurrentUser.Role == BO.UserRole.Engineer)
-                new View.EngineerViewWindow(CurrentUser.EngineerId).Show();
+                new View.EngineerViewWindow(CurrentUser.Id).Show();
             if (CurrentUser.Role == BO.UserRole.Manager)
-                new View.ManagerViewWindow(CurrentUser.EngineerId).ShowDialog();    
+                new View.ManagerViewWindow(CurrentUser.Id).ShowDialog();    
         }
-        catch (Exception ex){MessageBox.Show($"Error creating user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);}
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error creating user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    private void ID_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        if (!char.IsDigit(e.Text, e.Text.Length - 1))
+        {
+            e.Handled = true;
+        }
+        else
+        {
+            TextBox textBox = sender as TextBox;
+            string newText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+            if (!int.TryParse(newText, out _))
+            {
+                e.Handled = true;
+            }
+            else if (newText.Length > 9)
+            {
+                e.Handled = true;
+            }
+        }
+    }
+    private void Role_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        CurrentUser.Role = Role;
     }
     private void BtnBackLogin_Click(object sender, RoutedEventArgs e)
     {

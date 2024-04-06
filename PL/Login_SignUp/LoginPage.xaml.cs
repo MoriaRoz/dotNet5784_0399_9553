@@ -23,13 +23,26 @@ namespace PL.Login_SingUP
             InitializeComponent();
         }
 
+        #region Property
         public BO.User CurrentUser
         {
             get { return (BO.User)GetValue(UserProperty); }
             set { SetValue(UserProperty, value); }
         }
         public static readonly DependencyProperty UserProperty =
-                DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
+        DependencyProperty.Register("CurrentEngineer", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
+        public BO.UserRole role
+        {
+            get { return (BO.UserRole)GetValue(RoleProperty); }
+            set { SetValue(RoleProperty, value); }
+        }
+        public static readonly DependencyProperty RoleProperty =
+            DependencyProperty.Register("Role", typeof(BO.UserRole), typeof(LoginPage), new PropertyMetadata(null));
+        #endregion
+        public LoginPage()
+        {
+            InitializeComponent();
+        }
 
         private void Btn_Login_Click(object sender, RoutedEventArgs e)
         {
@@ -41,7 +54,7 @@ namespace PL.Login_SingUP
 
             try
             {
-                BO.User user = s_bl.User.Read(CurrentUser.EngineerId);
+                BO.User user = s_bl.User.Read(CurrentUser.Id);
                 if (user == null)
                 {
                     MessageBox.Show("User with the provided ID does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -57,16 +70,37 @@ namespace PL.Login_SingUP
 
                 if (user.Role == BO.UserRole.Manager)
                 {
-                    new View.ManagerViewWindow(CurrentUser.EngineerId).ShowDialog();
+                    new View.ManagerViewWindow(CurrentUser.Id).ShowDialog();
                 }
                 else if (user.Role == BO.UserRole.Engineer)
                 {
-                    new View.EngineerViewWindow(CurrentUser.EngineerId).Show();
+                    new View.EngineerViewWindow(CurrentUser.Id).Show();
                 }
 
                 Close();
             }
             catch (Exception ex){MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);}
+        }
+        private void ID_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                TextBox textBox = sender as TextBox;
+                string newText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+                if (!int.TryParse(newText, out _)) 
+                {
+                    e.Handled = true;
+                }
+                else if (newText.Length > 9)
+                {
+                    e.Handled = true;
+                }
+            }
         }
         private void Create_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {

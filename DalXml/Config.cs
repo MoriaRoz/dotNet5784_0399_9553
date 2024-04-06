@@ -7,4 +7,5 @@ internal static class Config
     public static int ProjectStatus { get; set; } = 0;
     internal static int NextDependencyId { get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "NextDependencyId");}
     internal static int NextTaskId { get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "NextTaskId"); }
+    internal static int NextUserId { get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "NextUserId"); }
 }

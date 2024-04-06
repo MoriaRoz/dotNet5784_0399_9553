@@ -23,11 +23,18 @@ namespace PL.View
     public partial class ManagerViewWindow : Window
     {
         static readonly IBl s_bl = Factory.Get();
-        public BO.User CurrentUser { get; set; }
+        public BO.User CurrentManeger { get; set; }
         public ManagerViewWindow(int id)
         {
             InitializeComponent();
-            //CurrentUser = s_bl.User.Read(id);
+            try
+            {
+                CurrentManeger = s_bl.User.Read(id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error oppening user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void Btn_TaskList_Click(object sender, RoutedEventArgs e)
         {
