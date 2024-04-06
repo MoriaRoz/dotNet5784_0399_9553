@@ -25,14 +25,15 @@ public partial class EngineerWindow : Window
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public EngineerWindow(int Id=0)
     {
-        InitializeComponent();
         if (Id == 0)
             CurrentEngineer = new BO.Engineer();
         else
             try { CurrentEngineer = s_bl.Engineer.Read(Id); }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+        InitializeComponent();
     }
-    #region Property
+
+    #region Properties
     public BO.Engineer CurrentEngineer
     {
         get { return (BO.Engineer)GetValue(EngineerProperty); }
@@ -54,7 +55,6 @@ public partial class EngineerWindow : Window
     {
         CurrentEngineer.Level = Level;
     }
-
     private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
     {
         Button? btn = sender! as Button;
@@ -73,11 +73,9 @@ public partial class EngineerWindow : Window
                     MessageBox.Show($"Engineer with Id-{CurrentEngineer.Id} successfully updated");
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            if (CurrentEngineer.Task == null)
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+
+            if (CurrentEngineer.Task == null && s_bl.GetProjectStatus() == BO.ProjectStatus.InExecution)
             {
                 MessageBoxResult result = MessageBox.Show($"Do you want to assign a task to {CurrentEngineer.Name}?",
                         "Message", MessageBoxButton.YesNo);
@@ -89,7 +87,6 @@ public partial class EngineerWindow : Window
             Close();
         }
     }
-
     private void Btn_Back_Click(object sender, RoutedEventArgs e)
     {
         Close();

@@ -16,13 +16,17 @@ internal class EngineerImplementation : IEngineer
     public int Create(Engineer entity)
     {
         XElement engineerRoot = XMLTools.LoadListFromXMLElement(s_engineers_xml);
+        XElement? delEngineer = engineerRoot.Elements("Engineer").FirstOrDefault(e => (int)e.Element("id") == entity.Id);
+        if (delEngineer != null)
+            throw new DalAlreadyExistsException($"Engineer with ID={entity.Id} already exist");
+
         XElement engineer = new XElement("Engineer",
             new XElement("id", entity.Id),
             new XElement("name", entity.Name),
             new XElement("email", entity.Email),
             new XElement("level", entity.Level),
             new XElement("cost", entity.Cost));
-
+        
         engineerRoot.Add(engineer);
         //engineerRoot.Save(s_engineers_xml);
         XMLTools.SaveListToXMLElement(engineerRoot, s_engineers_xml);
@@ -34,7 +38,8 @@ internal class EngineerImplementation : IEngineer
     {
         XElement engineerRoot = XMLTools.LoadListFromXMLElement(s_engineers_xml);
         XElement? delEngineer = engineerRoot.Elements("Engineer").FirstOrDefault(e => (int)e.Element("id") == id);
-
+        if (delEngineer == null)
+            throw new DalDeletionImpossible($"Engineer with ID={id} dose not exist");
         if (delEngineer != null)
         {
             delEngineer.Remove();

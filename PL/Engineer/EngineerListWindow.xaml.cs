@@ -26,40 +26,46 @@ public partial class EngineerListWindow : Window
         InitializeComponent();
     }
 
+    #region Properties
     public IEnumerable<BO.Engineer> EngineerList
     {
         get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
         set { SetValue(EngineerListProperty, value); }
     }
-
     public static readonly DependencyProperty EngineerListProperty =
         DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
 
     public BO.LevelEngineer Level { get; set; } = BO.LevelEngineer.None;
+    #endregion
 
     private void EngLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        EngineerList = (Level == BO.LevelEngineer.None) ?
-            s_bl.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Level)!;
+        try
+        {
+            EngineerList = (Level == BO.LevelEngineer.None) ?
+                s_bl.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Level)!;
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
-
     private void btnAddEng_Click(object sender, RoutedEventArgs e)
     {
         new EngineerWindow().ShowDialog();
     }
-
     private void ListView_UpdateEng_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         BO.Engineer? eng = (sender as ListView)?.SelectedItem as BO.Engineer;
         if(eng != null)
            new EngineerWindow(eng.Id).ShowDialog();
     }
-
     private void ActivatedRefresh(object sender, EventArgs e)
     {
-        EngineerList = s_bl.Engineer.ReadAll();
-    }
+        try
+        {
+            EngineerList = s_bl.Engineer.ReadAll();
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
 
+    }
     private void Back_Click(object sender, RoutedEventArgs e)
     {
         Close();

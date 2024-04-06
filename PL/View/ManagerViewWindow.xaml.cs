@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.View
 {
     /// <summary>
     /// Code-behind Manager window
@@ -39,15 +39,13 @@ namespace PL
         }
         private void Btn_Back_Click(object sender, RoutedEventArgs e)
         {
-            new LoginPage().Show();
+            new Login_SingUP.LoginPage().Show();
             Close();
         }
-
         private void Btn_Schedule_Click(object sender, RoutedEventArgs e)
         {
             new StartDateWindow().Show();
         }
-
         private void Btn_Gantt_Click(object sender, RoutedEventArgs e)
         {
             new GanttChartWindow().Show();

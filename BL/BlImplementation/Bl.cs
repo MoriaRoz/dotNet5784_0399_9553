@@ -30,7 +30,11 @@ internal class Bl : IBl
     }
     public ProjectStatus GetProjectStatus()
     {
-        return (BO.ProjectStatus)DalApi.Factory.Get.Task.GetProjectStatus();
+        int enumVal = DalApi.Factory.Get.Task.GetProjectStatus();
+        if (enumVal == 0)
+            return BO.ProjectStatus.Inlanning;
+        else
+            return BO.ProjectStatus.InExecution;
     }
     public void SetProjectStartDate(DateTime startDate)
     {

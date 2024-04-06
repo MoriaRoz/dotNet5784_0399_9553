@@ -15,6 +15,13 @@ internal class StatusesCollection : IEnumerable
 
     public IEnumerator GetEnumerator() => s_enumStats.GetEnumerator();
 }
+internal class StatusProjectCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.ProjectStatus> s_enumStats =
+        (Enum.GetValues(typeof(BO.ProjectStatus)) as IEnumerable<BO.ProjectStatus>)!;
+
+    public IEnumerator GetEnumerator() => s_enumStats.GetEnumerator();
+}
 
 internal class RoleCollection : IEnumerable
 {

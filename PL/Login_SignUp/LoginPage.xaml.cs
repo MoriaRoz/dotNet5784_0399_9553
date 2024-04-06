@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace PL
+namespace PL.Login_SingUP
 {
     /// <summary>
     /// Code-behind Login window
@@ -18,20 +18,18 @@ namespace PL
     public partial class LoginPage : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public LoginPage()
+        {
+            InitializeComponent();
+        }
 
         public BO.User CurrentUser
         {
             get { return (BO.User)GetValue(UserProperty); }
             set { SetValue(UserProperty, value); }
         }
-
         public static readonly DependencyProperty UserProperty =
                 DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
-
-        public LoginPage()
-        {
-            InitializeComponent();
-        }
 
         private void Btn_Login_Click(object sender, RoutedEventArgs e)
         {
@@ -59,27 +57,21 @@ namespace PL
 
                 if (user.Role == BO.UserRole.Manager)
                 {
-                    new ManagerViewWindow(CurrentUser.EngineerId).ShowDialog();
+                    new View.ManagerViewWindow(CurrentUser.EngineerId).ShowDialog();
                 }
                 else if (user.Role == BO.UserRole.Engineer)
                 {
-                    // Open the EngineerViewWindow
-                    new EngineerViewWindow(CurrentUser.EngineerId).Show();
+                    new View.EngineerViewWindow(CurrentUser.EngineerId).Show();
                 }
 
                 Close();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            catch (Exception ex){MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);}
         }
-
         private void Create_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            new SingUpWindow().Show();
+            new Login_SingUP.SingUpWindow().Show();
         }
-
         private void Btn_Back_Click(object sender, RoutedEventArgs e)
         {
             Close();

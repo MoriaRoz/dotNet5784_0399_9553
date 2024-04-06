@@ -22,12 +22,18 @@ namespace PL
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public GanttChartWindow()
         {
-            Gantt = s_bl.tasksGantt();
-            Dates = s_bl.getProjectDates();
+            try
+            {
+                Gantt = s_bl.tasksGantt();
+                Dates = s_bl.getProjectDates();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
             InitializeComponent();
         }
+        
+        /// //////////////////////////////////////////////////////////////////////////////////
+        //Fix
         public List<BO.TaskGantt> Gantt { get; set; }
-
         public static readonly DependencyProperty GanttProperty =
             DependencyProperty.Register("Gantt", typeof(List<BO.TaskGantt>), typeof(GanttChartWindow), new PropertyMetadata(null));
 

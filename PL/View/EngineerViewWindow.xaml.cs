@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.View
 {
     /// <summary>
     /// Interaction logic for EngineerViewWindow.xaml
@@ -24,32 +24,33 @@ namespace PL
     public partial class EngineerViewWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
         public EngineerViewWindow(int Id)
         {
-            InitializeComponent();
-            try { CurrentEngineer = s_bl.Engineer.Read(Id); }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
-            ListTasks = new List<BO.TaskInEngineer>();
-
-            if (CurrentEngineer.Task == null)
+            try
             {
-                foreach (BO.TaskInList task in s_bl.Task.ReadAll())
+                CurrentEngineer = s_bl.Engineer.Read(Id);
+                ListTasks = new List<BO.TaskInEngineer>();
+
+                if (CurrentEngineer.Task == null)
                 {
-                    BO.Task t = s_bl.Task.Read(task.Id);
-                    if (t.Status == BO.Statuses.Scheduled && t.Complexity <= CurrentEngineer.Level)
-                        ListTasks.Add(new BO.TaskInEngineer { Id = t.Id, Alias = t.Alias });
+                    foreach (BO.TaskInList task in s_bl.Task.ReadAll())
+                    {
+                        BO.Task t = s_bl.Task.Read(task.Id);
+                        if (t.Status == BO.Statuses.Scheduled && t.Complexity <= CurrentEngineer.Level)
+                            ListTasks.Add(new BO.TaskInEngineer { Id = t.Id, Alias = t.Alias });
+                    }
                 }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+            InitializeComponent();
         }
 
-        #region Property
+        #region Properties
         public BO.Engineer CurrentEngineer
         {
             get { return (BO.Engineer)GetValue(EngineerProperty); }
             set { SetValue(EngineerProperty, value); }
         }
-
         public static readonly DependencyProperty EngineerProperty =
             DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerViewWindow), new PropertyMetadata(null));
 
@@ -58,7 +59,6 @@ namespace PL
             get { return (List<BO.TaskInEngineer>)GetValue(ListTaskProperty); }
             set { SetValue(ListTaskProperty, value); }
         }
-
         public static readonly DependencyProperty ListTaskProperty =
             DependencyProperty.Register("ListTasks", typeof(List<BO.TaskInEngineer>), typeof(EngineerViewWindow), new PropertyMetadata(null));
 
@@ -67,61 +67,69 @@ namespace PL
             get { return (BO.TaskInEngineer)GetValue(SelectedTaskProperty); }
             set { SetValue(SelectedTaskProperty, value); }
         }
-
         public static readonly DependencyProperty SelectedTaskProperty =
             DependencyProperty.Register("SelectedTask", typeof(BO.TaskInEngineer), typeof(EngineerViewWindow), new PropertyMetadata(null));
         #endregion
 
         private void Btn_Back_Click(object sender, RoutedEventArgs e)
         {
-            new LoginPage().Show();
+            new Login_SingUP.LoginPage().Show();
             Close();
         }
-
         private void Btn_Select_Click(object sender, RoutedEventArgs e)
         {
-            BO.Task selectTask = s_bl.Task.Read(SelectedTask.Id);
-            var result = MessageBox.Show($"Do you want to work on task Id:{selectTask.Id}?", "choosing a task", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            try
             {
-                if (selectTask != null)
+                BO.Task selectTask = s_bl.Task.Read(SelectedTask.Id);
+                var result = MessageBox.Show($"Do you want to work on task Id:{selectTask.Id}?", "choosing a task", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
                 {
-                    selectTask.Engineer = new EngineerInTask { Id = CurrentEngineer.Id, Name = CurrentEngineer.Name };
-                    selectTask.Status = BO.Statuses.Started;
-                    selectTask.StartDate = s_bl.Clock;
-                    s_bl.Task.Update(selectTask);
-                    CurrentEngineer.Task = new TaskInEngineer { Id = selectTask.Id, Alias = selectTask.Alias };
+                    if (selectTask != null)
+                    {
+                        selectTask.Engineer = new EngineerInTask { Id = CurrentEngineer.Id, Name = CurrentEngineer.Name };
+                        selectTask.Status = BO.Statuses.Started;
+                        selectTask.StartDate = s_bl.Clock;
+                        s_bl.Task.Update(selectTask);
+                        CurrentEngineer.Task = new TaskInEngineer { Id = selectTask.Id, Alias = selectTask.Alias };
+                        s_bl.Engineer.Update(CurrentEngineer);
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+            RefreshWindow();
+        }
+        private void Btn_Done_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BO.Task doneTask = s_bl.Task.Read(CurrentEngineer.Task.Id);
+                if (doneTask != null)
+                {
+                    doneTask.Status = BO.Statuses.Done;
+                    doneTask.CompleteDate = s_bl.Clock;
+                    CurrentEngineer.Task = null;
+                    s_bl.Task.Update(doneTask);
                     s_bl.Engineer.Update(CurrentEngineer);
                 }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
             RefreshWindow();
         }
-
-        private void Btn_Done_Click(object sender, RoutedEventArgs e)
-        {
-            BO.Task doneTask = s_bl.Task.Read(CurrentEngineer.Task.Id);
-            if (doneTask != null) 
-            { 
-                doneTask.Status = BO.Statuses.Done;
-                doneTask.CompleteDate = s_bl.Clock;
-                CurrentEngineer.Task = null;
-                s_bl.Task.Update(doneTask);
-                s_bl.Engineer.Update(CurrentEngineer);
-            }
-            RefreshWindow();
-        }
-
         private void RefreshWindow()
         {
-            CurrentEngineer = s_bl.Engineer.Read(CurrentEngineer.Id);
-            ListTasks = new List<BO.TaskInEngineer>();
-
-            foreach (BO.TaskInList task in s_bl.Task.ReadAll())
+            try
             {
-                BO.Task t = s_bl.Task.Read(task.Id);
-                if (t.Status == BO.Statuses.Scheduled && t.Complexity <= CurrentEngineer.Level)
-                    ListTasks.Add(new BO.TaskInEngineer { Id = t.Id, Alias = t.Alias });
+                CurrentEngineer = s_bl.Engineer.Read(CurrentEngineer.Id);
+                ListTasks = new List<BO.TaskInEngineer>();
+
+                foreach (BO.TaskInList task in s_bl.Task.ReadAll())
+                {
+                    BO.Task t = s_bl.Task.Read(task.Id);
+                    if (t.Status == BO.Statuses.Scheduled && t.Complexity <= CurrentEngineer.Level)
+                        ListTasks.Add(new BO.TaskInEngineer { Id = t.Id, Alias = t.Alias });
+                }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         #region progresBar

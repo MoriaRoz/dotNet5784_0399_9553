@@ -24,13 +24,18 @@ public partial class TaskWindow : Window
 
     public TaskWindow(int id = 0)
     {
+        try
+        {
+            if (id == 0)
+                CurrentTask = new();
+            else
+                try { CurrentTask = s_bl.Task.Read(id) ?? new BO.Task(); }
+                catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
+            Dependencies = CurrentTask.Dependencies ?? new List<BO.TaskInList>();
+            ProjectStatus = s_bl.GetProjectStatus();
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         InitializeComponent();
-        if (id == 0)
-            CurrentTask = new();
-        else
-            try { CurrentTask = s_bl.Task.Read(id); }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK); }
-        Dependencies = CurrentTask.Dependencies;
     }
 
     public BO.Task CurrentTask
@@ -38,24 +43,30 @@ public partial class TaskWindow : Window
         get { return (BO.Task)GetValue(TaskProperty); }
         set { SetValue(TaskProperty, value); }
     }
-
     public static readonly DependencyProperty TaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
+    
     public List<BO.TaskInList> Dependencies
     {
         get { return (List<BO.TaskInList>)GetValue(DependenciesProperty); }
         set { SetValue(DependenciesProperty, value); }
     }
-
     public static readonly DependencyProperty DependenciesProperty =
         DependencyProperty.Register("Dependencies", typeof(List<BO.TaskInList>), typeof(TaskWindow), new PropertyMetadata(null));
+
+    public BO.ProjectStatus ProjectStatus
+    {
+        get { return (BO.ProjectStatus)GetValue(ProjectStatusProperty); }
+        set { SetValue(ProjectStatusProperty, value); }
+    }
+    public static readonly DependencyProperty ProjectStatusProperty =
+        DependencyProperty.Register("ProjectStatus", typeof(BO.ProjectStatus), typeof(TaskWindow), new PropertyMetadata(null));
 
 
     private void BtnBack_Click(object sender, RoutedEventArgs e)
     {
         Close();
     }
-
     private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
     {
         Button? btn = sender! as Button;
@@ -74,36 +85,35 @@ public partial class TaskWindow : Window
                     MessageBox.Show($"Task with Id:{CurrentTask.Id} successfully updated");
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+
+            if (CurrentTask.Status <= BO.Statuses.Started && s_bl.GetProjectStatus() == BO.ProjectStatus.Inlanning)
             {
-                Console.WriteLine(ex.Message);
-            }
-            MessageBoxResult result = MessageBox.Show($"You want to add dependencies to a task {CurrentTask.Id}?",
-                        "Message", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.Yes)
-            {
-                new DependencySelectionWindow(CurrentTask).ShowDialog();
+                MessageBoxResult result = MessageBox.Show($"You want to add dependencies to a task {CurrentTask.Id}?",
+                            "Message", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    new DependencySelectionWindow(CurrentTask).ShowDialog();
+                }
             }
             Close();
         }
     }
-
-    private void Delete_dependency_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        //BO.TaskInList task = (sender as ListView)?.SelectedItem as BO.TaskInList;
-
-        BO.TaskInList selectedItem = ((ListView)sender).SelectedItem as BO.TaskInList;
-        Dependencies.Remove(selectedItem);
-
-        //CurrentTask.Dependencies.Remove(task);
-    }
-
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         if (sender is Button button && button.DataContext != null)
         {
             BO.TaskInList itemToRemove = (BO.TaskInList)button.DataContext;
-            CurrentTask.Dependencies.Remove(itemToRemove);
+            if (CurrentTask.Dependencies != null && CurrentTask.Dependencies.Contains(itemToRemove))
+            {
+                CurrentTask.Dependencies.Remove(itemToRemove);
+                try
+                { 
+                    s_bl.Task.Update(CurrentTask);
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+            }
         }
+        InitializeComponent();
     }
 }

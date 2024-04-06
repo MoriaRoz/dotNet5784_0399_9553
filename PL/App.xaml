@@ -6,10 +6,12 @@
     <Application.Resources>
         <local:ConvertIdToContent x:Key="ConvertIdToContentKey" />
         <local:ConvertHaveTask x:Key="ConvertHaveTaskKey"/>
+        <local:StatusProject x:Key="ProjectKey"/>
         <local:ConvertDontHaveTask x:Key="ConvertDontHaveTaskKey"/>
         <local:ConvertLevelSelected x:Key="ConvertLevelSelectedKey"/>
         <local:LevelEngineerCollection x:Key="LevelEngineerCollectionKey" />
         <local:StatusesCollection x:Key="StatusesCollectionKey"/>
+        <local:StatusProject x:Key="StatusProjectKey"/>
         <local:RoleCollection x:Key="RolCollectionKey"/>
         <local:DayToPixelConverter x:Key="DayToPixelConverterKey"/>
         <Style x:Key="myButtonStyle"

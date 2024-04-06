@@ -17,7 +17,7 @@ using System.Windows;
 using DalTest;
 using PL.Engineer;
 
-namespace PL;
+namespace PL.Login_SingUP;
 /// <summary>
 /// Code-behind Sing up window
 /// </summary>
@@ -29,13 +29,15 @@ public partial class SingUpWindow : Window
         InitializeComponent();
     }
 
-    public static readonly DependencyProperty UserProperty =
-        DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(SingUpWindow), new PropertyMetadata(null));
+    #region Property
     public BO.User CurrentUser
     {
         get => (BO.User)GetValue(UserProperty);
         set { SetValue(UserProperty, value); }
     }
+    public static readonly DependencyProperty UserProperty =
+        DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(SingUpWindow), new PropertyMetadata(null));
+    #endregion
 
     private void BtnCreate_Click(object sender, RoutedEventArgs e)
     {
@@ -45,16 +47,12 @@ public partial class SingUpWindow : Window
             MessageBox.Show("User created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             Close();
             if (CurrentUser.Role == BO.UserRole.Engineer)
-                new EngineerViewWindow(CurrentUser.EngineerId).Show();
+                new View.EngineerViewWindow(CurrentUser.EngineerId).Show();
             if (CurrentUser.Role == BO.UserRole.Manager)
-                new ManagerViewWindow(CurrentUser.EngineerId).ShowDialog();    
+                new View.ManagerViewWindow(CurrentUser.EngineerId).ShowDialog();    
         }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error creating user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+        catch (Exception ex){MessageBox.Show($"Error creating user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);}
     }
-
     private void BtnBackLogin_Click(object sender, RoutedEventArgs e)
     {
         Close();

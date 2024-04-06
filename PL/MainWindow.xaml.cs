@@ -1,5 +1,4 @@
-﻿
-using PL.Engineer;
+﻿using PL.Engineer;
 using PL.Task;
 using System.Globalization;
 using System.Text;
@@ -24,82 +23,94 @@ public partial class MainWindow : Window
     private readonly DispatcherTimer _timer;
     public MainWindow()
     {
-        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
-        InitializeComponent();
+        try
+        {
+            CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+
         DataContext = this;
-        //_timer = new DispatcherTimer();
-        //_timer.Interval = TimeSpan.FromMilliseconds(100);
-        //_timer.Tick += Timer_Tick;
-        //_timer.Start();
-    }
-    private void Timer_Tick(object sender, EventArgs e)
-    {
-        s_bl.addHalfMinToClock();
-        CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
-    }
-    private void btnLogin_Click(object sender, RoutedEventArgs e)
-    {
-        new LoginPage().Show();
+        _timer = new DispatcherTimer();
+        _timer.Interval = TimeSpan.FromMilliseconds(100);
+        _timer.Tick += Timer_Tick;
+        _timer.Start();
+
+        InitializeComponent();
     }
 
-    private void btnInitDB_Click(object sender, RoutedEventArgs e)
-    {
-        var result = MessageBox.Show("Initialize Database?", "Confirm Initialization", MessageBoxButton.YesNo);
-        if (result == MessageBoxResult.Yes) { s_bl.InitializeDB(); }
-    }
-
-    private void btnReset_Click(object sender, RoutedEventArgs e)
-    {
-        var result = MessageBox.Show("Reset Database?", "Confirm Initialization", MessageBoxButton.YesNo);
-        if (result == MessageBoxResult.Yes) { s_bl.ResetDB(); }
-    }
-
+    #region Property
     public string CurrentDate
     {
         get { return (string)GetValue(CurrentDateProperty); }
         set { SetValue(CurrentDateProperty, value); }
     }
-
     public static readonly DependencyProperty CurrentDateProperty =
         DependencyProperty.Register("CurrentDate", typeof(string), typeof(MainWindow), new PropertyMetadata(null));
-
-    #region Temporary buttons
-    private void Button_e_Click(object sender, RoutedEventArgs e)
-    {
-        new EngineerListWindow().Show();
-    }
-
-    private void Button_t_Click(object sender, RoutedEventArgs e)
-    {
-        new TaskListWindow().Show();
-    }
-
-    private void Button_Me_Click(object sender, RoutedEventArgs e)
-    {
-        new EngineerViewWindow(2).Show();
-    }
-
-    private void Button_Mt_Click(object sender, RoutedEventArgs e)
-    {
-        new ManagerViewWindow(0).ShowDialog();
-    }
     #endregion
 
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        try
+        {
+            s_bl.addHalfMinToClock();
+            CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
+    private void btnLogin_Click(object sender, RoutedEventArgs e)
+    {
+        new Login_SingUP.LoginPage().Show();
+    }
+    private void btnInitDB_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var result = MessageBox.Show("Initialize Database?", "Confirm Initialization", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes) { s_bl.InitializeDB(); }
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
+    private void btnReset_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var result = MessageBox.Show("Reset Database?", "Confirm Initialization", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes) { s_bl.ResetDB(); }
+        }
+        catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+    }
     private void Btn_addDay_Click(object sender, RoutedEventArgs e)
     {
         s_bl.addDayToClock();
         CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
     }
-
     private void Btn_addHour_Click(object sender, RoutedEventArgs e)
     {
         s_bl.addHourToClock();
         CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
     }
-
     private void Btn_resetClock_Click(object sender, RoutedEventArgs e)
     {
         s_bl.restartClock();
         CurrentDate = s_bl.Clock.ToString("G", new CultureInfo("en-IL"));
     }
+    
+    #region Temporary buttons
+    private void Button_e_Click(object sender, RoutedEventArgs e)
+    {
+        new EngineerListWindow().Show();
+    }
+    private void Button_t_Click(object sender, RoutedEventArgs e)
+    {
+        new TaskListWindow().Show();
+    }
+    private void Button_Me_Click(object sender, RoutedEventArgs e)
+    {
+        new View.EngineerViewWindow(2).Show();
+    }
+    private void Button_Mt_Click(object sender, RoutedEventArgs e)
+    {
+        new View.ManagerViewWindow(0).ShowDialog();
+    }
+    #endregion
 }

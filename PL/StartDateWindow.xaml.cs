@@ -30,7 +30,12 @@ namespace PL
         {
             if (SelectedDate != null)
             {
-                s_bl.CreateSchedule(SelectedDate.Value);
+                try
+                {
+                    s_bl.CreateSchedule(SelectedDate.Value);
+                }
+                catch (Exception ex){MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);}
+            
             }
             else
                 MessageBox.Show("No date entered");
@@ -47,7 +52,6 @@ namespace PL
             get { return (DateTime?)GetValue(SelectedDateProperty); }
             set { SetValue(SelectedDateProperty, value); }
         }
-
         public static readonly DependencyProperty SelectedDateProperty =
             DependencyProperty.Register("SelectedDate", typeof(DateTime?), typeof(StartDateWindow), new PropertyMetadata(null));
     }

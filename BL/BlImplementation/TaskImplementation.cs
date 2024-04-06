@@ -4,6 +4,7 @@ namespace BlImplementation;
 using BlApi;
 using BO;
 using DO;
+using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 /// <summary>
@@ -14,6 +15,7 @@ internal class TaskImplementation : ITask
     private readonly IBl _bl;
     internal TaskImplementation(IBl bl) => _bl = bl;
     private DalApi.IDal _dal = DalApi.Factory.Get;
+
     /// <summary>
     /// Creates a new task.
     /// </summary>
@@ -92,6 +94,7 @@ internal class TaskImplementation : ITask
         else
             throw new BO.BlTheScheduleIsSet("The schedule is set, so it is not possible to delete a task");
     }
+
     /// <summary>
     /// Reads a task with the given ID.
     /// </summary>
@@ -122,6 +125,7 @@ internal class TaskImplementation : ITask
             Complexity = (BO.LevelEngineer)doTask.Complexity
         };
     }
+
     /// <summary>
     /// Reads all tasks.
     /// </summary>
@@ -152,6 +156,7 @@ internal class TaskImplementation : ITask
                 Status = boTask.Status,
             });
     }
+
     /// <summary>
     /// Updates the start date of a task with the given ID.
     /// </summary>
@@ -204,63 +209,94 @@ internal class TaskImplementation : ITask
             }
         }
     }
+
     /// <summary>
     /// Updates a task.
     /// </summary>
-    /// <param name="boTask">The task object to update.</param>
+    /// <param name="newTask">The task object to update.</param>
     /// <exception cref="BO.Exceptions.BlNullPropertyException">Thrown when the task object to update is null.</exception>
     /// <exception cref="BO.Exceptions.BlInvalidValueException">Thrown when an invalid value is encountered in the task object.</exception>
     /// <exception cref="BO.Exceptions.BlDoesNotExistException">Thrown when the task to update does not exist.</exception>
     /// <exception cref="BO.Exceptions.BlDalAlreadyExistsException">Thrown when trying to update a task that already exists.</exception>
-    public void Update(BO.Task boTask)
+    public void Update(BO.Task newTask)
     {
-        if (boTask == null)
+        if (newTask == null)
             throw new BO.BlNullPropertyException("Task to update is null");
-        if (!TaskCheck(boTask))
+        if (!TaskCheck(newTask))
             throw new BO.BlInvalidValueException("An task with an invalid value was entered");
 
-        DO.Task? doTask = _dal.Task.Read(boTask.Id);
+        DO.Task? doTask = _dal.Task.Read(newTask.Id);
         if (doTask == null)
-            throw new BO.BlDoesNotExistException($"Task with ID={boTask!.Id} does Not exist");
+            throw new BO.BlDoesNotExistException($"Task with ID={newTask!.Id} does Not exist");
+
+        //id of engineer
         int? engId = null;
-        if (boTask.Engineer != null)
-            engId = boTask.Engineer.Id;
-        if (boTask.Dependencies != null)
-            foreach (var dep in boTask.Dependencies)
-            {
-                try
-                {
-                    _dal.Dependency.Create(new Dependency() { Id = 0, DependsTask = boTask.Id, PreviousTask = dep.Id });
-                }
-                catch (DO.DalAlreadyExistsException ex)
-                {
-                    throw new BO.BlDalAlreadyExistsException($"Dependency all ready exist", ex);
-                }
-            }
+        if (newTask.Engineer != null)
+            engId = newTask.Engineer.Id;
+
+        //dependencies:
+        if (newTask.Dependencies != null)
+        {
+            List<BO.TaskInList> oldList = Read(newTask.Id).Dependencies;
+            UpdateDep(newTask.Id, newTask.Dependencies,oldList);
+        }
+
         try
         {
             _dal.Task.Update(new DO.Task()
             {
-                Id = boTask.Id,
-                Alias = boTask.Alias,
-                Description = boTask.Description,
-                CreatedAtDate = boTask.CreatedAtDate,
-                RequiredEffortTime = boTask.RequiredEffortTime,
-                Complexity = (DO.LevelEngineer)boTask.Complexity,
-                StartDate = boTask.StartDate,
-                ScheduledDate = boTask.ScheduledDate,
-                CompleteDate = boTask.CompleteDate,
-                Deliverables = boTask.Deliverables,
-                Remarks = boTask.Remarks,
+                Id = newTask.Id,
+                Alias = newTask.Alias,
+                Description = newTask.Description,
+                CreatedAtDate = newTask.CreatedAtDate,
+                RequiredEffortTime = newTask.RequiredEffortTime,
+                Complexity = (DO.LevelEngineer)newTask.Complexity,
+                StartDate = newTask.StartDate,
+                ScheduledDate = newTask.ScheduledDate,
+                CompleteDate = newTask.CompleteDate,
+                Deliverables = newTask.Deliverables,
+                Remarks = newTask.Remarks,
                 EngineerId = engId,
             });
         }
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"Task with ID={boTask!.Id} does Not exist", ex);
+            throw new BO.BlDoesNotExistException($"Task with ID={newTask!.Id} does Not exist", ex);
         }
     }
     // Private methods...
+
+    void UpdateDep(int tId,List<BO.TaskInList> newList, List<BO.TaskInList> oldList)
+    {
+        List<int> idAddDep=new List<int>();
+        List<int> idDeletDep=new List<int>();
+        foreach (BO.TaskInList item in newList)
+        {
+            if(oldList.Find(x=>x.Id==item.Id)==null)
+                idAddDep.Add(item.Id);
+        }
+        foreach (BO.TaskInList item in oldList)
+        {
+            if (newList.Find(x => x.Id == item.Id) == null)
+                idDeletDep.Add(item.Id);
+        }
+        foreach(int x in idAddDep)
+        {
+            _dal.Dependency.Create(new Dependency() { Id=0, DependsTask=tId, PreviousTask=x });
+        }
+        var depList = _dal.Dependency.ReadAll(x=>x.DependsTask==tId);
+        foreach(int x in idDeletDep)
+        {
+            foreach(var dep in depList)
+            {
+                if (dep.PreviousTask == x)
+                {
+                    _dal.Dependency.Delete(dep.Id);
+                    break;
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Checks if a task object is valid.
@@ -273,6 +309,7 @@ internal class TaskImplementation : ITask
             return false;
         return true;
     }
+
     /// <summary>
     /// Adds dependencies to a task.
     /// </summary>
@@ -292,6 +329,7 @@ internal class TaskImplementation : ITask
                                a = _dal.Dependency.Create(dep)
                            });
     }
+
     /// <summary>
     /// Calculates the status of a task based on its properties.
     /// </summary>
@@ -310,6 +348,7 @@ internal class TaskImplementation : ITask
         }
         return BO.Statuses.Unscheduled;
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -328,6 +367,7 @@ internal class TaskImplementation : ITask
                     Status = StatusCalculation(prevTask)
                 }).ToList();
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -342,6 +382,7 @@ internal class TaskImplementation : ITask
             forecst = (dTask.ScheduledDate < dTask.StartDate ? dTask.StartDate : dTask.ScheduledDate) + dTask.RequiredEffortTime;
         return forecst;
     }
+
     /// <summary>
     /// 
     /// </summary>

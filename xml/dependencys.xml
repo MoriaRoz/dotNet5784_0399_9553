@@ -195,4 +195,9 @@
     <PreviousTask>17</PreviousTask>
     <DependsTask>18</DependsTask>
   </Dependency>
+  <Dependency>
+    <Id>40</Id>
+    <PreviousTask>8</PreviousTask>
+    <DependsTask>11</DependsTask>
+  </Dependency>
 </ArrayOfDependency>
