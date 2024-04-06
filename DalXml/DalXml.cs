@@ -55,6 +55,7 @@ sealed public class DalXml : IDal
     {
         XElement config = XMLTools.LoadListFromXMLElement("data-config");
         config.Element("NextTaskId")!.Value = "1";
+        config.Element("NextUserId")!.Value = "1";
         config.Element("NextDependencyId")!.Value = "1";
         XMLTools.SaveListToXMLElement(config, "data-config");
     }

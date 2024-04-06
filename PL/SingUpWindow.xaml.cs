@@ -16,6 +16,7 @@ using System;
 using System.Windows;
 using DalTest;
 using PL.Engineer;
+using System.Reflection.Emit;
 
 namespace PL;
 /// <summary>
@@ -27,6 +28,7 @@ public partial class SingUpWindow : Window
     public SingUpWindow()
     {
         InitializeComponent();
+        CurrentUser = new BO.User();
     }
 
     public static readonly DependencyProperty UserProperty =
@@ -36,7 +38,13 @@ public partial class SingUpWindow : Window
         get => (BO.User)GetValue(UserProperty);
         set { SetValue(UserProperty, value); }
     }
-
+    public BO.UserRole Role
+    {
+        get { return (BO.UserRole)GetValue(RoleProperty); }
+        set { SetValue(RoleProperty, value); }
+    }
+    public static readonly DependencyProperty RoleProperty =
+        DependencyProperty.Register("Level", typeof(BO.UserRole), typeof(SingUpWindow), new PropertyMetadata(null));
     private void BtnCreate_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -75,6 +83,11 @@ public partial class SingUpWindow : Window
             }
         }
     }
+    private void Role_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        CurrentUser.Role = Role;
+    }
+
     private void BtnBackLogin_Click(object sender, RoutedEventArgs e)
     {
         Close();

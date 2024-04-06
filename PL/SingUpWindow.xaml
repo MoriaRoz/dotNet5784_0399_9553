@@ -17,6 +17,7 @@
             <RowDefinition Height="80" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -35,10 +36,10 @@
             <TextBlock Text="User ID:" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" 
                    FontSize="22" FontFamily="Comic Sans MS" Grid.Row="0"/>
             <TextBox  TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" Grid.Row="1" FontFamily="Comic Sans MS" HorizontalAlignment="Center" Width="200"
-                  Text="{Binding EngineerId, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" PreviewTextInput="ID_PreviewTextInput"/>
+                  Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" PreviewTextInput="ID_PreviewTextInput"/>
         </Grid>
         <!--User Password-->
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -48,6 +49,30 @@
             <TextBox  TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" FontFamily="Comic Sans MS" Grid.Row="1" HorizontalAlignment="Center" Width="200"
            Text="{Binding Password, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
         </Grid>
+         <!--User Name-->
+    <Grid Grid.Row="3">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Role}" Value="Engineer">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Role}" Value="User">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.RowDefinitions>
+         <RowDefinition Height="Auto" />
+         <RowDefinition Height="Auto" />
+     </Grid.RowDefinitions>
+     <TextBlock Text="Manager Name:" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="0"
+            FontSize="22" FontFamily="Comic Sans MS"/>
+    <TextBox  TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" FontFamily="Comic Sans MS" Grid.Row="1" HorizontalAlignment="Center" Width="200"
+        Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+    </Grid>
         <!--User Role-->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -60,7 +85,7 @@
                   Height="34" VerticalAlignment="Top" FontFamily="Comic Sans MS" FontSize="16"/>
         </Grid>
         <!--Back-->
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>

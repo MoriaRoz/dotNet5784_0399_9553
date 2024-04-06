@@ -18,16 +18,22 @@ namespace PL
     public partial class LoginPage : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
+        #region Property
         public BO.User CurrentUser
         {
             get { return (BO.User)GetValue(UserProperty); }
             set { SetValue(UserProperty, value); }
         }
-
         public static readonly DependencyProperty UserProperty =
-                DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
-
+        DependencyProperty.Register("CurrentEngineer", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
+        public BO.UserRole role
+        {
+            get { return (BO.UserRole)GetValue(RoleProperty); }
+            set { SetValue(RoleProperty, value); }
+        }
+        public static readonly DependencyProperty RoleProperty =
+            DependencyProperty.Register("Role", typeof(BO.UserRole), typeof(LoginPage), new PropertyMetadata(null));
+        #endregion
         public LoginPage()
         {
             InitializeComponent();

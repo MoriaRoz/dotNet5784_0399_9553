@@ -22,8 +22,17 @@ namespace BlImplementation
         {
             if (boUser == null)
                 throw new BO.BlNullPropertyException("User is null");
-            DO.User doUser = new DO.User
-        (boUser.Id, boUser.Password,(DO.UserRole)boUser.Role);
+            if (boUser.Role == UserRole.Engineer)
+            {
+                DO.Engineer userEng = _dal.Engineer.Read(boUser.Id);
+                if (userEng == null) 
+                {
+                    throw new BO.BlCreationImpossibleException($"Engineer with ID={boUser.Id} does not exists");
+                }
+                boUser.Name = userEng.Name;
+            }
+        DO.User doUser = new DO.User
+        (boUser.Id, boUser.Password,boUser.Name,(DO.UserRole)boUser.Role);
             try
             {
                 int idUser = _dal.User.Create(doUser);

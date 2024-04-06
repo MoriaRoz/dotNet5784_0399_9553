@@ -20,6 +20,7 @@ internal class UserImplementation : IUser
         XElement userRoot = XMLTools.LoadListFromXMLElement(s_users_xml);
         XElement user = new XElement("User",
             new XElement("Id", entity.Id),
+            new XElement("Name", entity.Name),
             new XElement("Password", entity.Password),
             new XElement("Rool", entity.Role));
         userRoot.Add(user);

@@ -20,6 +20,9 @@
         <!--Logo-->
         <Image HorizontalAlignment="Center" Height="222" VerticalAlignment="Top" Width="592" 
                Source="/CodeMaster.png" Grid.Row="0"/>
+        <!--Hello engineer-->
+        <TextBlock Text="Hello" HorizontalAlignment="Left" Margin="89,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="65" FontSize="36" FontFamily="Comic Sans MS" Grid.ColumnSpan="2"/>
+        <TextBlock Text="{Binding CurrentManeger.Name}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Comic Sans MS" FontSize="30" Grid.Column="1" Width="240" Height="38" Margin="8,234,0,0"/>
 
         <!--Task list-->
         <Button Content="Task List" FontFamily="Comic Sans MS" FontSize="22" Background="#FF3498DB"
