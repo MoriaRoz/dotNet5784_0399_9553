@@ -31,8 +31,13 @@ namespace BlImplementation
                 }
                 boUser.Name = userEng.Name;
             }
-        DO.User doUser = new DO.User
-        (boUser.Id, boUser.Password,boUser.Name,(DO.UserRole)boUser.Role);
+            DO.User doUser = new DO.User()
+            {
+                Id = boUser.Id,
+                Name = boUser.Name,
+                Password = boUser.Password,
+                Role=(DO.UserRole)boUser.Role,
+            };
             try
             {
                 int idUser = _dal.User.Create(doUser);

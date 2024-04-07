@@ -27,18 +27,37 @@ public partial class SingUpWindow : Window
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public SingUpWindow()
     {
+        Id = "";
+        Name = "";
+        Password = "";
+        Role = BO.UserRole.Engineer;
         InitializeComponent();
-        CurrentUser = new BO.User();
     }
 
     #region Property
-    public BO.User CurrentUser
+    public string Id
     {
-        get => (BO.User)GetValue(UserProperty);
-        set { SetValue(UserProperty, value); }
+        get { return (string)GetValue(IdProperty); }
+        set { SetValue(IdProperty, value); }
     }
-    public static readonly DependencyProperty UserProperty =
-        DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(SingUpWindow), new PropertyMetadata(null));
+    public static readonly DependencyProperty IdProperty =
+    DependencyProperty.Register("Id", typeof(string), typeof(SingUpWindow), new PropertyMetadata(null));
+
+    public string Password
+    {
+        get { return (string)GetValue(PasswordProperty); }
+        set { SetValue(PasswordProperty, value); }
+    }
+    public static readonly DependencyProperty PasswordProperty =
+        DependencyProperty.Register("Password", typeof(string), typeof(SingUpWindow), new PropertyMetadata(null));
+
+    public string Name
+    {
+        get { return (string)GetValue(NameProperty); }
+        set { SetValue(NameProperty, value); }
+    }
+    public static readonly DependencyProperty NameProperty =
+    DependencyProperty.Register("Name", typeof(string), typeof(SingUpWindow), new PropertyMetadata(null));
 
     public BO.UserRole Role
     {
@@ -46,25 +65,36 @@ public partial class SingUpWindow : Window
         set { SetValue(RoleProperty, value); }
     }
     public static readonly DependencyProperty RoleProperty =
-        DependencyProperty.Register("Role", typeof(BO.UserRole), typeof(SingUpWindow), new PropertyMetadata(null))
+        DependencyProperty.Register("Role", typeof(BO.UserRole), typeof(SingUpWindow), new PropertyMetadata(null));
     #endregion
 
     private void BtnCreate_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            s_bl?.User.Create(CurrentUser);
+            if (Id == "" || Name == "" || Password == "")
+            {
+                MessageBox.Show("One or more details were not entered", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            int id = int.Parse(Id);
+            BO.User user = new BO.User()
+            {
+                Id = id,
+                Name = Name,
+                Password = Password,
+                Role = Role
+            };
+            s_bl?.User.Create(user);
             MessageBox.Show("User created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             Close();
-            if (CurrentUser.Role == BO.UserRole.Engineer)
-                new View.EngineerViewWindow(CurrentUser.Id).Show();
-            if (CurrentUser.Role == BO.UserRole.Manager)
-                new View.ManagerViewWindow(CurrentUser.Id).ShowDialog();    
+            if (Role == BO.UserRole.Engineer)
+                new View.EngineerViewWindow(id).Show();
+            if (Role == BO.UserRole.Manager)
+                new View.ManagerViewWindow(id).ShowDialog();
         }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error creating user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+        catch (Exception ex){ MessageBox.Show($"Error creating user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
     private void ID_PreviewTextInput(object sender, TextCompositionEventArgs e)
     {
@@ -89,10 +119,15 @@ public partial class SingUpWindow : Window
     }
     private void Role_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        CurrentUser.Role = Role;
+        Role = Role;
     }
     private void BtnBackLogin_Click(object sender, RoutedEventArgs e)
     {
         Close();
+    }
+
+    private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
     }
 }

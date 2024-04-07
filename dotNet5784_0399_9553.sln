@@ -22,16 +22,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{722CE06A-E62
 	ProjectSection(SolutionItems) = preProject
 		xml\dal-config.xml = xml\dal-config.xml
 		xml\data-config.xml = xml\data-config.xml
-		xml\dependencys.xml = xml\dependencys.xml
 		xml\engineers.xml = xml\engineers.xml
+		xml\dependencies.xml = xml\dependencies.xml
 		xml\tasks.xml = xml\tasks.xml
+		xml\users.xml = xml\users.xml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{D3A74458-2D8C-4516-9E9E-0031DD4E838C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{3588A19C-D941-4DCF-B1ED-6456AE145871}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{ACBA69A2-C5C4-4E4A-884D-0E7A76231844}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{ACBA69A2-C5C4-4E4A-884D-0E7A76231844}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

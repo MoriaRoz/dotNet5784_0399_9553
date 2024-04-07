@@ -144,13 +144,6 @@ public static class Initialization
             string? _remarks = null;
 
             int? _engineerId = null; //Matching an appropriate engineer (by lottery) taking into account the level of the engineer required for the task
-            //Engineer? en;
-            //do
-            //{
-            //    _engineerId = rnd.Next(200000000, 400000000);
-            //    en = s_dal?.Engineer.Read(_engineerId);
-            //}
-            //while (en != null && en.Level >= _complexity);
 
             Task newTa = new Task(0,_name,_description,_createdAtDate,
                 _requiredEffortTime,_complexity,_startDate, _scheduledDate,
@@ -159,7 +152,7 @@ public static class Initialization
             i++;
         }
     }
-    private static void createDependency()
+    private static void createDependencies()
     {
         Dependency newDep;
         
@@ -167,34 +160,34 @@ public static class Initialization
         for (i = 1; i < 20; i++) //Mission 20 depends on completing all other missions
         {
             newDep = new Dependency(0, i, 20);
-            s_dal!.Dependency.Create(newDep);
+            s_dal!.Dependencies.Create(newDep);
         }
         for (i = 2; i <= 5; i++) //Tasks 2-5 depend on completing Task 1
         {
             newDep = new Dependency(0, 1, i);
-            s_dal!.Dependency.Create(newDep);
+            s_dal!.Dependencies.Create(newDep);
         }
         for (int j = 4; i <= 5; i++) //Tasks 4,5 depend on completing tasks 2,3
             for (i = 2; i <= 3; i++)
             {
                 newDep = new Dependency(0, i, j);
-                s_dal!.Dependency.Create(newDep);
+                s_dal!.Dependencies.Create(newDep);
             }
         newDep = new Dependency(0, 4, 5); //Task 5 also depends on the completion of task 4
-        s_dal!.Dependency.Create(newDep);
+        s_dal!.Dependencies.Create(newDep);
         newDep = new Dependency(0, 7, 8); //Task 8 depends on the completion of task 7
-        s_dal!.Dependency.Create(newDep);
+        s_dal!.Dependencies.Create(newDep);
         for (i = 11; i <= 19; i += 2) //Tasks 11,13,15,17,19 depend on completing Tasks 8,10
         {
             Dependency newDep1 = new Dependency(0, 8, i);
-            s_dal!.Dependency.Create(newDep1);
+            s_dal!.Dependencies.Create(newDep1);
             Dependency newDep2 = new Dependency(0, 10, i);
-            s_dal!.Dependency.Create(newDep2);
+            s_dal!.Dependencies.Create(newDep2);
         }
         for (i = 12; i <= 18; i += 2) //Tasks 12, 14, 16 and 18 each depend on the task that precedes it chronologically
         {
             newDep = new Dependency(0, i - 1, i);
-            s_dal!.Dependency.Create(newDep);
+            s_dal!.Dependencies.Create(newDep);
         }
     }
     public static void Do()
@@ -203,7 +196,7 @@ public static class Initialization
         s_dal.ResetIds();
         createEngineer();
         createTask();
-        createDependency();
+        createDependencies();
     }
 }
 

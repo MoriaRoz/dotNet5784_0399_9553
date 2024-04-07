@@ -3,6 +3,6 @@ namespace DalApi;
 using DO;
 
 /// <summary>
-/// A dependency interface, contains all the methods that a dependency entity has.
+/// A Dependencies interface, contains all the methods that a Dependencies entity has.
 /// </summary>
 public interface IDependency : ICrud<Dependency> { }

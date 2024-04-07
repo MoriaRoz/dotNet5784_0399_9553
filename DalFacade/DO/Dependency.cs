@@ -2,7 +2,7 @@
 namespace DO;
 
 /// <summary>
-/// A dependency entity represents a dependency with all its accessories.
+/// A Dependency entity represents a Dependency with all its accessories.
 /// </summary>
 /// <param name="Id">Personal identifier of a dependecy</param>
 /// <param name="PreviousTask">Previous assignment ID number</param>

@@ -22,20 +22,20 @@
                Source="/CodeMaster.png" Grid.Row="0"/>
         <!--Hello engineer-->
         <TextBlock Text="Hello" HorizontalAlignment="Left" Margin="89,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="65" FontSize="36" FontFamily="Comic Sans MS" Grid.ColumnSpan="2"/>
-        <TextBlock Text="{Binding CurrentManeger.Name}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Comic Sans MS" FontSize="30" Grid.Column="1" Width="240" Height="38" Margin="8,234,0,0"/>
+        <TextBlock Text="{Binding CurrentUser.Name}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Comic Sans MS" FontSize="30" Width="240" Height="38" Margin="185,234,0,0"/>
 
         <!--Task list-->
         <Button Content="Task List" FontFamily="Comic Sans MS" FontSize="22" Background="#FF3498DB"
                 Grid.Row="0" Margin="39,280,612,46" Click="Btn_TaskList_Click"/>
-        
+
         <!--Engineer list-->
         <Button Content="Engineer List" FontFamily="Comic Sans MS" FontSize="22" Background="#FF3498DB"
                 Grid.Row="0" Margin="203,280,425,46" Click="Btn_EngineerList_Click"/>
-        
+
         <!--schedule-->
         <Button Content="Project schedule" FontFamily="Comic Sans MS" FontSize="22" Background="#FF3498DB"
                 Grid.Row="0" Margin="391,280,208,46" RenderTransformOrigin="0.564,1.104" Click="Btn_Schedule_Click"/>
-        
+
         <!--Gant-->
         <Button Content="Gantt chart" FontFamily="Comic Sans MS" FontSize="22" Background="#FF3498DB"
                 Grid.Row="0" Click="Btn_Gantt_Click" Margin="607,280,35,46"/>
@@ -43,7 +43,7 @@
         <!--Back-->
         <Button Content="Back" Background="#FF9B59B6" Margin="16,15,686,320"
                 FontFamily="Comic Sans MS" FontSize="22" Click="Btn_Back_Click"/>
-        
+
         <!--ProgressBar-->
         <ProgressBar Grid.Row="2" Value="{Binding ProjectProgress, Mode=OneWay}" Minimum="0" Maximum="100" Margin="183,0,192,0"/>
         <TextBlock Grid.Row="2" Text="Project progress : " FontSize="20" HorizontalAlignment="Left" 

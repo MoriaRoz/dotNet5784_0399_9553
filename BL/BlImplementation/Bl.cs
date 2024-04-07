@@ -49,11 +49,11 @@ internal class Bl : IBl
 
         //reading tasks and saving in sorted list
         var tasks = Task.ReadAll();
-        List<BO.Task> tasksList=new List<BO.Task>();
-        foreach ( var task in tasks ) 
+        List<BO.Task> tasksList = new List<BO.Task>();
+        foreach (var task in tasks)
         {
             Task? t = Task.Read(task.Id);
-            if( t != null )
+            if (t != null)
                 tasksList.Add(t);
         }
         tasksList.OrderBy(item => item.Id).ToList();
@@ -75,7 +75,7 @@ internal class Bl : IBl
 
     void DataForTask(int id, DateTime projectStartDate)
     {
-        BO.Task task = Task.Read(id)??new BO.Task();
+        BO.Task task = Task.Read(id) ?? new BO.Task();
         if (task.ScheduledDate != null) return;
 
         List<BO.TaskInList>? prevTasks = task.Dependencies ?? new List<BO.TaskInList>();
@@ -92,14 +92,14 @@ internal class Bl : IBl
         DateTime? earliestDate = projectStartDate;
         if (task.Dependencies != null)
         {
-            foreach (BO.TaskInList dependency in task.Dependencies)
+            foreach (BO.TaskInList Dependencies in task.Dependencies)
             {
-                BO.Task? dependencyTask = Task.Read(dependency.Id);
-                if (dependencyTask != null)
+                BO.Task? DependenciesTask = Task.Read(Dependencies.Id);
+                if (DependenciesTask != null)
                 {
-                    DateTime? endOfDependency = dependencyTask.ScheduledDate?.Add(dependencyTask.RequiredEffortTime ?? TimeSpan.Zero);
-                    if (endOfDependency > earliestDate)
-                        earliestDate = endOfDependency;
+                    DateTime? endOfDependencies = DependenciesTask.ScheduledDate?.Add(DependenciesTask.RequiredEffortTime ?? TimeSpan.Zero);
+                    if (endOfDependencies > earliestDate)
+                        earliestDate = endOfDependencies;
                 }
             }
         }
@@ -120,79 +120,7 @@ internal class Bl : IBl
         if (task.ScheduledDate == null)
             DataForTask(taskId, projectStartDate);
     }
-    //public void CreateSchedule(DateTime? startDate)
-    //{
-    //    if (GetProjectStatus() == ProjectStatus.InExecution)
-    //        throw new BO.BlDoesNotExistException("Can not create project schedule while project is in Execution stage");
-    //    IEnumerable<BO.TaskInList> allTasksINList = s_bl.Task.ReadAll();
-    //    var allTasks = (from t in allTasksINList
-    //                    let task = s_bl.Task.Read(t.Id)
-    //                    select task);
-    //    if (allTasks.Any(task => task.RequiredEffortTime == null))
-    //        throw new BO.BlInvalidValueException("Can not plan project schedule if not all tasks have required effort time assigned");
-    //    List<BO.Task> undatedTasks = new List<BO.Task>();
-    //    foreach (BO.Task task in allTasks)
-    //    {
-    //        if (!task.Dependencies.Any())
-    //            DataForTask(task);
-    //        else
-    //            undatedTasks.Add(task);
 
-    //    }
-    //    while (undatedTasks.Count != 0)
-    //    {
-    //        foreach (BO.Task task in undatedTasks)
-    //        {
-    //            bool canUpdata = true;
-    //            foreach (BO.TaskInList depTask in task.Dependencies)
-    //            {
-    //                if (depTask.Status == BO.Statuses.Unscheduled)
-    //                    canUpdata = false; break;
-    //            }
-
-    //            if (canUpdata)
-    //            {
-    //                DataForTask(task);
-    //                undatedTasks.Remove(task);
-    //            }
-    //        }
-    //    }
-    //    foreach (BO.Task task in allTasks)
-    //    {
-    //        if (task.Status != Statuses.Scheduled)
-    //            throw new BlTasksLoop("The dependencies between the tasks create a loop - \n" +
-    //                "There is a task that depends on one or more tasks that are directly or indirectly dependent on it.");
-    //    }
-    //}
-    //private void DataForTask(BO.Task task)
-    //{
-    //    if (task.RequiredEffortTime == null)
-    //        throw new BlDoesNotExistException($"It is not possible to assign a start date to the task with the ID {task.Id} " +
-    //            "because it is not given a specified time that it will take to perform it");
-
-    //    DateTime? theLastDate = s_bl.GetProjectStartDate();
-    //    foreach (BO.TaskInList dep in task.Dependencies)
-    //    {
-    //        BO.Task taskDep = s_bl.Task.Read(dep.Id);
-    //        if (taskDep != null)
-    //        {
-    //            DateTime endOfTask = taskDep.StartDate.Value.Add(taskDep.RequiredEffortTime.Value);
-    //            if (endOfTask > theLastDate)
-    //                theLastDate = endOfTask;
-    //        }
-    //    }
-    //    task.StartDate = theLastDate;
-    //    task.Status = Statuses.Scheduled;
-
-    //    IEnumerable<BO.TaskInList> allTasksINList = s_bl.Task.ReadAll();
-    //    foreach (BO.TaskInList taskInList in allTasksINList)
-    //    {
-    //        BO.Task taskDep = s_bl.Task.Read(taskInList.Id);
-    //        foreach (BO.TaskInList dependency in taskDep.Dependencies)
-    //            if (dependency.Id == task.Id)
-    //                dependency.Status = Statuses.Scheduled;
-    //    }
-    //}
     public void UnscheduleProject()
     {
         IEnumerable<BO.TaskInList> allTasks = s_bl.Task.ReadAll();
@@ -202,15 +130,22 @@ internal class Bl : IBl
             if (task != null)
             {
                 task.StartDate = null;
+                task.ScheduledDate = null;
+                task.CompleteDate = null;
                 task.Status = BO.Statuses.Unscheduled;
                 if (task.Dependencies != null)
-                    foreach (BO.TaskInList dependency in task.Dependencies)
-                        dependency.Status = Statuses.Unscheduled;
+                    foreach (BO.TaskInList Dependencies in task.Dependencies)
+                        Dependencies.Status = Statuses.Unscheduled;
+                s_bl.Task.Update(task);
             }
         }
     }
     public void InitializeDB() => DalTest.Initialization.Do();
-    public void ResetDB() => DalApi.Factory.Get.Reset();
+    public void ResetDB()
+    {
+        UnscheduleProject();
+        DalApi.Factory.Get.Reset();
+    }
 
     #region gantt
     public List<DateTime?> getProjectDates()

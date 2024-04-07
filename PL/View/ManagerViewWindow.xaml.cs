@@ -26,7 +26,6 @@ namespace PL.View
         public BO.User CurrentManeger { get; set; }
         public ManagerViewWindow(int id)
         {
-            InitializeComponent();
             try
             {
                 CurrentManeger = s_bl.User.Read(id);
@@ -35,6 +34,7 @@ namespace PL.View
             {
                 MessageBox.Show($"Error oppening user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            InitializeComponent();
         }
         private void Btn_TaskList_Click(object sender, RoutedEventArgs e)
         {

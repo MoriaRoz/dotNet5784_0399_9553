@@ -43,8 +43,8 @@ namespace DalTest
                         case Entitys.Task://2 was inserted, so the function of the task is called.
                             MTask();
                             break;
-                        case Entitys.Dependence://3 was inserted, so the function of the dependency is called.
-                            MDependency();
+                        case Entitys.Dependence://3 was inserted, so the function of the Dependencies is called.
+                            MDependencies();
                             break;
                         default://A value was entered that is not between 0 and 3 - exception,Throw exception.
                             throw new NumberOutOfRangeException("Incorrect input - the choice must be in numbers between 0-4");
@@ -195,12 +195,12 @@ namespace DalTest
         }
 
 
-        static void MDependency()//A function that performs the actions on the dependency.
+        static void MDependencies()//A function that performs the actions on the Dependencies.
         {
             Actions action;
             do
             {
-                //printing the methods menu for the dependency:
+                //printing the methods menu for the Dependencies:
                 Console.WriteLine("Select the method you want to perform-\n" +
                                     "0- Exit main menu\n" +
                                     "1- Adding a new object of the entity type to the list (Create)\n" +
@@ -209,42 +209,42 @@ namespace DalTest
                                     "4- Update existing object data (Update)\n");
                 action = (Actions)int.Parse(Console.ReadLine());//user choice.
 
-                DO.Dependency newD;//An object of type dependency that will be used by us in operations.
+                DO.Dependency newD;//An object of type Dependencies that will be used by us in operations.
                 switch (action)
                 {
                     case Actions.Exit:// 0 was inserted, therefore exiting the function back to the main menu.
                         break;
-                    case Actions.Create://1 was inserted, so we will create a new dependency.
+                    case Actions.Create://1 was inserted, so we will create a new Dependencies.
                         {
-                            newD = GetDep();//Call to the function that receives the values from the user and returns a new dependency.
-                            s_dal.Dependency.Create(newD);//Adding the dependency to the list.
+                            newD = GetDep();//Call to the function that receives the values from the user and returns a new Dependencies.
+                            s_dal.Dependencies.Create(newD);//Adding the Dependencies to the list.
                             break;
                         }
-                    case Actions.Read:// 2 was inserted, so we will look for the dependency with the id from the user and print it if it exists.
+                    case Actions.Read:// 2 was inserted, so we will look for the Dependencies with the id from the user and print it if it exists.
                         {
-                            Console.WriteLine("Enter the id of the dependency you want to print:");//print message insert id.
+                            Console.WriteLine("Enter the id of the Dependencies you want to print:");//print message insert id.
                             int idR = int.Parse(Console.ReadLine());//getting the id.
-                            newD = s_dal.Dependency.Read(idR);//copy of the dependency if exists and null if not.
-                            if (newD == null)//The dependency does not exist in the list - throwing an exception.
-                                throw new DalDoesNotExistException($"The dependency with the ID-{idR} does not exist");
-                            Console.WriteLine(newD);//print the dependency.
+                            newD = s_dal.Dependencies.Read(idR);//copy of the Dependencies if exists and null if not.
+                            if (newD == null)//The Dependencies does not exist in the list - throwing an exception.
+                                throw new DalDoesNotExistException($"The Dependencies with the ID-{idR} does not exist");
+                            Console.WriteLine(newD);//print the Dependencies.
                             break;
                         }
-                    case Actions.ReadAll:// 3 was entered, so we will print all the dependency that exist in the list.
+                    case Actions.ReadAll:// 3 was entered, so we will print all the Dependencies that exist in the list.
                         {
-                            var listDependency = s_dal.Dependency.ReadAll();//Creating a copy to the list of dependency.
-                            foreach (DO.Dependency dependency in listDependency)//Go through all the dependency in the list.
-                                Console.WriteLine(dependency);//print the dependency.
+                            var listDependencies = s_dal.Dependencies.ReadAll();//Creating a copy to the list of Dependencies.
+                            foreach (DO.Dependency Dependencies in listDependencies)//Go through all the Dependencies in the list.
+                                Console.WriteLine(Dependencies);//print the Dependencies.
                             break;
                         }
-                    case Actions.Update:// 4 was inserted, so we will update the dependency with the id we received from the user.
+                    case Actions.Update:// 4 was inserted, so we will update the Dependencies with the id we received from the user.
                         {
-                            Console.WriteLine("Enter the ID of the dependency you would like to update: ");//print message insert id.
+                            Console.WriteLine("Enter the ID of the Dependencies you would like to update: ");//print message insert id.
                             int idU = int.Parse(Console.ReadLine());//getting the id.
-                            if (s_dal.Dependency.Read(idU) == null)//The dependency does not exist in the list - throwing an exception.
-                                throw new DalDoesNotExistException("There is no dependency with ID-" + idU);
-                            DO.Dependency upDep = GetDep(idU);//The dependency exists, a call to a function that will receive the rest of its values except for the id.
-                            s_dal.Dependency.Update(upDep);//Update the dependency with the new values.
+                            if (s_dal.Dependencies.Read(idU) == null)//The Dependencies does not exist in the list - throwing an exception.
+                                throw new DalDoesNotExistException("There is no Dependencies with ID-" + idU);
+                            DO.Dependency upDep = GetDep(idU);//The Dependencies exists, a call to a function that will receive the rest of its values except for the id.
+                            s_dal.Dependencies.Update(upDep);//Update the Dependencies with the new values.
                             break;
                         }
 
@@ -332,11 +332,11 @@ namespace DalTest
             return task;
         }
 
-        static DO.Dependency GetDep(int id = 0)//A function that receives variables from the user and creates a new dependency.
+        static DO.Dependency GetDep(int id = 0)//A function that receives variables from the user and creates a new Dependencies.
         {
             DO.Dependency dep = null;
 
-            Console.WriteLine("Enter the ID of the task you want to create a dependency for:");
+            Console.WriteLine("Enter the ID of the task you want to create a Dependencies for:");
             int dependent = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter the ID of the task that the task depends on:");

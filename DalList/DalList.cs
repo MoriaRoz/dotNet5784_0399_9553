@@ -10,19 +10,20 @@ sealed internal class DalList : IDal
     public ITask Task => new TaskImplementation();
     public IUser User => new UserImplementation();
 
-    public IDependency Dependency => new DependencyImplementation();
+    public IDependency Dependencies => new DependencyImplementation();
     public void Reset() 
     { 
         DataSource.Engineers.Clear();
-        DataSource.Dependencys.Clear();
+        DataSource.dependencies.Clear();
         DataSource.Tasks.Clear();
         DataSource.Users.Clear();
-
+        DataSource.Config.NextDependencyId = DataSource.Config.startDependenciesId;
+        DataSource.Config.NextTaskId = DataSource.Config.startTaskId;
         DataSource.Config.ProjectStartDate = null;
     }
     public void ResetIds()
     {
-        DataSource.Config.NextDependencyId = DataSource.Config.startDependencyId;
+        DataSource.Config.NextDependencyId = DataSource.Config.startDependenciesId;
         DataSource.Config.NextTaskId = DataSource.Config.startTaskId;
     }
 }

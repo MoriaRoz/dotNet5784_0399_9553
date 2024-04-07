@@ -10,95 +10,53 @@
         ResizeMode="NoResize"
         Title="Sign up" Height="420" Width="430"
         SizeToContent="Manual"
-        DataContext="{Binding CurrentUser, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+
         <!--Title-->
         <TextBlock Text="Sign up" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" 
                    FontSize="36" FontFamily="Comic Sans MS" Grid.Row="0" Height="59" Width="134"/>
         <!--Logo-->
-        <Image HorizontalAlignment="Left" Height="65" Grid.Row="0" VerticalAlignment="Top" Width="76" Source="/Logo.png"/>
+        <Image HorizontalAlignment="Left" Height="65" Grid.Row="0" VerticalAlignment="Top" Width="76" Source="/Logo.png" Margin="0,2,0,0"/>
+
+        <!--User Name-->
+        <TextBlock Text="User Name:" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top"
+          FontSize="22" FontFamily="Comic Sans MS" Margin="0,73,0,0" Grid.RowSpan="2"/>
+        <TextBox  TextWrapping="Wrap" FontSize="22" FontFamily="Comic Sans MS" HorizontalAlignment="Center" Width="200" Grid.Row="1" Height="32" VerticalAlignment="Top"
+            Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True,UpdateSourceTrigger=PropertyChanged}" Margin="0,24,0,0"/>
 
         <!--User Id-->
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <TextBlock Text="User ID:" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" 
-                   FontSize="22" FontFamily="Comic Sans MS" Grid.Row="0"/>
-            <TextBox  TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" Grid.Row="1" FontFamily="Comic Sans MS" HorizontalAlignment="Center" Width="200"
-                  Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" PreviewTextInput="ID_PreviewTextInput"/>
-        </Grid>
-        <!--User Password-->
-        <Grid Grid.Row="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <TextBlock Text="Password:" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="0"
-                   FontSize="22" FontFamily="Comic Sans MS"/>
-            <TextBox  TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" FontFamily="Comic Sans MS" Grid.Row="1" HorizontalAlignment="Center" Width="200"
-           Text="{Binding Password, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
-        </Grid>
-         <!--User Name-->
-    <Grid Grid.Row="3">
-            <Grid.Style>
-                <Style TargetType="Grid">
-                    <Setter Property="Visibility" Value="Visible"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Role}" Value="Engineer">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Role}" Value="User">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-            <Grid.RowDefinitions>
-         <RowDefinition Height="Auto" />
-         <RowDefinition Height="Auto" />
-     </Grid.RowDefinitions>
-     <TextBlock Text="Manager Name:" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="0"
-            FontSize="22" FontFamily="Comic Sans MS"/>
-    <TextBox  TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" FontFamily="Comic Sans MS" Grid.Row="1" HorizontalAlignment="Center" Width="200"
-        Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
-    </Grid>
-        <!--User Role-->
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <TextBlock Text="User role: " HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="22" FontFamily="Comic Sans MS" Grid.Row="0"/>
-            <ComboBox SelectedValue="{Binding Role, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Grid.Row="1" Width="200"
-                  ItemsSource="{Binding Source={StaticResource RolCollectionKey}}" HorizontalAlignment="Center" 
-                  Height="34" VerticalAlignment="Top" FontFamily="Comic Sans MS" FontSize="16"/>
-        </Grid>
-        <!--Back-->
-        <Grid Grid.Row="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-        <Button Content="Back" Style="{StaticResource myButtonStyle}" Background="#FF9B59B6" Grid.Column="1"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="80" Click="BtnBackLogin_Click" />
+        <TextBlock Text="User ID:" HorizontalAlignment="Center" TextWrapping="Wrap"  VerticalAlignment="Top" 
+                   FontSize="22" FontFamily="Comic Sans MS" Grid.Row="1" Margin="0,62,0,0" Grid.RowSpan="2"/>
+        <TextBox  TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" Grid.Row="2" Height="32" FontFamily="Comic Sans MS" HorizontalAlignment="Center" Width="200"
+                  Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True,UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="ID_PreviewTextInput" TextChanged="TextBox_TextChanged" Margin="0,24,0,0"/>
 
+        <!--User Password-->
+        <TextBlock Text="Password:" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="2"
+                   FontSize="22" FontFamily="Comic Sans MS" Margin="0,62,0,0" Grid.RowSpan="2"/>
+        <TextBox  TextWrapping="Wrap"  VerticalAlignment="Top" FontSize="22" FontFamily="Comic Sans MS" Grid.Row="3" HorizontalAlignment="Center" Width="200" Height="32"
+                  Text="{Binding Password, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True,UpdateSourceTrigger=PropertyChanged}" Margin="0,24,0,0"/>
+
+        <!--User Role-->
+        <TextBlock Text="User role: " HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="22" FontFamily="Comic Sans MS" Grid.Row="3" Margin="0,62,0,7" Grid.RowSpan="2"/>
+        <ComboBox SelectedValue="{Binding Role, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" Width="200"
+                  ItemsSource="{Binding Source={StaticResource RolCollectionKey}}" HorizontalAlignment="Center" Grid.Row="4"
+                  Height="34" VerticalAlignment="Top" FontFamily="Comic Sans MS" FontSize="16" Margin="0,24,0,0"/>
+
+        <!--Back-->
+        <Button Content="Back" Style="{StaticResource myButtonStyle}" Background="#FF9B59B6"
+                Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="80" Click="BtnBackLogin_Click" Grid.Row="5"/>
         <!--Sing up-->
-        <Button Content="Sign up" Style="{StaticResource myButtonStyle}" Background="#FF3498DB" Grid.Column="3"
-               HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" Click="BtnCreate_Click"/>
-        </Grid>
+        <Button Content="Sign up" Style="{StaticResource myButtonStyle}" Background="#FF3498DB" Grid.Row="5"
+               HorizontalAlignment="Center" VerticalAlignment="Center" Width="130" Click="BtnCreate_Click"/>
     </Grid>
 </Window>

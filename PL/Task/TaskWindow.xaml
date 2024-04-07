@@ -134,7 +134,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <!--<TextBlock Text="To delete a dependency double-click it" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" 
+        <!--<TextBlock Text="To delete a Dependencies double-click it" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" 
                    Height="17" Margin="124,37,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="299" FontFamily="Comic Sans MS" Grid.RowSpan="2"/>-->
 
         <!--Buttons-->

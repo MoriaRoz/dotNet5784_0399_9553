@@ -20,61 +20,57 @@ namespace PL.Login_SingUP
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public LoginPage()
         {
+            Id = "";
+            Password = "";
             InitializeComponent();
         }
 
         #region Property
-        public BO.User CurrentUser
+        public string Id
         {
-            get { return (BO.User)GetValue(UserProperty); }
-            set { SetValue(UserProperty, value); }
+            get { return (string)GetValue(IdProperty); }
+            set { SetValue(IdProperty, value); }
         }
-        public static readonly DependencyProperty UserProperty =
-        DependencyProperty.Register("CurrentEngineer", typeof(BO.User), typeof(LoginPage), new PropertyMetadata(null));
-        public BO.UserRole role
+        public static readonly DependencyProperty IdProperty =
+        DependencyProperty.Register("Id", typeof(string), typeof(LoginPage), new PropertyMetadata(null));
+        public string Password
         {
-            get { return (BO.UserRole)GetValue(RoleProperty); }
-            set { SetValue(RoleProperty, value); }
+            get { return (string)GetValue(PasswordProperty); }
+            set { SetValue(PasswordProperty, value); }
         }
-        public static readonly DependencyProperty RoleProperty =
-            DependencyProperty.Register("Role", typeof(BO.UserRole), typeof(LoginPage), new PropertyMetadata(null));
+        public static readonly DependencyProperty PasswordProperty =
+            DependencyProperty.Register("Password", typeof(string), typeof(LoginPage), new PropertyMetadata(null));
         #endregion
-        public LoginPage()
-        {
-            InitializeComponent();
-        }
-
         private void Btn_Login_Click(object sender, RoutedEventArgs e)
         {
-            if (CurrentUser == null)
+            if (Id == "" || Password == "")
             {
-                MessageBox.Show("There is no user in the system that matches this ID, to create a user click on the appropriate button.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No ID or password was entered", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
             try
             {
-                BO.User user = s_bl.User.Read(CurrentUser.Id);
+                BO.User user = s_bl.User.Read(int.Parse(Id));
                 if (user == null)
                 {
-                    MessageBox.Show("User with the provided ID does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("User with the provided ID does not exist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                string providedPassword = CurrentUser.Password;
+                string providedPassword = Password;
                 if (user.Password != providedPassword)
                 {
-                    MessageBox.Show("Incorrect password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Incorrect password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                if (user.Role == BO.UserRole.Manager)
+                if ((BO.UserRole)user.Role == BO.UserRole.Manager)
                 {
-                    new View.ManagerViewWindow(CurrentUser.Id).ShowDialog();
+                    new View.ManagerViewWindow(int.Parse(Id)).ShowDialog();
                 }
-                else if (user.Role == BO.UserRole.Engineer)
+                else if ((BO.UserRole)user.Role == BO.UserRole.Engineer)
                 {
-                    new View.EngineerViewWindow(CurrentUser.Id).Show();
+                    new View.EngineerViewWindow(int.Parse(Id)).Show();
                 }
 
                 Close();
@@ -105,6 +101,7 @@ namespace PL.Login_SingUP
         private void Create_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             new Login_SingUP.SingUpWindow().Show();
+            Close();
         }
         private void Btn_Back_Click(object sender, RoutedEventArgs e)
         {

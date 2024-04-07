@@ -1,5 +1,4 @@
-﻿
-namespace Dal;
+﻿namespace Dal;
 using DalApi;
 using DO;
 using System;
@@ -22,7 +21,7 @@ internal class UserImplementation : IUser
             new XElement("Id", entity.Id),
             new XElement("Name", entity.Name),
             new XElement("Password", entity.Password),
-            new XElement("Rool", entity.Role));
+            new XElement("Role", entity.Role));
         userRoot.Add(user);
         //engineerRoot.Save(s_engineers_xml);
         XMLTools.SaveListToXMLElement(userRoot, s_users_xml);
@@ -85,7 +84,7 @@ internal class UserImplementation : IUser
         {
             Id = e.ToIntNullable("EngineerId") ?? throw new FormatException("Can not convert id"),
             Password = passwordSecure,
-            Role = e.ToEnumNullable<UserRole>("Rool") ?? UserRole.Engineer,
+            Role = e.ToEnumNullable<UserRole>("Role") ?? UserRole.Engineer,
         };
     }
 }

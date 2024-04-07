@@ -8,7 +8,7 @@ public interface IDal
 {
     IEngineer Engineer { get; }
     ITask Task { get; }
-    IDependency Dependency { get; }
+    IDependency Dependencies { get; }
     IUser User { get; }
     public void Reset() { }
     public void ResetIds() { }

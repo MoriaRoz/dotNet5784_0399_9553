@@ -44,7 +44,7 @@ internal class TaskImplementation : ITask
         {
             int idTask = _dal.Task.Create(doTask);
             if (boTask.Dependencies != null)
-                AddDependencys(boTask.Dependencies, idTask);
+                Adddependencies(boTask.Dependencies, idTask);
             return idTask;
         }
         catch (DO.DalAlreadyExistsException ex)
@@ -73,7 +73,7 @@ internal class TaskImplementation : ITask
                 (DO.LevelEngineer)boTask.Complexity, boTask.StartDate, boTask.ScheduledDate, boTask.CompleteDate,
                 boTask.Deliverables, boTask.Remarks, engId);
 
-                var dependenceis = _dal.Dependency.ReadAll();
+                var dependenceis = _dal.Dependencies.ReadAll();
                 var depend = dependenceis.Where(d => d.DependsTask == id).Select(p => p).FirstOrDefault();
 
                 if (depend != null)
@@ -282,16 +282,16 @@ internal class TaskImplementation : ITask
         }
         foreach(int x in idAddDep)
         {
-            _dal.Dependency.Create(new Dependency() { Id=0, DependsTask=tId, PreviousTask=x });
+            _dal.Dependencies.Create(new Dependency() { Id=0, DependsTask=tId, PreviousTask=x });
         }
-        var depList = _dal.Dependency.ReadAll(x=>x.DependsTask==tId);
+        var depList = _dal.Dependencies.ReadAll(x=>x.DependsTask==tId);
         foreach(int x in idDeletDep)
         {
             foreach(var dep in depList)
             {
                 if (dep.PreviousTask == x)
                 {
-                    _dal.Dependency.Delete(dep.Id);
+                    _dal.Dependencies.Delete(dep.Id);
                     break;
                 }
             }
@@ -313,11 +313,11 @@ internal class TaskImplementation : ITask
     /// <summary>
     /// Adds dependencies to a task.
     /// </summary>
-    /// <param name="dependencyList">The list of dependencies to add.</param>
+    /// <param name="DependenciesList">The list of dependencies to add.</param>
     /// <param name="taskId">The ID of the task to which dependencies will be added.</param>
-    void AddDependencys(List<BO.TaskInList>? dependencyList, int taskId)
+    void Adddependencies(List<BO.TaskInList>? DependenciesList, int taskId)
     {
-        var dependencys = (from taskInList in dependencyList
+        var dependencies = (from taskInList in DependenciesList
                            let dep = new DO.Dependency()
                            {
                                Id = 0,
@@ -326,7 +326,7 @@ internal class TaskImplementation : ITask
                            }
                            select new
                            {
-                               a = _dal.Dependency.Create(dep)
+                               a = _dal.Dependencies.Create(dep)
                            });
     }
 
@@ -356,7 +356,7 @@ internal class TaskImplementation : ITask
     /// <returns></returns>
     List<BO.TaskInList>? DependenciesCalculation(int idTask)
     {
-        return (from DO.Dependency dep in _dal.Dependency.ReadAll()
+        return (from DO.Dependency dep in _dal.Dependencies.ReadAll()
                 where dep.DependsTask == idTask
                 let prevTask = _dal.Task.Read((int)dep.PreviousTask)
                 select new BO.TaskInList()

@@ -11,26 +11,29 @@ sealed public class DalXml : IDal
     private DalXml() { }
     public IEngineer Engineer => new EngineerImplementation();
     public ITask Task => new TaskImplementation();
-    public IDependency Dependency => new DependencyImplementation();
+    public IDependency Dependencies => new DependencyImplementation();
     public IUser User => new UserImplementation();
     public void Reset()
     {
         try
         {
+            XElement config = XMLTools.LoadListFromXMLElement("data-config");
+            config.Element("ProjectStartDate")!.Value = "";
+            config.Element("NextTaskId")!.Value = "1";
+            config.Element("NextDependencyId")!.Value = "1";
+            XMLTools.SaveListToXMLElement(config, "data-config");
+
             IEnumerable<DO.Task?> tasks = Task.ReadAll();
             if (tasks.Count() != 0)
             {
                 foreach (var task in tasks)
-                {
-                    if(task.ScheduledDate==null)
-                        Task.Delete(task.Id);
-                }
+                    Task.Delete(task.Id);
             }
-            IEnumerable<Dependency?> dependencies = Dependency.ReadAll();
+            IEnumerable<Dependency?> dependencies = Dependencies.ReadAll();
             if (dependencies.Count() != 0)
             {
-                foreach (var dependency in dependencies)
-                    Dependency.Delete(dependency.Id);
+                foreach (var Dependency in dependencies)
+                    Dependencies.Delete(Dependency.Id);
             }
             IEnumerable<DO.Engineer?> engineers = Engineer.ReadAll();
             if (dependencies.Count() != 0)
@@ -42,20 +45,15 @@ sealed public class DalXml : IDal
             if (users.Count() != 0)
             {
                 foreach (var user in users)
-                    Engineer.Delete(user.Id);
+                    User.Delete(user.Id);
             }
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
-
-        XElement config = XMLTools.LoadListFromXMLElement("data-config");
-        config.Element("ProjectStartDate")!.Value = null;
-        XMLTools.SaveListToXMLElement(config, "data-config");
     }
     public void ResetIds()
     {
         XElement config = XMLTools.LoadListFromXMLElement("data-config");
         config.Element("NextTaskId")!.Value = "1";
-        config.Element("NextUserId")!.Value = "1";
         config.Element("NextDependencyId")!.Value = "1";
         XMLTools.SaveListToXMLElement(config, "data-config");
     }

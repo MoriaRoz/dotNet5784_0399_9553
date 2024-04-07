@@ -17,13 +17,13 @@ using System.Windows.Shapes;
 namespace PL.Task
 {
     /// <summary>
-    /// Interaction logic for DependencySelectionWindow.xaml
+    /// Interaction logic for dependencieselectionWindow.xaml
     /// </summary>
-    public partial class DependencySelectionWindow : Window
+    public partial class dependencieselectionWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-        public DependencySelectionWindow(BO.Task task)
+        public dependencieselectionWindow(BO.Task task)
         {
             CurrentTask = task;
             ListTasks = new List<TaskInList>();
@@ -57,7 +57,7 @@ namespace PL.Task
             set { SetValue(TaskProperty, value); }
         }
         public static readonly DependencyProperty TaskProperty =
-            DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(DependencySelectionWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(dependencieselectionWindow), new PropertyMetadata(null));
         
         public List<BO.TaskInList> ListTasks
         {
@@ -65,7 +65,7 @@ namespace PL.Task
             set { SetValue(ListTaskProperty, value); }
         }
         public static readonly DependencyProperty ListTaskProperty =
-            DependencyProperty.Register("ListTasks", typeof(List<BO.TaskInList>), typeof(DependencySelectionWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("ListTasks", typeof(List<BO.TaskInList>), typeof(dependencieselectionWindow), new PropertyMetadata(null));
 
         public List<BO.TaskInList> SelectedTasks
         {
@@ -73,7 +73,7 @@ namespace PL.Task
             set { SetValue(SelectedTaskProperty, value); }
         }
         public static readonly DependencyProperty SelectedTaskProperty =
-            DependencyProperty.Register("SelectedTasks", typeof(List<BO.TaskInList>), typeof(DependencySelectionWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("SelectedTasks", typeof(List<BO.TaskInList>), typeof(dependencieselectionWindow), new PropertyMetadata(null));
         #endregion
 
         private void Btn_Done_Click(object sender, RoutedEventArgs e)

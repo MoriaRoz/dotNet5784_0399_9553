@@ -48,10 +48,10 @@ public partial class TaskWindow : Window
     
     public List<BO.TaskInList> Dependencies
     {
-        get { return (List<BO.TaskInList>)GetValue(DependenciesProperty); }
-        set { SetValue(DependenciesProperty, value); }
+        get { return (List<BO.TaskInList>)GetValue(DependencyProperty); }
+        set { SetValue(DependencyProperty, value); }
     }
-    public static readonly DependencyProperty DependenciesProperty =
+    public static readonly DependencyProperty DependencyProperty =
         DependencyProperty.Register("Dependencies", typeof(List<BO.TaskInList>), typeof(TaskWindow), new PropertyMetadata(null));
 
     public BO.ProjectStatus ProjectStatus
@@ -93,7 +93,7 @@ public partial class TaskWindow : Window
                             "Message", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes)
                 {
-                    new DependencySelectionWindow(CurrentTask).ShowDialog();
+                    new dependencieselectionWindow(CurrentTask).ShowDialog();
                 }
             }
             Close();

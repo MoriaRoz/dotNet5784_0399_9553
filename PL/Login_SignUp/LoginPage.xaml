@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Title="Login" Height="420" Width="430" 
-        DataContext="{Binding CurrentUser,RelativeSource={RelativeSource Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Grid>
         <!--Title-->
@@ -22,13 +22,13 @@
         <TextBlock Text="ID:" HorizontalAlignment="Left" TextWrapping="Wrap"  VerticalAlignment="Top" 
                    FontSize="22" FontFamily="Comic Sans MS" Margin="82,86,0,0" />
         <TextBox VerticalAlignment="Top" FontSize="22" FontFamily="Comic Sans MS" Margin="82,126,82,0" TextWrapping="Wrap"
-                 Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" PreviewTextInput="ID_PreviewTextInput"/>
+                    Text="{Binding Id, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True,UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="ID_PreviewTextInput"/>
 
         <!--User Password-->
         <TextBlock Text="Password:" HorizontalAlignment="Left" TextWrapping="Wrap" 
                    FontSize="22" FontFamily="Comic Sans MS" Margin="82,177,0,151" Width="123"/>
         <TextBox VerticalAlignment="Top" FontSize="22" FontFamily="Comic Sans MS" Margin="82,215,82,0" TextWrapping="Wrap"
-     Text="{Binding Password, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}"/>
+                 Text="{Binding Password, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True,UpdateSourceTrigger=PropertyChanged}"/>
 
         <!--<PasswordBox VerticalAlignment="Top" FontSize="22" FontFamily="Comic Sans MS" 
                    Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="75,229,75,0"/>-->
@@ -44,5 +44,5 @@
         <!--Sing up-->
         <TextBlock  Text="Create a new user" TextDecorations="Underline" Width="144" FontSize="15" FontFamily="Comic Sans MS" 
             Margin="143,328,143,32" PreviewMouseDown="Create_PreviewMouseDown" Foreground="#FF408DD5"/>
-           </Grid>
+    </Grid>
 </Window>
