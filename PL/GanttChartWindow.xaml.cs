@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,10 +32,14 @@ namespace PL
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
             InitializeComponent();
         }
-        
+
         /// //////////////////////////////////////////////////////////////////////////////////
         //Fix
-        public List<BO.TaskGantt> Gantt { get; set; }
+        public List<BO.TaskGantt> Gantt
+        {
+            get { return (List<TaskGantt>)GetValue(GanttProperty); }
+            set { SetValue(GanttProperty, value); }
+        }
         public static readonly DependencyProperty GanttProperty =
             DependencyProperty.Register("Gantt", typeof(List<BO.TaskGantt>), typeof(GanttChartWindow));
 

@@ -33,10 +33,10 @@ public partial class MainWindow : Window
 
         DataContext = this;
         InitializeComponent();
-        //_timer = new DispatcherTimer();
-        //_timer.Interval = TimeSpan.FromMilliseconds(100);
-        //_timer.Tick += Timer_Tick;
-        //_timer.Start();
+        _timer = new DispatcherTimer();
+        _timer.Interval = TimeSpan.FromMilliseconds(100);
+        _timer.Tick += Timer_Tick;
+        _timer.Start();
     }
     #region Property
     public string CurrentDate

@@ -154,13 +154,17 @@ internal class Bl : IBl
         foreach(BO.TaskInList t in s_bl.Task.ReadAll())
         {
             BO.Task task = s_bl.Task.Read(t.Id);
-            dates.Add(task.StartDate);
-            dates.Add(task.CompleteDate);
+            dates.Add((task.StartDate)??task.ScheduledDate);
+            dates.Add((task.CompleteDate)?? task.ForecastDate);
         }
-
-        dates.Distinct().ToList();
-        dates.OrderBy(date => date).ToList();
-        return dates;
+        DateTime? lastDate = dates.MaxBy(date => date);
+        DateTime? firstDate = dates.MinBy(date => date);
+        List<DateTime?> datesInRange = new List<DateTime?>();
+        for (DateTime date = firstDate.Value; date <= lastDate.Value; date = date.AddDays(1))
+        {
+            datesInRange.Add(date);
+        }
+        return datesInRange;
     }
     public List<BO.TaskGantt> tasksGantt()
     {
