@@ -33,10 +33,10 @@ public partial class MainWindow : Window
 
         DataContext = this;
         InitializeComponent();
-        //_timer = new DispatcherTimer();
-        //_timer.Interval = TimeSpan.FromMilliseconds(100);
-        //_timer.Tick += Timer_Tick;
-        //_timer.Start();
+        _timer = new DispatcherTimer();
+        _timer.Interval = TimeSpan.FromMilliseconds(100);
+        _timer.Tick += Timer_Tick;
+        _timer.Start();
     }
     #region Property
     public string CurrentDate
@@ -88,24 +88,6 @@ public partial class MainWindow : Window
         }
         catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
-    #region Temporary buttons
-    private void Button_e_Click(object sender, RoutedEventArgs e)
-    {
-        new EngineerListWindow().Show();
-    }
-    private void Button_t_Click(object sender, RoutedEventArgs e)
-    {
-        new TaskListWindow().Show();
-    }
-    private void Button_Me_Click(object sender, RoutedEventArgs e)
-    {
-        new View.EngineerViewWindow(2).Show();
-    }
-    private void Button_Mt_Click(object sender, RoutedEventArgs e)
-    {
-        new View.ManagerViewWindow(0).ShowDialog();
-    }
-    #endregion
 
     private void Btn_addDay_Click(object sender, RoutedEventArgs e)
     {

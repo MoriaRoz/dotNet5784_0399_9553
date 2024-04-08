@@ -13,9 +13,13 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="729*"/>
+            <ColumnDefinition Width="71*"/>
+        </Grid.ColumnDefinitions>
 
         <!--Logo-->
-        <Image HorizontalAlignment="Left" Height="313" VerticalAlignment="Top" Width="800" Source="/CodeMaster.png" Margin="0,-39,0,0" Grid.ColumnSpan="2" />
+        <Image HorizontalAlignment="Left" Height="313" VerticalAlignment="Top" Width="800" Source="/CodeMaster.png" Margin="0,-34,0,0" Grid.ColumnSpan="2" />
 
         <!--Login-->
         <Button Content="Login" HorizontalAlignment="Left" Margin="125,266,0,0" VerticalAlignment="Top" Background="#FF3498DB"
@@ -30,7 +34,7 @@
                 HorizontalAlignment="Left" Margin="88,344,0,0" VerticalAlignment="Top" Width="100" Click="btnReset_Click"/>
 
         <!--Clock-->
-        <Border BorderBrush="#537CCA" BorderThickness="2" Margin="370,219,44,8" >
+        <Border BorderBrush="#537CCA" BorderThickness="2" Margin="370,219,44,8" Grid.ColumnSpan="2" >
             <Grid Margin="0,0,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -47,11 +51,26 @@
                 <TextBlock Text="{Binding CurrentDate, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Comic Sans MS" FontSize="35" TextWrapping="Wrap"/>
             </Grid>
         </Border>
+        <Path Margin="722,12,23,370" Data="M50,0 L100,86.6 L0,86.6 Z" Stroke="#537CCA" StrokeThickness="2" StrokeEndLineCap="Triangle"  RenderTransformOrigin="0.523,0.648" Stretch="Fill" Grid.ColumnSpan="2" >
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.164"/>
+                    <RotateTransform Angle="-0.841"/>
+                    <TranslateTransform X="-0.199" Y="-1.017"/>
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
+        <Path Margin="720,12,25,370" Data="M50,0 L100,86.6 L0,86.6 Z" Stroke="#537CCA" StrokeThickness="2" StrokeEndLineCap="Triangle"  RenderTransformOrigin="0.523,0.648" Stretch="Fill" Grid.ColumnSpan="2" >
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.164"/>
+                    <RotateTransform Angle="178.764"/>
+                    <TranslateTransform X="-0.199" Y="-1.017"/>
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
 
-        <!--כפתורים זמניים-->
-        <Button Content="e" HorizontalAlignment="Left" Margin="409,72,0,0" VerticalAlignment="Top" Height="46" Width="93" Click="Button_e_Click"/>
-        <Button Content="t" HorizontalAlignment="Left" Margin="524,72,0,0" VerticalAlignment="Top" Height="46" Width="96" Click="Button_t_Click"/>
-        <Button Content="engineerView" HorizontalAlignment="Left" Margin="409,10,0,0" VerticalAlignment="Top" Height="46" Width="93" Click="Button_Me_Click"/>
-        <Button Content="managerView" HorizontalAlignment="Left" Margin="524,10,0,0" VerticalAlignment="Top" Height="46" Width="96" Click="Button_Mt_Click"/>
     </Grid>
 </Window>
