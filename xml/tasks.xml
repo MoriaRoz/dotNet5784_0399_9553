@@ -1,2 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Task>
+    <Id>1</Id>
+    <Alias>Define the purpose and scope of the project</Alias>
+    <Description>Define the boundaries and limitations of the project, specifying what is included and excluded.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.0386662+03:00</CreatedAtDate>
+    <RequiredEffortTime>P6D</RequiredEffortTime>
+    <Complexity>Expert</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-04-09T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>2</Id>
+    <Alias>Create a schedule for the project</Alias>
+    <Description>Develop a timeline that outlines key milestones, tasks, and deadlines for the entire project duration.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.0469866+03:00</CreatedAtDate>
+    <RequiredEffortTime>P15D</RequiredEffortTime>
+    <Complexity>Beginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-04-15T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>3</Id>
+    <Alias>Decide on a budget for the project</Alias>
+    <Description>Establish financial constraints and allocations for resources, materials, and other project-related expenses.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.0624263+03:00</CreatedAtDate>
+    <RequiredEffortTime>P20D</RequiredEffortTime>
+    <Complexity>Beginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-04-15T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>4</Id>
+    <Alias>Assign resources to the project</Alias>
+    <Description>Identify and allocate human, financial, and material resources needed for the successful execution of the project.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.0768994+03:00</CreatedAtDate>
+    <RequiredEffortTime>P23D</RequiredEffortTime>
+    <Complexity>Intermediate</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-04-15T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>5</Id>
+    <Alias>Perform risk analysis and develop risk management strategies</Alias>
+    <Description>Identify potential risks that may impact the project. Develop strategies to mitigate, monitor, and manage risks throughout the project lifecycle.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.090791+03:00</CreatedAtDate>
+    <RequiredEffortTime>P23D</RequiredEffortTime>
+    <Complexity>Intermediate</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-05-08T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>6</Id>
+    <Alias>Determine internal and public communication and protocols</Alias>
+    <Description>Define communication channels and protocols for both internal team members and external stakeholders.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.1076096+03:00</CreatedAtDate>
+    <RequiredEffortTime>P9D</RequiredEffortTime>
+    <Complexity>AdvancedBeginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-04-09T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>7</Id>
+    <Alias>Divide the project into small tasks</Alias>
+    <Description>Break down the project into smaller, manageable tasks or activities to facilitate better planning and execution.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.1303958+03:00</CreatedAtDate>
+    <RequiredEffortTime>P24D</RequiredEffortTime>
+    <Complexity>Advanced</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-04-09T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>8</Id>
+    <Alias>Attach an engineer to each task</Alias>
+    <Description>Assign qualified engineers or team members to specific tasks based on their skills and expertise.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.1498605+03:00</CreatedAtDate>
+    <RequiredEffortTime>P28D</RequiredEffortTime>
+    <Complexity>AdvancedBeginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-05-03T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>9</Id>
+    <Alias>Follow the progress of the project against the schedule</Alias>
+    <Description>Regularly monitor and assess the project's progress in comparison to the established schedule.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.1692874+03:00</CreatedAtDate>
+    <RequiredEffortTime>P11D</RequiredEffortTime>
+    <Complexity>Beginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-04-09T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>10</Id>
+    <Alias>Receiving data from the client</Alias>
+    <Description>Collect relevant data and requirements from the client to inform the development process.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.1907836+03:00</CreatedAtDate>
+    <RequiredEffortTime>P23D</RequiredEffortTime>
+    <Complexity>Advanced</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-04-09T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>11</Id>
+    <Alias>Writing code in the data layer</Alias>
+    <Description>Develop the code responsible for handling data storage and retrieval.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.2056128+03:00</CreatedAtDate>
+    <RequiredEffortTime>P21D</RequiredEffortTime>
+    <Complexity>Intermediate</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-05-31T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>12</Id>
+    <Alias>Trying to run and test the code for the data layer</Alias>
+    <Description>Execute and test the data layer code to identify and address any issues or bugs.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.2174547+03:00</CreatedAtDate>
+    <RequiredEffortTime>P10D</RequiredEffortTime>
+    <Complexity>Expert</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-06-21T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>13</Id>
+    <Alias>Writing code in the logical layer</Alias>
+    <Description>Develop the code responsible for implementing the business logic and processing.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.2327544+03:00</CreatedAtDate>
+    <RequiredEffortTime>P27D</RequiredEffortTime>
+    <Complexity>Intermediate</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-05-31T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>14</Id>
+    <Alias>Trying to run and test the code for the logical layer</Alias>
+    <Description>Execute and test the logical layer code to ensure proper functionality and identify any issues.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.2431766+03:00</CreatedAtDate>
+    <RequiredEffortTime>P19D</RequiredEffortTime>
+    <Complexity>Beginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-06-27T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>15</Id>
+    <Alias>Designed the interface</Alias>
+    <Description>Create the user interface (UI) design based on project requirements and user experience principles.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.259902+03:00</CreatedAtDate>
+    <RequiredEffortTime>P28D</RequiredEffortTime>
+    <Complexity>AdvancedBeginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-05-31T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>16</Id>
+    <Alias>Attempt to run and test the code for the interface</Alias>
+    <Description>Execute and test the interface code to ensure a seamless user experience and address any design-related issues.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.2865996+03:00</CreatedAtDate>
+    <RequiredEffortTime>P15D</RequiredEffortTime>
+    <Complexity>Advanced</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-06-28T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>17</Id>
+    <Alias>Attempt to run the code</Alias>
+    <Description>Execute the entire codebase to identify and fix any integration issues or bugs.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.3040999+03:00</CreatedAtDate>
+    <RequiredEffortTime>P24D</RequiredEffortTime>
+    <Complexity>Intermediate</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-05-31T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>18</Id>
+    <Alias>Sending the interface to the client and focus groups</Alias>
+    <Description>Share the designed interface with the client and relevant focus groups for feedback and validation.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.3195828+03:00</CreatedAtDate>
+    <RequiredEffortTime>P1D</RequiredEffortTime>
+    <Complexity>Beginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-06-24T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>19</Id>
+    <Alias>Correction of recent errors</Alias>
+    <Description>Address and rectify any errors or issues identified during testing or feedback sessions.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.3408135+03:00</CreatedAtDate>
+    <RequiredEffortTime>P6D</RequiredEffortTime>
+    <Complexity>Expert</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-05-31T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>20</Id>
+    <Alias>Submission of the project</Alias>
+    <Description>Present the completed and tested project to stakeholders for final approval and delivery.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.3537399+03:00</CreatedAtDate>
+    <RequiredEffortTime>P15D</RequiredEffortTime>
+    <Complexity>AdvancedBeginner</Complexity>
+    <StartDate xsi:nil="true" />
+    <ScheduledDate>2024-07-16T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+  </Task>
+</ArrayOfTask>
