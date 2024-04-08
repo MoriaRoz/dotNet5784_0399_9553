@@ -132,33 +132,6 @@ namespace PL.View
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
-        #region progresBar
-        private double _projectProgress;
-
-        public double ProjectProgress
-        {
-            get { return _projectProgress; }
-            set
-            {
-                //if (_projectProgress != value)
-                //{
-                //    _projectProgress = value;
-                //    OnPropertyChanged(nameof(ProjectProgress));
-                //}
-            }
-        }
-
-        private void CalculateProjectProgress()
-        {
-            var tasks = s_bl.Task.ReadAll();
-            int totalTasks = tasks.Count();
-            int numOfDoneTasks = tasks.Count(t => t.Status == BO.Statuses.Done);
-            double progressPercentage = (numOfDoneTasks / (double)totalTasks) * 100;
-            //    ProjectProgress = progressPercentage;
-            //}
-
-        }
-        #endregion
     }
 }
 

@@ -32,9 +32,6 @@ namespace PL
             catch (Exception ex) { MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
             InitializeComponent();
         }
-
-        /// //////////////////////////////////////////////////////////////////////////////////
-        //Fix
         public List<BO.TaskGantt> Gantt
         {
             get { return (List<TaskGantt>)GetValue(GanttProperty); }

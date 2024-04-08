@@ -13,18 +13,6 @@
     <EngineerId xsi:nil="true" />
   </Task>
   <Task>
-    <Id>2</Id>
-    <Alias>Create a schedule for the project</Alias>
-    <Description>Develop a timeline that outlines key milestones, tasks, and deadlines for the entire project duration.</Description>
-    <CreatedAtDate>2024-04-08T07:37:24.0469866+03:00</CreatedAtDate>
-    <RequiredEffortTime>P15D</RequiredEffortTime>
-    <Complexity>Beginner</Complexity>
-    <StartDate xsi:nil="true" />
-    <ScheduledDate>2024-04-15T00:00:00</ScheduledDate>
-    <CompleteDate xsi:nil="true" />
-    <EngineerId xsi:nil="true" />
-  </Task>
-  <Task>
     <Id>3</Id>
     <Alias>Decide on a budget for the project</Alias>
     <Description>Establish financial constraints and allocations for resources, materials, and other project-related expenses.</Description>
@@ -239,5 +227,17 @@
     <ScheduledDate>2024-07-16T00:00:00</ScheduledDate>
     <CompleteDate xsi:nil="true" />
     <EngineerId xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>2</Id>
+    <Alias>Create a schedule for the project</Alias>
+    <Description>Develop a timeline that outlines key milestones, tasks, and deadlines for the entire project duration.</Description>
+    <CreatedAtDate>2024-04-08T07:37:24.0469866+03:00</CreatedAtDate>
+    <RequiredEffortTime>P15D</RequiredEffortTime>
+    <Complexity>Beginner</Complexity>
+    <StartDate>2024-04-08T12:53:47.5348859+03:00</StartDate>
+    <ScheduledDate>2024-04-15T00:00:00</ScheduledDate>
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>1</EngineerId>
   </Task>
 </ArrayOfTask>

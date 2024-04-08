@@ -44,10 +44,5 @@
         <Button Content="Back" Background="#FF9B59B6" Margin="16,15,686,320"
                 FontFamily="Comic Sans MS" FontSize="22" Click="Btn_Back_Click"/>
 
-        <!--ProgressBar-->
-        <ProgressBar Grid.Row="2" Value="{Binding ProjectProgress, Mode=OneWay}" Minimum="0" Maximum="100" Margin="183,0,192,0"/>
-        <TextBlock Grid.Row="2" Text="Project progress : " FontSize="20" HorizontalAlignment="Left" 
-                   VerticalAlignment="Center" FontFamily="Comic Sans MS"/>
-
     </Grid>
 </Window>

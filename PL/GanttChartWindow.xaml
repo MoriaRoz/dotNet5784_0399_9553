@@ -11,7 +11,7 @@
         Title="Gantt Chart" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
-    <!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">-->
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -38,11 +38,11 @@
         <ItemsControl ItemsSource="{Binding Gantt}"  Grid.Row="1">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border  BorderThickness="2" BorderBrush="Aqua">
+                    <Border  BorderThickness="0.5" BorderBrush="#FF3498DB">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
-                            <TextBlock HorizontalAlignment="Left" Text="{Binding taskID}" FontWeight="Bold" Background="Aquamarine"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding taskID}" FontWeight="Bold" Background="Black"/>
                             <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeFromStart}" Fill="White"/>
-                            <TextBlock HorizontalAlignment="Left" Text="{Binding taskName}" Width="{Binding Duration}" FontWeight="Bold" Background="Aquamarine"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding taskName}" Width="{Binding Duration}" FontWeight="Bold" Background="#FF9B59B6"/>
                             <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeToEnd}" Fill="White"/>
                         </StackPanel>
                     </Border>
@@ -50,5 +50,5 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </Grid>
-    <!--</ScrollViewer>-->
+    </ScrollViewer>
 </Window>

@@ -65,11 +65,7 @@
             <TextBlock HorizontalAlignment="Left" Height="30" Margin="18,65,0,0" Text="ALIAS:" VerticalAlignment="Top" Width="80" FontFamily="Comic Sans MS" FontSize="20" FontWeight="Bold" Grid.Row="1"/>
             <TextBlock Text="{Binding CurrentEngineer.Task.Alias}" Margin="14,102,6,4" FontFamily="Comic Sans MS" FontSize="16" TextWrapping="Wrap" Grid.Row="1"/>
         </Grid>
-
-        <!--Monitor project progress-->
-        <ProgressBar Grid.Row="2" Grid.Column="1" Value="{Binding ProjectProgress, Mode=OneWay}" Minimum="0" Maximum="100"/>
-        <TextBlock Grid.Row="2" Text="Project progress : " FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Comic Sans MS"/>
-
+        
         <!--Hello engineer-->
         <TextBlock Text="Hello" HorizontalAlignment="Left" Margin="89,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="97" Height="65" FontSize="36" FontFamily="Comic Sans MS" Grid.ColumnSpan="2"/>
         <TextBlock Text="{Binding CurrentEngineer.Name}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Comic Sans MS" FontSize="30" Grid.Column="1" Width="240" Height="38" Margin="8,234,0,0"/>

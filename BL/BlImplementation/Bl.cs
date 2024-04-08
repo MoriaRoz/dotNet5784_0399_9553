@@ -196,7 +196,7 @@ internal class Bl : IBl
                 TaskAlias = task.Alias,
                 TaskStart = startT,
                 TaskEnd = endT,
-                Duration = (endT - startT).Days,
+                Duration = (endT - startT).Days*100,
             };
             tasksG.Add(tGantt);
         }

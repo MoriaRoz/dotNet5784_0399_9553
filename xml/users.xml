@@ -1,2 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfUser />
+<ArrayOfUser>
+  <User>
+    <Id>212940399</Id>
+    <Name>Moria</Name>
+    <Password>123</Password>
+    <Role>Manager</Role>
+  </User>
+  <User>
+    <Id>1</Id>
+    <Name>Dani Levi</Name>
+    <Password>123456</Password>
+    <Role>Engineer</Role>
+  </User>
+</ArrayOfUser>
