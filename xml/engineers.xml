@@ -1,18 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer>
   <Engineer>
+    <id>1</id>
+    <name>Dani Levi</name>
+    <email>DaniLevi@gamil.com</email>
+    <level>Intermediate</level>
+    <cost>283.566</cost>
+  </Engineer>
+  <Engineer>
+    <id>2</id>
+    <name>Eli Amar</name>
+    <email>EliAmar@gamil.com</email>
+    <level>Intermediate</level>
+    <cost>283.566</cost>
+  </Engineer>
+  <Engineer>
     <id>3</id>
     <name>Yair Cohen</name>
     <email>YairCohen@gamil.com</email>
-    <level>Advanced</level>
-    <cost>366.783</cost>
+    <level>Intermediate</level>
+    <cost>283.566</cost>
   </Engineer>
   <Engineer>
     <id>4</id>
     <name>Ariela Levin</name>
     <email>ArielaLevin@gamil.com</email>
-    <level>Expert</level>
-    <cost>450</cost>
+    <level>Advanced</level>
+    <cost>366.783</cost>
   </Engineer>
   <Engineer>
     <id>5</id>
@@ -25,21 +39,14 @@
     <id>6</id>
     <name>Shira Israelof</name>
     <email>ShiraIsraelof@gamil.com</email>
-    <level>Advanced</level>
-    <cost>366.783</cost>
+    <level>Intermediate</level>
+    <cost>283.566</cost>
   </Engineer>
   <Engineer>
-    <id>1</id>
-    <name>Dani Levi</name>
-    <email>DaniLevi@gamil.com</email>
-    <level>AdvancedBeginner</level>
-    <cost>200.355</cost>
-  </Engineer>
-  <Engineer>
-    <id>2</id>
-    <name>Eli Amar</name>
-    <email>EliAmar@gamil.com</email>
+    <id>21</id>
+    <name>Dan</name>
+    <email>Dan@gmail.com</email>
     <level>Advanced</level>
-    <cost>366.783</cost>
+    <cost>120</cost>
   </Engineer>
 </ArrayOfEngineer>

@@ -160,7 +160,7 @@ internal class Bl : IBl
         DateTime? lastDate = dates.MaxBy(date => date);
         DateTime? firstDate = dates.MinBy(date => date);
         List<DateTime?> datesInRange = new List<DateTime?>();
-        for (DateTime date = firstDate.Value; date <= lastDate.Value; date = date.AddDays(1))
+        for (DateTime date = firstDate.Value; date <= lastDate.Value; date = date.AddDays(7))
         {
             datesInRange.Add(date);
         }
@@ -196,7 +196,7 @@ internal class Bl : IBl
                 TaskAlias = task.Alias,
                 TaskStart = startT,
                 TaskEnd = endT,
-                Duration = (endT - startT).Days*100,
+                Duration = (endT - startT).Days*100/7,
             };
             tasksG.Add(tGantt);
         }

@@ -7,9 +7,9 @@
     <Role>Manager</Role>
   </User>
   <User>
-    <Id>1</Id>
-    <Name>Dani Levi</Name>
-    <Password>123456</Password>
+    <Id>21</Id>
+    <Name>Dan</Name>
+    <Password>21</Password>
     <Role>Engineer</Role>
   </User>
 </ArrayOfUser>
