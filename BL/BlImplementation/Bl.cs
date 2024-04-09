@@ -202,8 +202,8 @@ internal class Bl : IBl
         }
         foreach (BO.TaskGantt t in tasksG)
         {
-            t.TimeFromStart = (t.TaskStart - start).Days;
-            t.TimeToEnd = (end - t.TaskEnd).Days;
+            t.TimeFromStart = (t.TaskStart - start).Days * 100 / 7;
+            t.TimeToEnd = (end - t.TaskEnd).Days * 100 / 7;
         }
 
         return tasksG;
