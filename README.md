@@ -28,7 +28,7 @@ This project is a Windows-based desktop application developed using C# and WPF. 
 
 ## Author
 
-Developed by Esti Rosen during the Winter–Spring 2024 semester.
+Developed by Moria Cohen and Einat Mazoz during the Winter–Spring 2024 semester.
 
 ## License
 
