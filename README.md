@@ -1,4 +1,3 @@
-Jct-Lev Academic Center 2024
 # Employee Management App
 
 This project is a Windows-based desktop application developed using C# and WPF. It enables organizations to manage employee roles, assign and track tasks, and streamline day-to-day operations. The system is built with scalable architecture and an intuitive user interface for effective internal management.
